@@ -30,7 +30,15 @@ const Contact = () => {
     const templateId = "template_gaz5ou9";
     const publicKey = "KtS989S8h09hzUv4J";
 
-    emailjs.send(serviceId, templateId, formData, publicKey)
+    // explicitly map your form fields to template variables
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    };
+
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then(() => {
         toast({
           title: "message sent!",
