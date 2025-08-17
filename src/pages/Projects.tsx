@@ -157,35 +157,49 @@ const Projects = () => {
                   {/* Links */}
                   <div className="flex space-x-2 pt-2">
                     {project.links.github && (
-                      <Button size="sm" variant="outline" className="flex-1">
-                        <SiGithub size={16} className="mr-2" />
+                    <a href={project.links.github} target="_blank" rel="noopener noreferrer">
+                      <Button size="sm" variant="outline" className="flex-1 flex items-center justify-center gap-2">
+                        <SiGithub size={16} />
                         src
                       </Button>
+                    </a>
                     )}
                     {project.links.demo && (
-                      <Button size="sm" variant="outline" className="flex-1">
-                        <FiExternalLink size={16} className="mr-2" />
-                        view
-                      </Button>
+                      <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <Button size="sm" variant="outline" className="flex-1 flex items-center justify-center gap-2">
+                          <FiExternalLink size={16} />
+                          view
+                        </Button>
+                      </a>
                     )}
+
                     {project.links.play && (
-                      <Button size="sm" className="btn-accent flex-1">
-                        <FaPlayCircle size={16} className="mr-2" />
-                        play
-                      </Button>
+                      <a href={project.links.play} target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
+                          <FaPlayCircle size={16} />
+                          play
+                        </Button>
+                      </a>
                     )}
+
                     {project.links.play_itch && (
-                      <Button size="sm" className="btn-accent flex-1">
-                        <FaItchIo size={16} className="mr-2" />
-                        play on itch
-                      </Button>
+                      <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
+                          <FaItchIo size={16} />
+                          play on itch
+                        </Button>
+                      </a>
                     )}
+
                     {project.links.play_steam && (
-                      <Button size="sm" className="btn-accent flex-1">
-                        <FaSteam size={16} className="mr-2" />
-                        get on steam
-                      </Button>
+                      <a href={project.links.play_steam} target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
+                          <FaSteam size={16} />
+                          get on steam
+                        </Button>
+                      </a>
                     )}
+
                   </div>
                 </div>
               </div>
