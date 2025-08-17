@@ -5,10 +5,10 @@ import { FiExternalLink } from "react-icons/fi";
 
 const About = () => {
   const skills = [
-    { category: "game development", items: ["godot", "gdscript", "game design", "level design"] },
-    { category: "3D Modeling & Animation", items: ["Blender", "3D Modeling", "Animation", "Texturing"] },
-    { category: "Programming", items: ["C#", "Python", "JavaScript", "Problem Solving"] },
-    { category: "Tools & Software", items: ["Git", "VS Code", "Photoshop", "Substance Painter"] },
+    { category: "game development", items: ["godot", "gdscript", "ue5", "game design", "level design"] },
+    { category: "3d modelling and animation", items: ["blender", "3d modeling", "animation", "texturing"] },
+    { category: "programming", items: ["gdscript", "C++", "python", "logic pro"] },
+    { category: "tools & software", items: ["git", "github", "vs code", "vs studio", "gimp", "obsidian"] },
   ];
 
   return (
