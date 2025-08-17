@@ -19,11 +19,11 @@ const Home = () => {
       <BackgroundGrid />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-12 px-4">
+      <section className="pt-32 pb-12 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <div className="animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 lowercase">
-              <span className="text-shimmer">yo, i'm sebashtioon</span>
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 lowercase">
+            <span className="text-shimmer">yo, i'm sebashtioon</span>
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-fade-in-delay lowercase">

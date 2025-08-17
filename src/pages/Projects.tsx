@@ -47,7 +47,7 @@ const Projects = () => {
       <BackgroundGrid />
       
       {/* Header */}
-      <section className="py-16 px-4">
+      <section className="py-10 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
             my <span className="text-shimmer">projects</span>
@@ -59,7 +59,7 @@ const Projects = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="px-4 mb-12">
+      <section className="px-4 mb-7">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-center space-x-4 animate-fade-in">
             {categories.map((category) => (
