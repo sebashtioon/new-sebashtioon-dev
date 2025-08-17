@@ -130,6 +130,22 @@
     background-clip: text;
   }
 }
+
+/* Shimmer fade over white text */
+.fast-text-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(0 0% 100%) 30%,   /* base white */
+    hsl(0 0% 25%) 50%,    /* dark grey sweep */
+    hsl(0 0% 100%) 70%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s infinite linear;
+}
+
 /* Shimmer fade over white text */
 .text-shimmer {
   background: linear-gradient(

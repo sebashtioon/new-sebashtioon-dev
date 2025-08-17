@@ -7,10 +7,10 @@ const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
-    { name: "Home", path: "/", icon: Home },
-    { name: "About", path: "/about", icon: User },
-    { name: "Projects", path: "/projects", icon: FolderOpen },
-    { name: "Contact", path: "/contact", icon: Mail },
+    { name: "home", path: "/", icon: Home },
+    { name: "about", path: "/about", icon: User },
+    { name: "projects", path: "/projects", icon: FolderOpen },
+    { name: "contact", path: "/contact", icon: Mail },
   ];
 
   const isActive = (path: string) => location.pathname === path;

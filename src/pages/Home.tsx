@@ -1,6 +1,6 @@
 import { ArrowRight, Download, Github, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";  
 import BackgroundGrid from "@/components/BackgroundGrid";
 
 const Home = () => {
@@ -17,20 +17,20 @@ const Home = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-fade-in-delay">
-              15-year-old passionate creator crafting immersive games and stunning 3D worlds with code and creativity.
+              just a 15-year-old experimenting with games, code, and 3D stuff
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay">
               <Link to="/projects">
                 <Button className="btn-hero text-lg px-8 py-6 group">
-                  View My Work
+                  see my work
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                 </Button>
               </Link>
               
               <Button className="btn-accent text-lg px-8 py-6">
                 <Download className="mr-2" size={20} />
-                Download Resume
+                download resume
               </Button>
             </div>
           </div>
@@ -38,57 +38,50 @@ const Home = () => {
       </section>
 
       {/* Quick Skills Overview */}
-      <section className="py-16 px-4">
+      <section className="py-10 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="card-glow p-8 text-center animate-fade-in">
-              <div className="w-16 h-16 bg-gradient-accent rounded-xl mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl">🎮</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Game Development</h3>
-              <p className="text-muted-foreground">
-                Creating interactive experiences with Unity, C#, and creative gameplay mechanics.
-              </p>
-            </div>
+          <div className="grid md:grid-cols-3 gap-8 text-center">
             
-            <div className="card-glow p-8 text-center animate-fade-in delay-200">
-              <div className="w-16 h-16 bg-gradient-accent rounded-xl mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl">🎨</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">3D Art & Animation</h3>
-              <p className="text-muted-foreground">
-                Crafting detailed 3D models, environments, and animations using Blender.
+            <div className="card-glow p-8 animate-fade-in">
+              <h3 className="text-xl font-semibold mb-3 lowercase">game development</h3>
+              <p className="text-muted-foreground text-center">
+                making 2d & 3d games, designing mechanics, and building cool stuff in godot
               </p>
             </div>
-            
-            <div className="card-glow p-8 text-center animate-fade-in delay-400">
-              <div className="w-16 h-16 bg-gradient-accent rounded-xl mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl">💻</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Programming</h3>
-              <p className="text-muted-foreground">
-                Building robust systems with C#, Python, and exploring new technologies.
+
+            <div className="card-glow p-8 animate-fade-in delay-200">
+              <h3 className="text-xl font-semibold mb-3 lowercase">3d art & animation</h3>
+              <p className="text-muted-foreground text-center">
+                modeling & animating low-poly 3d assets, worlds, and characters in blender
               </p>
             </div>
+
+            <div className="card-glow p-8 animate-fade-in delay-400">
+              <h3 className="text-xl font-semibold mb-3 lowercase">programming</h3>
+              <p className="text-muted-foreground text-center">
+                writing scripts & building systems in gdscript, c++, and python for games & tools
+              </p>
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-3xl mx-auto text-center">
           <div className="card-glow p-12 animate-fade-in">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Let's Create Something <span className="text-gradient">Amazing</span>
+              hmu <span className="fast-text-shimmer">here</span>
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Ready to collaborate or just want to chat about games and 3D art?
+              curious about what i do? just ask
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
                 <Button className="btn-hero text-lg px-8 py-6">
-                  Get In Touch
+                  hmu
                 </Button>
               </Link>
               
