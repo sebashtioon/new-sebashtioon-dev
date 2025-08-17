@@ -2,45 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Dark Portfolio Design System - Game Dev Theme */
+/* Dark Portfolio Design System - Black & Grey Theme */
 
 @layer base {
   :root {
     /* Dark theme base colors */
-    --background: 222 84% 5%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 2%;       /* almost black */
+    --foreground: 0 0% 95%;      /* near white */
 
     /* Surface colors */
-    --card: 225 25% 8%;
-    --card-foreground: 210 40% 98%;
-    --card-hover: 225 25% 12%;
+    --card: 0 0% 12%;            /* dark grey */
+    --card-foreground: 0 0% 95%;
+    --card-hover: 0 0% 18%;
 
-    --popover: 225 25% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 95%;
 
     /* Brand colors */
-    --primary: 210 40% 98%;
-    --primary-foreground: 222 84% 5%;
-    --primary-glow: 210 100% 80%;
+    --primary: 0 0% 100%;         /* white */
+    --primary-foreground: 0 0% 8%; 
+    --primary-glow: 0 0% 100%;    /* soft white glow */
 
-    --secondary: 220 15% 15%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 0 0% 95%;
 
     /* Accent & highlight */
-    --accent: 220 15% 20%;
-    --accent-foreground: 210 40% 98%;
-    --accent-glow: 180 100% 70%;
+    --accent: 0 0% 25%;
+    --accent-foreground: 0 0% 95%;
+    --accent-glow: 0 0% 60%;
 
-    --muted: 220 15% 12%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
     /* Interactive states */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 80% 60%;    /* keep red for destructive */
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 220 15% 18%;
-    --input: 220 15% 12%;
-    --ring: 210 100% 80%;
+    --border: 0 0% 20%;
+    --input: 0 0% 12%;
+    --ring: 0 0% 80%;
 
     /* Design tokens */
     --radius: 0.75rem;
@@ -51,9 +51,9 @@
     --gradient-dark: linear-gradient(180deg, hsl(var(--background)), hsl(var(--card)));
 
     /* Shadows & glows */
-    --shadow-glow: 0 0 30px hsl(var(--primary-glow) / 0.3);
-    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.3);
-    --shadow-accent: 0 0 20px hsl(var(--accent-glow) / 0.4);
+    --shadow-glow: 0 0 30px hsl(var(--primary-glow)/0.3);
+    --shadow-card: 0 8px 32px hsl(0 0% 0%/0.3);
+    --shadow-accent: 0 0 20px hsl(var(--accent-glow)/0.4);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -71,7 +71,6 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
-  /* Animated background grid */
   .animated-grid {
     background-image: 
       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -85,7 +84,6 @@
     100% { background-position: 40px 40px; }
   }
 
-  /* Glow effects */
   .glow-primary {
     box-shadow: var(--shadow-glow);
   }
@@ -96,7 +94,6 @@
 }
 
 @layer components {
-  /* Hero button variants */
   .btn-hero {
     @apply bg-transparent border border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/60;
     @apply transition-all duration-300 backdrop-blur-sm;
@@ -109,7 +106,6 @@
     @apply hover:shadow-[0_0_20px_hsl(var(--accent-glow)/0.3)];
   }
 
-  /* Card variants */
   .card-glow {
     @apply bg-card/50 border border-border/50 backdrop-blur-md;
     @apply shadow-[0_8px_32px_hsl(0_0%_0%/0.3)];
@@ -123,9 +119,8 @@
     @apply hover:-translate-y-1;
   }
 
-  /* Text effects */
   .text-glow {
-    text-shadow: 0 0 20px hsl(var(--primary-glow) / 0.5);
+    text-shadow: 0 0 20px hsl(var(--primary-glow)/0.5);
   }
 
   .text-gradient {
@@ -133,5 +128,28 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+}
+/* Shimmer fade over white text */
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(0 0% 100%) 30%,   /* base white */
+    hsl(0 0% 25%) 50%,    /* dark grey sweep */
+    hsl(0 0% 100%) 70%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }

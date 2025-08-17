@@ -24,7 +24,7 @@ const Navigation = () => {
             to="/" 
             className="text-xl font-bold text-gradient hover:scale-105 transition-transform duration-200"
           >
-            DevPortfolio
+            sebashtioon.dev
           </Link>
 
           {/* Desktop Navigation */}
