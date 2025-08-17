@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SiGithub, SiDiscord, SiYoutube } from "react-icons/si";
 import { MdEmail } from "react-icons/md";
 import { Button } from "@/components/ui/button";
@@ -5,6 +6,14 @@ import { Link } from "react-router-dom";
 import BackgroundGrid from "@/components/BackgroundGrid";
 
 const Home = () => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("sebastiansuciu607@gmail.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div className="min-h-screen">
       <BackgroundGrid />
@@ -23,21 +32,30 @@ const Home = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay">
               <Link to="/projects">
-                <Button className="btn-hero text-lg px-8 py-6 group lowercase">
+                <Button className="btn-hero text-lg px-8 py-6 group lowercase flex items-center gap-2">
                   see my work
+                  <svg
+                    className="transition-transform group-hover:translate-x-1"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
                 </Button>
               </Link>
-              
-              <Button className="btn-accent text-lg px-8 py-6 lowercase">
-                download resume
-              </Button>
             </div>
           </div>
         </div>
       </section>
 
       {/* Quick Skills Overview */}
-      <section className="py-10 px-4">
+      <section className="py-0 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             
@@ -85,22 +103,49 @@ const Home = () => {
               </Link>
             </div>
 
-            <div className="flex gap-4 justify-center">
-              <a href="#" target="_blank" className="btn-accent p-6 flex items-center justify-center rounded-s-full">
+            <div className="flex gap-4 justify-center relative">
+              {/* GitHub */}
+              <a
+                href="https://github.com/sebashtioon"
+                target="_blank"
+                className="btn-accent p-6 flex items-center justify-center rounded-s-full"
+              >
                 <SiGithub size={24} />
               </a>
 
-              <a href="#" target="_blank" className="btn-accent p-6 flex items-center justify-center">
+              {/* Discord */}
+              <a
+                href="#"
+                target="_blank"
+                className="btn-accent p-6 flex items-center justify-center"
+              >
                 <SiDiscord size={24} />
               </a>
 
-              <a href="#" target="_blank" className="btn-accent p-6 flex items-center justify-center">
+              {/* YouTube */}
+              <a
+                href="#"
+                target="_blank"
+                className="btn-accent p-6 flex items-center justify-center"
+              >
                 <SiYoutube size={24} />
               </a>
 
-              <a href="mailto:youremail@example.com" className="btn-accent p-6 flex items-center justify-center rounded-e-full">
+              <button
+                onClick={handleCopyEmail}
+                className="btn-accent p-6 flex items-center justify-center rounded-e-full relative"
+              >
                 <MdEmail size={24} />
-              </a>
+
+                <span
+                  className={`absolute -top-6 text-sm bg-gray-950 text-white px-2 py-1 rounded-md transition-all duration-300 ease-out transform ${
+                    copied ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                  }`}
+                >
+                  copied!
+                </span>
+              </button>
+
             </div>
           </div>
         </div>
