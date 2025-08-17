@@ -1,5 +1,7 @@
 import { Calendar, MapPin, Code, Gamepad2, Palette } from "lucide-react";
 import BackgroundGrid from "@/components/BackgroundGrid";
+import { FiExternalLink } from "react-icons/fi";
+
 
 const About = () => {
   const skills = [
@@ -19,20 +21,34 @@ const About = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                about <span className="text-shimmer">me</span>
+                <span className="text-shimmer">about</span> me
               </h1>
               
               <div className="space-y-4 text-lg text-muted-foreground mb-8">
                 <p>
-                  Hey! I'm a 15-year-old game developer and 3D artist who's passionate about creating 
-                  immersive digital experiences. What started as curiosity about how games work has 
-                  evolved into a deep love for both the technical and artistic sides of game development.
+                  i'm a 15-year-old game dev & sorta 3d artist. i like turning my imagination into reality through code and 3d art. i've been making games and small side-projects here and there for over 4 years.
                 </p>
                 
                 <p>
-                  When I'm not coding game mechanics or sculpting 3D models, you'll find me exploring 
-                  new techniques, participating in game jams, or working on personal projects that push 
-                  my creative boundaries.
+                  that's basically it. i just like making stuff. i do have an indie game studio, <span className="text-shimmer">Xintegrate Studios</span>, where i work on my personal projects.
+                  i also co-founded another game studio with my friend from school called{" "}
+                  <a
+                  href="https://noeco.xyz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-shimmer hover:underline"
+                  >Noe Co.
+                  <FiExternalLink className="ml-1" size={16} />
+                  </a> where i'm working on my biggest project yet,{" "}
+                  <a
+                  href="https://noeco.xyz/games/expland"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-shimmer hover:underline"
+                  >
+                  Expland
+                  <FiExternalLink className="ml-1" size={16} />
+                  </a>.
                 </p>
               </div>
               
@@ -43,7 +59,7 @@ const About = () => {
                 </div>
                 <div className="flex items-center space-x-2 text-sm">
                   <MapPin className="text-accent-glow" size={16} />
-                  <span>Your Location</span>
+                  <span>canberra, australia</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sm">
                   <Code className="text-accent-glow" size={16} />
@@ -81,7 +97,7 @@ const About = () => {
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Skills & <span className="text-gradient">Expertise</span>
+            what i'm good at
           </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
