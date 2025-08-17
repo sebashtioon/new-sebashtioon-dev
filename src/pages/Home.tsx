@@ -115,7 +115,7 @@ const Home = () => {
 
               {/* Discord */}
               <a
-                href="#"
+                href="https://discord.com/users/1110329250306859018"
                 target="_blank"
                 className="btn-accent p-6 flex items-center justify-center"
               >
@@ -124,7 +124,7 @@ const Home = () => {
 
               {/* YouTube */}
               <a
-                href="#"
+                href="https://www.youtube.com/@sebashtioon_"
                 target="_blank"
                 className="btn-accent p-6 flex items-center justify-center"
               >

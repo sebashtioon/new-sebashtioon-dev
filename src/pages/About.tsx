@@ -3,38 +3,10 @@ import BackgroundGrid from "@/components/BackgroundGrid";
 
 const About = () => {
   const skills = [
-    { category: "Game Development", items: ["Unity", "C#", "Game Design", "Level Design"] },
+    { category: "game development", items: ["godot", "gdscript", "game design", "level design"] },
     { category: "3D Modeling & Animation", items: ["Blender", "3D Modeling", "Animation", "Texturing"] },
     { category: "Programming", items: ["C#", "Python", "JavaScript", "Problem Solving"] },
     { category: "Tools & Software", items: ["Git", "VS Code", "Photoshop", "Substance Painter"] },
-  ];
-
-  const timeline = [
-    {
-      year: "2020",
-      title: "Started Programming",
-      description: "Began learning Python and fell in love with coding logic and problem-solving.",
-    },
-    {
-      year: "2021",
-      title: "Discovered Game Development",
-      description: "Started with Unity and C#, created my first simple games and prototypes.",
-    },
-    {
-      year: "2022",
-      title: "3D Art Journey Begins",
-      description: "Picked up Blender and started creating 3D models, animations, and environments.",
-    },
-    {
-      year: "2023",
-      title: "First Major Projects",
-      description: "Completed several game prototypes and 3D art pieces, building a portfolio.",
-    },
-    {
-      year: "2024",
-      title: "Current Focus",
-      description: "Expanding skills in advanced game mechanics and photorealistic 3D rendering.",
-    },
   ];
 
   return (
@@ -47,7 +19,7 @@ const About = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                About <span className="text-gradient">Me</span>
+                about <span className="text-shimmer">me</span>
               </h1>
               
               <div className="space-y-4 text-lg text-muted-foreground mb-8">
@@ -127,35 +99,6 @@ const About = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            My <span className="text-gradient">Journey</span>
-          </h2>
-          
-          <div className="space-y-8">
-            {timeline.map((item, index) => (
-              <div 
-                key={item.year} 
-                className="flex gap-6 animate-fade-in"
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                <div className="flex-shrink-0 w-20 text-center">
-                  <div className="text-lg font-bold text-accent-glow">{item.year}</div>
-                  <div className="w-px h-16 bg-border mx-auto mt-2"></div>
-                </div>
-                
-                <div className="card-glow p-6 flex-1">
-                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </div>
               </div>
             ))}
           </div>
