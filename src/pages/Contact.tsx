@@ -96,7 +96,7 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="john doe"
+                      placeholder="gavin from expland"
                       required
                       className="bg-background/50 border-border/50 focus:border-accent-glow"
                     />
