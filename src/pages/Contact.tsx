@@ -143,7 +143,7 @@ const Contact = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="your message here"
+                    placeholder="email content blah blah"
                     rows={6}
                     required
                     className="bg-background/50 border-border/50 focus:border-accent-glow resize-none"
