@@ -10,6 +10,18 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
+      title: "Expland",
+      category: "games",
+      description: "Face adversity, hardship, enjoy adventure as well, and discover a second chance to fix past mistakes and become a better person in a mysterious world with nightmares and happiness just around the corner.",
+      image: "/public/projects/expland.webp",
+      tags: ["godot", "3D", "noeco"],
+      status: "in development",
+      links: {
+        demo: "https://noeco.xyz/games/expland",
+      }
+    },
+    {
+      id: 2,
       title: "CAN'T WAKE UP",
       category: "games",
       description: "Welcome to sleep paralysis.",
@@ -19,7 +31,7 @@ const Projects = () => {
       links: {}
     },
     {
-      id: 2,
+      id: 3,
       title: "The Swing",
       category: "games",
       description: "Alone on a swing, you remember what you tried to forget.",
@@ -32,7 +44,7 @@ const Projects = () => {
       }
     },
     {
-      id: 3,
+      id: 4,
       title: "Vessel-9 Concept Art",
       category: "3d stuff",
       description: "Concept art for a cinematic intro inspired by Subnautica's loading screen.",
