@@ -94,33 +94,6 @@ const Projects = () => {
                     className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
-                    <div className="flex space-x-2">
-                      {project.links.github && (
-                        <Button size="sm" variant="outline" className="bg-black/20 backdrop-blur-sm">
-                          <SiGithub size={16} />
-                        </Button>
-                      )}
-                      {project.links.demo && (
-                        <Button size="sm" variant="outline" className="bg-black/20 backdrop-blur-sm">
-                          <FiEye size={16} />
-                        </Button>
-                      )}
-                      {project.links.play && (
-                        <Button size="sm" variant="outline" className="bg-black/20 backdrop-blur-sm">
-                          <FaPlayCircle size={16} />
-                        </Button>
-                      )}
-                      {project.links.play_itch && (
-                        <Button size="sm" variant="outline" className="bg-black/20 backdrop-blur-sm">
-                          <FaPlayCircle size={16} />
-                        </Button>
-                      )}
-                      {project.links.play_steam && (
-                        <Button size="sm" variant="outline" className="bg-black/20 backdrop-blur-sm">
-                          <FaPlayCircle size={16} />
-                        </Button>
-                      )}
-                    </div>
                   </div>
                 </div>
 
