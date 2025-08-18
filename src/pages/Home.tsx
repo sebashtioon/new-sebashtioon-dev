@@ -124,30 +124,45 @@ const Home = () => {
               </Link>
             </div>
 
-            <div className="flex gap-4 justify-center">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return social.onClick ? (
-                  <button
-                    key={social.label}
-                    onClick={social.onClick}
-                    className="btn-accent p-6 flex items-center justify-center rounded-full"
-                  >
-                    <Icon size={24} />
-                  </button>
-                ) : (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-accent p-6 flex items-center justify-center rounded-full"
-                  >
-                    <Icon size={24} />
-                  </a>
-                );
-              })}
-            </div>
+              <div className="flex gap-4 justify-center">
+                {socialLinks.map((social, index) => {
+                  const Icon = social.icon;
+                  const isFirst = index === 0;
+                  const isLast = index === socialLinks.length - 1;
+
+                  const buttonClasses = [
+                    "btn-accent",
+                    "p-6",
+                    "flex",
+                    "items-center",
+                    "justify-center",
+                    isFirst ? "rounded-l-full" : "",
+                    isLast ? "rounded-r-full" : "",
+                    !isFirst && !isLast ? "rounded-none" : "",
+                  ].join(" ");
+
+                  return social.onClick ? (
+                    <button
+                      key={social.label}
+                      onClick={social.onClick}
+                      className={buttonClasses}
+                    >
+                      <Icon size={24} />
+                    </button>
+                  ) : (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={buttonClasses}
+                    >
+                      <Icon size={24} />
+                    </a>
+                  );
+                })}
+              </div>
+
           </div>
         </div>
       </section>
