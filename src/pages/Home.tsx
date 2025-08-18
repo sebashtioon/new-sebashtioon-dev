@@ -4,15 +4,38 @@ import { MdEmail } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";  
 import BackgroundGrid from "@/components/BackgroundGrid";
+import { toast } from "@/hooks/use-toast";
 
 const Home = () => {
-  const [copied, setCopied] = useState(false);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText("sebastiansuciu607@gmail.com");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const socialLinks = [
+    {
+      icon: SiGithub,
+      label: "github",
+      href: "https://github.com/sebashtioon",
+    },
+    {
+      icon: SiDiscord,
+      label: "discord",
+      href: "https://discord.com/users/1110329250306859018",
+    },
+    {
+      icon: SiYoutube,
+      label: "youtube",
+      href: "https://www.youtube.com/@sebashtioon_",
+    },
+    {
+      icon: MdEmail,
+      label: "email",
+      onClick: () => {
+        navigator.clipboard.writeText("sebastiansuciu607@gmail.com");
+        toast({
+          title: "email copied!",
+          description: "sebastiansuciu607@gmail.com copied to clipboard.",
+        });
+      },
+    },
+  ];
 
   return (
     <div className="min-h-screen">
@@ -22,8 +45,8 @@ const Home = () => {
       <section className="pt-32 pb-12 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <div className="animate-fade-in">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 lowercase">
-            <span className="text-shimmer">yo, i'm sebashtioon</span>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 lowercase">
+              <span className="text-shimmer">yo, i'm sebashtioon</span>
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-fade-in-delay lowercase">
@@ -58,7 +81,6 @@ const Home = () => {
       <section className="py-0 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8 text-center">
-            
             <div className="card-glow p-8 animate-fade-in lowercase">
               <h3 className="text-xl font-semibold mb-3">game development</h3>
               <p className="text-muted-foreground text-center">
@@ -79,7 +101,6 @@ const Home = () => {
                 writing scripts & building systems in gdscript, c++, and python for games & tools
               </p>
             </div>
-
           </div>
         </div>
       </section>
@@ -103,50 +124,45 @@ const Home = () => {
               </Link>
             </div>
 
-            <div className="flex gap-4 justify-center relative">
-              {/* GitHub */}
-              <a
-                href="https://github.com/sebashtioon"
-                target="_blank"
-                className="btn-accent p-6 flex items-center justify-center rounded-s-full"
-              >
-                <SiGithub size={24} />
-              </a>
+              <div className="flex gap-4 justify-center">
+                {socialLinks.map((social, index) => {
+                  const Icon = social.icon;
+                  const isFirst = index === 0;
+                  const isLast = index === socialLinks.length - 1;
 
-              {/* Discord */}
-              <a
-                href="https://discord.com/users/1110329250306859018"
-                target="_blank"
-                className="btn-accent p-6 flex items-center justify-center"
-              >
-                <SiDiscord size={24} />
-              </a>
+                  const buttonClasses = [
+                    "btn-accent",
+                    "p-6",
+                    "flex",
+                    "items-center",
+                    "justify-center",
+                    isFirst ? "rounded-l-full" : "",
+                    isLast ? "rounded-r-full" : "",
+                    !isFirst && !isLast ? "rounded-none" : "",
+                  ].join(" ");
 
-              {/* YouTube */}
-              <a
-                href="https://www.youtube.com/@sebashtioon_"
-                target="_blank"
-                className="btn-accent p-6 flex items-center justify-center"
-              >
-                <SiYoutube size={24} />
-              </a>
+                  return social.onClick ? (
+                    <button
+                      key={social.label}
+                      onClick={social.onClick}
+                      className={buttonClasses}
+                    >
+                      <Icon size={24} />
+                    </button>
+                  ) : (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={buttonClasses}
+                    >
+                      <Icon size={24} />
+                    </a>
+                  );
+                })}
+              </div>
 
-              <button
-                onClick={handleCopyEmail}
-                className="btn-accent p-6 flex items-center justify-center rounded-e-full relative"
-              >
-                <MdEmail size={24} />
-
-                <span
-                  className={`absolute -top-6 text-sm bg-gray-950 text-white px-2 py-1 rounded-md transition-all duration-300 ease-out transform ${
-                    copied ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-                  }`}
-                >
-                  copied!
-                </span>
-              </button>
-
-            </div>
           </div>
         </div>
       </section>
