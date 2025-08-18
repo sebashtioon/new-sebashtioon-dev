@@ -1,5 +1,5 @@
-import { SiGithub, SiDiscord, SiYoutube} from "react-icons/si";
-import { FiEye, FiExternalLink } from "react-icons/fi";
+import { SiGithub, SiDiscord, SiYoutube, SiBlender } from "react-icons/si";
+import { FiEye, FiExternalLink, FiDownload } from "react-icons/fi";
 import { FaPlayCircle, FaItchIo, FaSteam } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
@@ -30,6 +30,20 @@ const Projects = () => {
       status: "completed",
       links: {
         play_itch: "https://xintegrate-studios.itch.io/the-swing",
+        github: "https://github.com/Xintegrate-Studios/The-Swing",
+      }
+    },
+
+    {
+      id: 3,
+      title: "Vessel-9 Concept Art",
+      category: "3d stuff",
+      description: "Concept art for a cinematic intro inspired by Subnautica's loading screen.",
+      image: "/public/projects/the-swing.webp",
+      tags: ["blender", "3D", "concept-art"],
+      status: "completed",
+      links: {
+        blender_download: "https://xintegrate-studios.itch.io/the-swing",
         github: "https://github.com/Xintegrate-Studios/The-Swing",
       }
     }
@@ -173,6 +187,23 @@ const Projects = () => {
                       </a>
                     )}
 
+                    {project.links.blender_download && (
+                      <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
+                          <SiBlender size={16} />
+                          download .blend file
+                        </Button>
+                      </a>
+                    )}
+
+                    {project.links.download && (
+                      <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
+                          <FiDownload size={16} />
+                          download
+                        </Button>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
