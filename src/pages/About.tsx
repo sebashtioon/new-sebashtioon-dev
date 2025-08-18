@@ -51,21 +51,6 @@ const About = () => {
                   </a>.
                 </p>
               </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="flex items-center space-x-2 text-sm">
-                  <Calendar className="text-accent-glow" size={16} />
-                  <span>15 years old</span>
-                </div>
-                <div className="flex items-center space-x-2 text-sm">
-                  <MapPin className="text-accent-glow" size={16} />
-                  <span>canberra, australia</span>
-                </div>
-                <div className="flex items-center space-x-2 text-sm">
-                  <Code className="text-accent-glow" size={16} />
-                  <span>4+ years coding</span>
-                </div>
-              </div>
             </div>
             
             <div className="animate-fade-in-delay">
@@ -74,17 +59,17 @@ const About = () => {
                   <div>
                     <Gamepad2 className="mx-auto mb-2 text-accent-glow" size={32} />
                     <div className="text-2xl font-bold">12+</div>
-                    <div className="text-sm text-muted-foreground">Games Built</div>
+                    <div className="text-sm text-muted-foreground">games built</div>
                   </div>
                   <div>
                     <Palette className="mx-auto mb-2 text-accent-glow" size={32} />
-                    <div className="text-2xl font-bold">50+</div>
-                    <div className="text-sm text-muted-foreground">3D Models</div>
+                    <div className="text-2xl font-bold">20+</div>
+                    <div className="text-sm text-muted-foreground">3d models</div>
                   </div>
                   <div>
                     <Code className="mx-auto mb-2 text-accent-glow" size={32} />
-                    <div className="text-2xl font-bold">1000+</div>
-                    <div className="text-sm text-muted-foreground">Hours Coding</div>
+                    <div className="text-2xl font-bold">4+</div>
+                    <div className="text-sm text-muted-foreground">years coding</div>
                   </div>
                 </div>
               </div>
@@ -94,7 +79,7 @@ const About = () => {
       </section>
 
       {/* Skills Section */}
-      <section className="py-16 px-4">
+      <section className="py-2 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             what i'm good at
