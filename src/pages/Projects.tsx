@@ -13,7 +13,7 @@ const Projects = () => {
       title: "Expland",
       category: "games",
       description: "Face adversity, hardship, enjoy adventure as well, and discover a second chance to fix past mistakes and become a better person in a mysterious world with nightmares and happiness just around the corner.",
-      image: "/public/projects/expland.webp",
+      image: "/projects/expland.webp",
       tags: ["godot", "3D", "noeco"],
       status: "in development",
       links: {
@@ -25,7 +25,7 @@ const Projects = () => {
       title: "CAN'T WAKE UP",
       category: "games",
       description: "Welcome to sleep paralysis.",
-      image: "/public/projects/placeholder.webp",
+      image: "/projects/placeholder.webp",
       tags: ["godot", "psx", "3D"],
       status: "in development",
       links: {}
@@ -35,7 +35,7 @@ const Projects = () => {
       title: "The Swing",
       category: "games",
       description: "Alone on a swing, you remember what you tried to forget.",
-      image: "/public/projects/the-swing.webp",
+      image: "/projects/the-swing.webp",
       tags: ["godot", "psx", "low-poly", "3D", "super-short"],
       status: "completed",
       links: {
@@ -48,7 +48,7 @@ const Projects = () => {
       title: "Vessel-9 Concept Art",
       category: "3d stuff",
       description: "Concept art for a cinematic intro inspired by Subnautica's loading screen.",
-      image: "/public/projects/vessel-9-concept-art.webp",
+      image: "/projects/vessel-9-concept-art.webp",
       tags: ["blender", "3D", "concept-art"],
       status: "completed",
       links: {
