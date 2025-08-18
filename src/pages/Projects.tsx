@@ -16,9 +16,7 @@ const Projects = () => {
       image: "/public/projects/placeholder.webp",
       tags: ["godot", "psx", "3D"],
       status: "in development",
-      links: {
-        
-      }
+      links: {}
     },
     {
       id: 2,
@@ -33,7 +31,6 @@ const Projects = () => {
         github: "https://github.com/Xintegrate-Studios/The-Swing",
       }
     },
-
     {
       id: 3,
       title: "Vessel-9 Concept Art",
@@ -43,8 +40,8 @@ const Projects = () => {
       tags: ["blender", "3D", "concept-art"],
       status: "completed",
       links: {
-        download: "https://github.com/Xintegrate-Studios/The-Swing",
-        blender_download: "https://xintegrate-studios.itch.io/the-swing",
+        download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Vessel-9-Concept-Art/Vessel-9.Concept.Art.zip",
+        blender_download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Vessel-9-Concept-Art/Vessel-9.Concept.Art.Project.zip",
       }
     }
   ];
@@ -59,7 +56,7 @@ const Projects = () => {
   return (
     <div className="min-h-screen pt-24">
       <BackgroundGrid />
-      
+
       {/* Header */}
       <section className="py-10 px-4">
         <div className="max-w-6xl mx-auto text-center">
@@ -93,11 +90,11 @@ const Projects = () => {
       {/* Projects Grid */}
       <section className="px-4 pb-16">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
             {filteredProjects.map((project, index) => (
               <div 
                 key={project.id} 
-                className="card-project p-6 animate-fade-in"
+                className="card-project p-6 animate-fade-in flex flex-col justify-between h-full"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
                 {/* Project Image */}
@@ -112,97 +109,88 @@ const Projects = () => {
                 </div>
 
                 {/* Project Info */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-accent-glow font-medium">{project.category}</span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      project.status === "completed" 
-                        ? "bg-green-500/20 text-green-400"
-                        : project.status === "in development"
-                        ? "bg-blue-500/20 text-blue-400"
-                        : "bg-yellow-500/20 text-yellow-400"
-                    }`}>
-                      {project.status}
-                    </span>
-                  </div>
-                  
-                  <h3 className="text-xl font-semibold">{project.title}</h3>
-                  <p className="text-muted-foreground text-sm">{project.description}</p>
-                  
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span 
-                        key={tag} 
-                        className="text-xs px-2 py-1 bg-accent/20 text-accent-glow rounded-md"
-                      >
-                        {tag}
+                <div className="space-y-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-accent-glow font-medium">{project.category}</span>
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        project.status === "completed" 
+                          ? "bg-green-500/20 text-green-400"
+                          : project.status === "in development"
+                          ? "bg-blue-500/20 text-blue-400"
+                          : "bg-yellow-500/20 text-yellow-400"
+                      }`}>
+                        {project.status}
                       </span>
-                    ))}
+                    </div>
+                    
+                    <h3 className="text-xl font-semibold">{project.title}</h3>
+                    <p className="text-muted-foreground text-sm">{project.description}</p>
+                    
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {project.tags.map((tag) => (
+                        <span 
+                          key={tag} 
+                          className="text-xs px-2 py-1 bg-accent/20 text-accent-glow rounded-md"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  
+
                   {/* Links */}
-                  <div className="flex space-x-2 pt-2">
+                  <div className="flex flex-wrap gap-2 mt-4">
                     {project.links.github && (
-                    <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-                      <Button size="sm" variant="outline" className="flex-1 flex items-center justify-center gap-2">
-                        <SiGithub size={16} />
-                        src
-                      </Button>
-                    </a>
+                      <a href={project.links.github} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" variant="outline" className="flex items-center justify-center gap-2">
+                          <SiGithub size={16} /> src
+                        </Button>
+                      </a>
                     )}
                     {project.links.demo && (
-                      <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="flex-1">
-                        <Button size="sm" variant="outline" className="flex-1 flex items-center justify-center gap-2">
-                          <FiExternalLink size={16} />
-                          view
+                      <a href={project.links.demo} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" variant="outline" className="flex items-center justify-center gap-2">
+                          <FiExternalLink size={16} /> view
                         </Button>
                       </a>
                     )}
-
                     {project.links.play && (
-                      <a href={project.links.play} target="_blank" rel="noopener noreferrer" className="flex-1">
-                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
-                          <FaPlayCircle size={16} />
-                          play
+                      <a href={project.links.play} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
+                          <FaPlayCircle size={16} /> play
                         </Button>
                       </a>
                     )}
-
                     {project.links.play_itch && (
-                      <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer" className="flex-1">
-                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
-                          <FaItchIo size={16} />
-                          play on itch
+                      <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
+                          <FaItchIo size={16} /> play on itch
                         </Button>
                       </a>
                     )}
-
                     {project.links.play_steam && (
-                      <a href={project.links.play_steam} target="_blank" rel="noopener noreferrer" className="flex-1">
-                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
-                          <FaSteam size={16} />
-                          get on steam
+                      <a href={project.links.play_steam} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
+                          <FaSteam size={16} /> get on steam
                         </Button>
                       </a>
                     )}
                     {project.links.download && (
-                      <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="flex-1">
-                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
-                          <FiDownload size={16} />
-                          download
+                      <a href={project.links.download} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
+                          <FiDownload size={16} /> download
                         </Button>
                       </a>
                     )}
                     {project.links.blender_download && (
-                      <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="flex-1">
-                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
-                          <SiBlender size={16} />
-                          download .blend file
+                      <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
+                          <SiBlender size={16} /> download project
                         </Button>
                       </a>
                     )}
-
                   </div>
                 </div>
               </div>
