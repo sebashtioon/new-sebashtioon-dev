@@ -13,7 +13,7 @@ const Projects = () => {
       title: "CAN'T WAKE UP",
       category: "games",
       description: "Welcome to sleep paralysis.",
-      image: "/api/placeholder/400/250",
+      image: "/public/projects/placeholder.webp",
       tags: ["godot", "psx", "3D"],
       status: "in development",
       links: {
@@ -25,8 +25,8 @@ const Projects = () => {
       title: "The Swing",
       category: "games",
       description: "Alone on a swing, you remember what you tried to forget.",
-      image: "/api/placeholder/400/250",
-      tags: ["godot", "psx", "low-poly", "3D"],
+      image: "/public/projects/the-swing.webp",
+      tags: ["godot", "psx", "low-poly", "3D", "super-short"],
       status: "completed",
       links: {
         play_itch: "https://xintegrate-studios.itch.io/the-swing",
