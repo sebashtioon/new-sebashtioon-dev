@@ -39,12 +39,12 @@ const Projects = () => {
       title: "Vessel-9 Concept Art",
       category: "3d stuff",
       description: "Concept art for a cinematic intro inspired by Subnautica's loading screen.",
-      image: "/public/projects/the-swing.webp",
+      image: "/public/projects/vessel-9-concept-art.webp",
       tags: ["blender", "3D", "concept-art"],
       status: "completed",
       links: {
+        download: "https://github.com/Xintegrate-Studios/The-Swing",
         blender_download: "https://xintegrate-studios.itch.io/the-swing",
-        github: "https://github.com/Xintegrate-Studios/The-Swing",
       }
     }
   ];
@@ -186,7 +186,14 @@ const Projects = () => {
                         </Button>
                       </a>
                     )}
-
+                    {project.links.download && (
+                      <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
+                          <FiDownload size={16} />
+                          download
+                        </Button>
+                      </a>
+                    )}
                     {project.links.blender_download && (
                       <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="flex-1">
                         <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
@@ -196,14 +203,6 @@ const Projects = () => {
                       </a>
                     )}
 
-                    {project.links.download && (
-                      <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="flex-1">
-                        <Button size="sm" className="btn-accent flex-1 flex items-center justify-center gap-2">
-                          <FiDownload size={16} />
-                          download
-                        </Button>
-                      </a>
-                    )}
                   </div>
                 </div>
               </div>
