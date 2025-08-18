@@ -1,4 +1,5 @@
-import { Mail, Github, Linkedin, Twitter, MapPin, Clock } from "lucide-react";
+import { Mail, MapPin, Clock } from "lucide-react";
+import { SiGithub, SiDiscord, SiYoutube } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,7 +31,6 @@ const Contact = () => {
     const templateId = "template_gaz5ou9";
     const publicKey = "KtS989S8h09hzUv4J";
 
-    // explicitly map your form fields to template variables
     const templateParams = {
       from_name: formData.name,
       from_email: formData.email,
@@ -56,10 +56,24 @@ const Contact = () => {
   };
 
   const socialLinks = [
-    { icon: Github, label: "github", href: "#", color: "hover:text-gray-300" },
-    { icon: Linkedin, label: "linkedin", href: "#", color: "hover:text-blue-400" },
-    { icon: Twitter, label: "twitter", href: "#", color: "hover:text-sky-400" },
-    { icon: Mail, label: "email", href: "mailto:sebastiansuciu607@gmail.com", color: "hover:text-red-400" },
+    {
+      icon: SiGithub,
+      label: "github",
+      href: "https://github.com/sebashtioon",
+      color: "hover:text-gray-300",
+    },
+    {
+      icon: Mail,
+      label: "email",
+      onClick: () => {
+        navigator.clipboard.writeText("sebastiansuciu607@gmail.com");
+        toast({
+          title: "email copied!",
+          description: "sebastiansuciu607@gmail.com copied to clipboard.",
+        });
+      },
+      color: "hover:text-red-400",
+    },
   ];
 
   return (
@@ -195,7 +209,16 @@ const Contact = () => {
               <div className="grid grid-cols-2 gap-4">
                 {socialLinks.map((social) => {
                   const Icon = social.icon;
-                  return (
+                  return social.onClick ? (
+                    <button
+                      key={social.label}
+                      onClick={social.onClick}
+                      className={`flex items-center space-x-3 p-3 rounded-lg border border-border/50 hover:border-border transition-all duration-300 ${social.color} lowercase`}
+                    >
+                      <Icon size={20} />
+                      <span className="text-sm font-medium">{social.label}</span>
+                    </button>
+                  ) : (
                     <a
                       key={social.label}
                       href={social.href}
