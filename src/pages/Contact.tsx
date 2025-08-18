@@ -57,12 +57,6 @@ const Contact = () => {
 
   const socialLinks = [
     {
-      icon: SiGithub,
-      label: "github",
-      href: "https://github.com/sebashtioon",
-      color: "hover:text-gray-300",
-    },
-    {
       icon: Mail,
       label: "email",
       onClick: () => {
@@ -72,6 +66,24 @@ const Contact = () => {
           description: "sebastiansuciu607@gmail.com copied to clipboard.",
         });
       },
+      color: "hover:text-red-400",
+    },
+    {
+      icon: SiGithub,
+      label: "github",
+      href: "https://github.com/sebashtioon",
+      color: "hover:text-gray-300",
+    },
+    {
+      icon: SiDiscord,
+      label: "discord",
+      href: "https://discord.com/users/1110329250306859018",
+      color: "hover:text-blue-300",
+    },
+    {
+      icon: SiYoutube,
+      label: "youtube",
+      href: "https://www.youtube.com/@sebashtioon_",
       color: "hover:text-red-400",
     },
   ];
