@@ -60,7 +60,7 @@ const Projects = () => {
       id: 5,
       title: "Peakscapes",
       category: "3d stuff",
-      description: "Beautiful and serene snowy mountains",
+      description: "Beautiful and serene snowy mountains.",
       image: "/projects/peakscapes.webp",
       tags: ["blender", "3D"],
       status: "completed",
