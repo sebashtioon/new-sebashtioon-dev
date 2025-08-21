@@ -55,6 +55,19 @@ const Projects = () => {
         download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Vessel-9-Concept-Art/Vessel-9.Concept.Art.zip",
         blender_download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Vessel-9-Concept-Art/Vessel-9.Concept.Art.Project.zip",
       }
+    },
+    {
+      id: 5,
+      title: "Peakscapes",
+      category: "3d stuff",
+      description: "Beautiful and serene snowy mountains",
+      image: "/projects/vessel-9-concept-art.webp",
+      tags: ["blender", "3D"],
+      status: "completed",
+      links: {
+        download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Vessel-9-Concept-Art/Vessel-9.Concept.Art.zip",
+        blender_download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Vessel-9-Concept-Art/Vessel-9.Concept.Art.Project.zip",
+      }
     }
   ];
 
