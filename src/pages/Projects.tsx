@@ -89,7 +89,7 @@ const Projects = () => {
             my <span className="text-shimmer">projects</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-delay">
-            just a bunch of projects i've worked on throughout the years.
+            a collection of projects i've worked on throughout the years.
           </p>
         </div>
       </section>
