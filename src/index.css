@@ -217,11 +217,79 @@
 }
 
 @keyframes audio-reactive {
-  0% { height: 20px; }
-  25% { height: 45px; }
-  50% { height: 30px; }
-  75% { height: 55px; }
-  100% { height: 20px; }
+  0% { 
+    height: 18px; 
+    opacity: 0.7;
+    transform: scaleX(1);
+  }
+  25% { 
+    height: 35px; 
+    opacity: 1;
+    transform: scaleX(1.1);
+  }
+  50% { 
+    height: 25px; 
+    opacity: 0.9;
+    transform: scaleX(1.05);
+  }
+  75% { 
+    height: 45px; 
+    opacity: 1;
+    transform: scaleX(1.15);
+  }
+  100% { 
+    height: 18px; 
+    opacity: 0.7;
+    transform: scaleX(1);
+  }
+}
+
+/* Configurable audio sync bars - speeds set via JavaScript */
+.audio-bar {
+  transform-origin: bottom center;
+}
+
+/* Dynamic transition speeds - will be overridden by config */
+.audio-bar.config-transitions {
+  transition: 
+    height var(--height-speed, 0.02s) ease-out, 
+    filter var(--color-speed, 0.05s) ease-out, 
+    box-shadow var(--glow-speed, 0.03s) ease-out, 
+    transform var(--transform-speed, 0.04s) ease-out !important;
+}
+
+/* Enhanced bass shake for kicks */
+@keyframes bass-shake {
+  0%, 100% { 
+    transform: translateX(0px) translateY(0px) rotateZ(0deg); 
+  }
+  10% { 
+    transform: translateX(-1.5px) translateY(0.5px) rotateZ(0.2deg); 
+  }
+  20% { 
+    transform: translateX(1.5px) translateY(-0.5px) rotateZ(-0.2deg); 
+  }
+  30% { 
+    transform: translateX(-1px) translateY(1px) rotateZ(0.1deg); 
+  }
+  40% { 
+    transform: translateX(1px) translateY(-1px) rotateZ(-0.1deg); 
+  }
+  50% { 
+    transform: translateX(-2px) translateY(0px) rotateZ(0.3deg); 
+  }
+  60% { 
+    transform: translateX(2px) translateY(0.5px) rotateZ(-0.3deg); 
+  }
+  70% { 
+    transform: translateX(-0.5px) translateY(-0.5px) rotateZ(0.1deg); 
+  }
+  80% { 
+    transform: translateX(0.5px) translateY(1px) rotateZ(-0.1deg); 
+  }
+  90% { 
+    transform: translateX(-1px) translateY(-0.5px) rotateZ(0.2deg); 
+  }
 }
 
 /* 3D CSS Utility Classes */

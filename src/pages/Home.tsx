@@ -357,73 +357,310 @@ const Home = () => {
                   </div>
                 </div>
 
-                {/* 🎵 INTERACTIVE AUDIO PLAYER WITH OVERKILL 🎵 */}
+                {/* 🎵 CUSTOMIZABLE AUDIO VISUALIZER WITH TUNING FLAGS 🎵 */}
                 <div className="absolute bottom-12 left-8 cursor-pointer group z-10"
-                     onMouseEnter={(e) => {
-                       // Create and play audio
-                       const audio = new Audio('/overkill.mp3'); // You'll need to add this file
-                       audio.volume = 0.3;
-                       audio.loop = true;
-                       audio.play().catch(() => {
-                         // Fallback if no audio file - just visual effects
-                         console.log('Audio file not found - using visual mode only');
-                       });
-                       e.currentTarget.setAttribute('data-audio', 'playing');
-                       
-                       // Enhance visual effects
-                       const bars = e.currentTarget.querySelectorAll('.audio-bar');
-                       bars.forEach((bar: any, i) => {
-                         bar.style.height = `${Math.random() * 60 + 20}px`;
-                         bar.style.animationDuration = '0.03s';
-                         bar.style.filter = `hue-rotate(${i * 30}deg) brightness(2) saturate(1.5)`;
-                         bar.style.boxShadow = `0 0 15px currentColor, 0 0 30px currentColor`;
-                       });
-                       
-                       // Add screen shake effect
-                       const container = document.getElementById('physics-container');
-                       if (container) {
-                         container.style.animation = 'bass-shake 0.1s ease-in-out infinite';
-                       }
-                     }}
-                     onMouseLeave={(e) => {
-                       // Stop audio
-                       const audioElements = document.querySelectorAll('audio');
-                       audioElements.forEach(audio => {
-                         audio.pause();
-                         audio.currentTime = 0;
-                       });
-                       e.currentTarget.removeAttribute('data-audio');
-                       
-                       // Reset visual effects
-                       const bars = e.currentTarget.querySelectorAll('.audio-bar');
-                       bars.forEach((bar: any) => {
-                         bar.style.filter = '';
-                         bar.style.boxShadow = '';
-                       });
-                       
-                       // Remove screen shake
-                       const container = document.getElementById('physics-container');
-                       if (container) {
-                         container.style.animation = '';
+                     ref={(ref) => {
+                       if (ref && !ref.hasAttribute('data-audio-initialized')) {
+                         ref.setAttribute('data-audio-initialized', 'true');
+                         
+                         // � EXTREME KICK-REACTIVE VISUALIZER! �
+                         const VISUALIZER_CONFIG = {
+                           // Audio Settings - Maximum responsiveness
+                           VOLUME: 0.4,                    // Safe volume level
+                           SMOOTHING: 0.4,                 // More smoothing for natural movement
+                           FFT_SIZE: 512,                  // Max resolution for precise frequency detection
+                           
+                           // Dynamic Range Settings - Balanced for kick emphasis
+                           BASELINE_LEARNING_RATE: 0.97,   // Faster learning to adapt to song sections
+                           COMPRESSION_THRESHOLD: 3.0,     // Much higher threshold - less compression!
+                           COMPRESSION_RATIO: 30,          // MUCH LOWER! Was 800 - insanely high!
+                           
+                           // Kick Detection Settings - Responsive but not overwhelming
+                           KICK_SENSITIVITY: 2.0,          // Higher threshold - less triggers
+                           KICK_HISTORY_LENGTH: 4,         // Short history for responsive kicks
+                           KICK_BOOST_MULTIPLIER: 50,      // Much lower! Was 600 - way too high!
+                           
+                           // Visual Settings - Maximum dynamic range
+                           MIN_BAR_HEIGHT: 5,              // Very low minimum for huge contrast
+                           MAX_BASS_HEIGHT: 120,           // MASSIVE height for kicks!
+                           MAX_TREBLE_HEIGHT: 90,          // Tall treble too
+                           BASS_BAR_COUNT: 6,              // Even more bass bars for kick detection
+                           
+                           // Animation Settings - Fast response, smooth decay
+                           HEIGHT_UPDATE_SPEED: 0.03,      // Fast height changes for kick response
+                           COLOR_UPDATE_SPEED: 0.06,       // Quick color response
+                           GLOW_UPDATE_SPEED: 0.04,        // Fast glow response
+                           
+                           // Screen Shake Settings - Maximum kick response
+                           SHAKE_THRESHOLD_HIGH: 1.2,      // Very low threshold for shake
+                           SHAKE_THRESHOLD_LOW: 0.8,       // Super low for any kick detection
+                           SHAKE_SPEED_INTENSE: 0.02,      // Very fast intense shake
+                           SHAKE_SPEED_LIGHT: 0.06,        // Fast light shake
+                           
+                           // Color Settings - MAXIMUM visual impact
+                           HUE_RANGE: 240,                 // Almost full rainbow
+                           HUE_OFFSET_PER_BAR: 25,         // Big color shifts between bars
+                           BRIGHTNESS_MULTIPLIER: 3.5,     // MASSIVE brightness boost!
+                           SATURATION_MULTIPLIER: 2.5,     // Maximum saturation!
+                           
+                           // Glow Settings - EXPLOSIVE glow on kicks
+                           MIN_GLOW: 2,                    // Tiny minimum for contrast
+                           MAX_GLOW_INNER: 50,             // HUGE inner glow on kicks
+                           MAX_GLOW_OUTER: 100,            // MASSIVE outer glow on kicks
+                           SCALE_MULTIPLIER: 0.6,          // Moderate width scaling
+                         };
+                         
+                         let audioContext: AudioContext | null = null;
+                         let analyser: AnalyserNode | null = null;
+                         let audioElement: HTMLAudioElement | null = null;
+                         let animationId: number | null = null;
+                         let isPlaying = false;
+                         let averageLevels: number[] = [];
+                         let kickDetectionHistory: number[] = [];
+
+                         // IMMEDIATE pre-load setup
+                         const preLoadAudio = async () => {
+                           if (audioElement) return audioElement;
+                           
+                           console.log('🎵 Pre-loading with config:', VISUALIZER_CONFIG);
+                           audioElement = new Audio('/overkill.mp3');
+                           audioElement.crossOrigin = 'anonymous';
+                           audioElement.volume = VISUALIZER_CONFIG.VOLUME;
+                           audioElement.loop = true;
+                           audioElement.preload = 'auto';
+                           
+                           // Force load the audio
+                           return new Promise<HTMLAudioElement>((resolve) => {
+                             audioElement!.addEventListener('canplaythrough', () => {
+                               console.log('🎵 Audio loaded and ready!');
+                               resolve(audioElement!);
+                             });
+                             audioElement!.addEventListener('error', () => {
+                               console.log('🎵 Audio file not found - visual mode only');
+                               resolve(audioElement!);
+                             });
+                             audioElement!.load();
+                           });
+                         };
+
+                         // Setup Web Audio API with configurable settings
+                         const initWebAudio = async () => {
+                           if (audioContext) return;
+                           
+                           audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+                           analyser = audioContext.createAnalyser();
+                           analyser.fftSize = VISUALIZER_CONFIG.FFT_SIZE;
+                           analyser.smoothingTimeConstant = VISUALIZER_CONFIG.SMOOTHING;
+                           
+                           if (audioElement) {
+                             const source = audioContext.createMediaElementSource(audioElement);
+                             source.connect(analyser);
+                             analyser.connect(audioContext.destination);
+                           }
+                           
+                           // Initialize baseline levels
+                           averageLevels = new Array(analyser.frequencyBinCount).fill(0);
+                         };
+
+                         // Configurable dynamic range compression and visualization
+                         const visualize = () => {
+                           if (!analyser || !isPlaying) return;
+                           
+                           const bufferLength = analyser.frequencyBinCount;
+                           const dataArray = new Uint8Array(bufferLength);
+                           analyser.getByteFrequencyData(dataArray);
+                           
+                           // Update running averages with configurable learning rate
+                           for (let i = 0; i < bufferLength; i++) {
+                             const learningRate = VISUALIZER_CONFIG.BASELINE_LEARNING_RATE;
+                             averageLevels[i] = averageLevels[i] * learningRate + dataArray[i] * (1 - learningRate);
+                           }
+                           
+                           const bars = ref.querySelectorAll('.audio-bar');
+                           let maxKick = 0;
+                           
+                           bars.forEach((bar: any, i) => {
+                             if (i < Math.min(16, bufferLength)) {
+                               const rawValue = dataArray[i];
+                               const baseline = averageLevels[i];
+                               
+                               // Configurable dynamic range compression
+                               let normalizedValue;
+                               if (baseline > 0) {
+                                 const ratio = rawValue / baseline;
+                                 const threshold = VISUALIZER_CONFIG.COMPRESSION_THRESHOLD;
+                                 const compressionRatio = VISUALIZER_CONFIG.COMPRESSION_RATIO;
+                                 normalizedValue = Math.min(255, Math.max(0, (ratio - threshold) * compressionRatio));
+                               } else {
+                                 normalizedValue = rawValue;
+                               }
+                               
+                               // ULTRA KICK DETECTION - Makes kicks EXPLODE upward!
+                               if (i < VISUALIZER_CONFIG.BASS_BAR_COUNT) {
+                                 const kickThreshold = Math.max(20, baseline * VISUALIZER_CONFIG.KICK_SENSITIVITY);
+                                 
+                                 // Enhanced kick detection with multiple methods
+                                 const instantKick = Math.max(0, rawValue - kickThreshold);
+                                 const relativeKick = baseline > 0 ? Math.max(0, (rawValue / baseline - 1.2) * 200) : 0;
+                                 const absoluteKick = Math.max(0, (rawValue - 80) * 2); // Raw power detection
+                                 
+                                 // Use the strongest kick detection method
+                                 const kickIntensity = Math.max(instantKick, relativeKick, absoluteKick) / 100;
+                                 maxKick = Math.max(maxKick, kickIntensity);
+                                 
+                                 // MASSIVE kick boost that overrides everything else
+                                 const kickBoost = Math.min(255, kickIntensity * VISUALIZER_CONFIG.KICK_BOOST_MULTIPLIER);
+                                 normalizedValue = Math.max(normalizedValue, kickBoost);
+                                 
+                                 // Extra boost for first 3 bars (deepest bass)
+                                 if (i < 3 && kickIntensity > 0.1) {
+                                   normalizedValue = Math.min(255, normalizedValue * 1.5);
+                                 }
+                               }
+                               
+                               // PURE REAL-TIME HEIGHT - No decay system!
+                               const intensity = normalizedValue / 255;
+                               const baseHeight = VISUALIZER_CONFIG.MIN_BAR_HEIGHT;
+                               const maxHeight = i < VISUALIZER_CONFIG.BASS_BAR_COUNT ? 
+                                 VISUALIZER_CONFIG.MAX_BASS_HEIGHT : 
+                                 VISUALIZER_CONFIG.MAX_TREBLE_HEIGHT;
+                               
+                               // Direct height calculation - follows audio exactly!
+                               const height = Math.max(baseHeight, baseHeight + (intensity * (maxHeight - baseHeight)));
+                               
+                               // Configurable visual effects
+                               bar.style.height = `${height}px`;
+                               bar.style.filter = `
+                                 hue-rotate(${intensity * VISUALIZER_CONFIG.HUE_RANGE + i * VISUALIZER_CONFIG.HUE_OFFSET_PER_BAR}deg) 
+                                 brightness(${1 + intensity * VISUALIZER_CONFIG.BRIGHTNESS_MULTIPLIER}) 
+                                 saturate(${1 + intensity * VISUALIZER_CONFIG.SATURATION_MULTIPLIER})
+                               `;
+                               bar.style.boxShadow = `
+                                 0 0 ${VISUALIZER_CONFIG.MIN_GLOW + intensity * VISUALIZER_CONFIG.MAX_GLOW_INNER}px currentColor,
+                                 0 0 ${VISUALIZER_CONFIG.MIN_GLOW * 2 + intensity * VISUALIZER_CONFIG.MAX_GLOW_OUTER}px currentColor
+                               `;
+                               bar.style.transform = `scaleX(${1 + intensity * VISUALIZER_CONFIG.SCALE_MULTIPLIER})`;
+                             }
+                           });
+                           
+                           // Configurable kick-based screen shake
+                           kickDetectionHistory.push(maxKick);
+                           if (kickDetectionHistory.length > VISUALIZER_CONFIG.KICK_HISTORY_LENGTH) {
+                             kickDetectionHistory.shift();
+                           }
+                           
+                           const container = document.getElementById('physics-container');
+                           if (container) {
+                             const avgKick = kickDetectionHistory.reduce((a, b) => a + b) / kickDetectionHistory.length;
+                             const highThreshold = avgKick * VISUALIZER_CONFIG.SHAKE_THRESHOLD_HIGH;
+                             const lowThreshold = avgKick * VISUALIZER_CONFIG.SHAKE_THRESHOLD_LOW;
+                             
+                             if (maxKick > highThreshold) {
+                               container.style.animation = `bass-shake ${VISUALIZER_CONFIG.SHAKE_SPEED_INTENSE}s ease-in-out infinite`;
+                             } else if (maxKick > lowThreshold) {
+                               container.style.animation = `bass-shake ${VISUALIZER_CONFIG.SHAKE_SPEED_LIGHT}s ease-in-out infinite`;
+                             } else {
+                               container.style.animation = '';
+                             }
+                           }
+                           
+                           animationId = requestAnimationFrame(visualize);
+                         };
+
+                         // Pre-load audio immediately
+                         preLoadAudio();
+
+                         // Mouse enter - instant play
+                         ref.addEventListener('mouseenter', async () => {
+                           try {
+                             if (!audioElement) await preLoadAudio();
+                             if (!audioContext) await initWebAudio();
+                             
+                             if (audioContext?.state === 'suspended') {
+                               await audioContext.resume();
+                             }
+                             
+                             if (audioElement && !isPlaying) {
+                               const playPromise = audioElement.play();
+                               if (playPromise) {
+                                 await playPromise;
+                               }
+                               isPlaying = true;
+                               visualize();
+                               
+                               console.log('🎵 Overkill playing with kick detection!');
+                             }
+                           } catch (error) {
+                             console.log('🎵 Fallback mode - no audio file');
+                             // Enhanced fallback with kick simulation
+                             const bars = ref.querySelectorAll('.audio-bar');
+                             let kickCounter = 0;
+                             const simulateKicks = () => {
+                               bars.forEach((bar: any, i) => {
+                                 const isKick = kickCounter % 8 === 0 && i < 4;
+                                 const height = isKick ? Math.random() * 50 + 30 : Math.random() * 25 + 15;
+                                 bar.style.height = `${height}px`;
+                                 bar.style.filter = `hue-rotate(${i * 20}deg) brightness(${isKick ? 2.5 : 1.5})`;
+                               });
+                               kickCounter++;
+                               if (isPlaying) setTimeout(simulateKicks, 150);
+                             };
+                             isPlaying = true;
+                             simulateKicks();
+                           }
+                         });
+
+                         // Mouse leave - stop audio
+                         ref.addEventListener('mouseleave', () => {
+                           if (audioElement && isPlaying) {
+                             audioElement.pause();
+                             audioElement.currentTime = 0;
+                             isPlaying = false;
+                           }
+                           
+                           if (animationId) {
+                             cancelAnimationFrame(animationId);
+                             animationId = null;
+                           }
+                           
+                           // Reset visuals
+                           const bars = ref.querySelectorAll('.audio-bar');
+                           bars.forEach((bar: any) => {
+                             bar.style.height = '';
+                             bar.style.filter = '';
+                             bar.style.boxShadow = '';
+                             bar.style.transform = '';
+                           });
+                           
+                           const container = document.getElementById('physics-container');
+                           if (container) {
+                             container.style.animation = '';
+                           }
+                           
+                           console.log('🎵 Audio stopped');
+                         });
                        }
                      }}>
                   <div className="flex items-end gap-1 h-16">
-                    {[...Array(14)].map((_, i) => (
+                    {[...Array(16)].map((_, i) => (
                       <div key={i} 
-                           className="audio-bar w-1 bg-gradient-to-t from-pink-500 via-purple-500 to-yellow-400 rounded-sm transition-all duration-75 ease-out shadow-[0_0_10px_currentColor]"
+                           className="audio-bar w-1 bg-gradient-to-t from-pink-500 via-purple-500 to-yellow-400 rounded-sm"
                            style={{ 
-                             height: `${Math.sin(i * 0.8) * 15 + 20}px`,
-                             animationDelay: `${i * 0.06}s`,
-                             animation: 'audio-reactive 1.2s ease-in-out infinite'
+                             height: `${Math.sin(i * 0.8) * 8 + 12}px`,
+                             transformOrigin: 'bottom',
+                             transition: 'height 0.02s ease-out, filter 0.05s ease-out, box-shadow 0.03s ease-out, transform 0.04s ease-out'
                            }}>
                       </div>
                     ))}
                   </div>
                   <div className="font-tech text-[9px] text-center text-pink-300 mt-1 opacity-80 group-hover:opacity-100 group-hover:text-yellow-300 transition-all duration-200">
-                    🎵 OVERKILL.mp3
+                    🎛️ OVERKILL.mp3
                   </div>
                   <div className="font-tech text-[7px] text-center text-purple-300 opacity-60 group-hover:text-yellow-300 group-hover:opacity-100 transition-all duration-200">
-                    hover = PLAY AUDIO
+                    hover = CONFIGURABLE SYNC
+                  </div>
+                  <div className="font-tech text-[6px] text-center text-cyan-300 opacity-40 group-hover:opacity-80 transition-all duration-200">
+                    Tunable Flags • See VISUALIZER_CONFIG.md
                   </div>
                   <div className="absolute -top-1 -left-1 w-full h-full border border-pink-500/0 group-hover:border-pink-500/50 rounded transition-all duration-200 group-hover:shadow-[0_0_20px_rgba(236,72,153,0.4)]"></div>
                 </div>
