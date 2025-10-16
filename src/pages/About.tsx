@@ -94,7 +94,7 @@ const About = () => {
                 <h3 className="font-semibold mb-4 text-accent-glow">{skillGroup.category}</h3>
                 <ul className="space-y-2">
                   {skillGroup.items.map((skill) => (
-                    <li key={skill} className="text-sm text-muted-foreground">
+                    <li key={skill} className="text-sm text-muted-foreground font-tech">
                       • {skill}
                     </li>
                   ))}
