@@ -119,8 +119,7 @@ const Projects = () => {
             {filteredProjects.map((project, index) => (
               <div 
                 key={project.id} 
-                className="card-project p-6 animate-fade-in flex flex-col justify-between h-full"
-                style={{ animationDelay: `${index * 150}ms` }}
+                className="card-project p-6 flex flex-col justify-between h-full"
               >
                 {/* Project Image */}
                 <div className="relative mb-6 overflow-hidden rounded-lg">

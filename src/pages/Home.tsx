@@ -88,14 +88,14 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="card-glow p-8 animate-fade-in delay-200 lowercase">
+            <div className="card-glow p-8 animate-fade-in lowercase">
               <h3 className="text-xl font-semibold mb-3">3d art & animation</h3>
               <p className="text-muted-foreground text-center">
                 modeling & animating low-poly 3d assets, worlds, and characters in blender
               </p>
             </div>
 
-            <div className="card-glow p-8 animate-fade-in delay-400 lowercase">
+            <div className="card-glow p-8 animate-fade-in lowercase">
               <h3 className="text-xl font-semibold mb-3">programming</h3>
               <p className="text-muted-foreground text-center">
                 writing scripts & building systems in gdscript, c++, and python for games & tools

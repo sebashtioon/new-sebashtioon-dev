@@ -53,7 +53,7 @@ const About = () => {
               </div>
             </div>
             
-            <div className="animate-fade-in-delay">
+            <div className="animate-fade-in">
               <div className="card-glow p-8">
                 <div className="grid grid-cols-3 gap-6 text-center">
                   <div>
@@ -90,7 +90,6 @@ const About = () => {
               <div 
                 key={skillGroup.category} 
                 className="card-glow p-6 animate-fade-in"
-                style={{ animationDelay: `${index * 150}ms` }}
               >
                 <h3 className="font-semibold mb-4 text-accent-glow">{skillGroup.category}</h3>
                 <ul className="space-y-2">

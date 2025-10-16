@@ -185,7 +185,7 @@ const Contact = () => {
 
           {/* Contact Info & Social Links */}
           <div className="space-y-8">
-            <Card className="card-glow p-6 animate-fade-in delay-200 lowercase">
+            <Card className="card-glow p-6 animate-fade-in lowercase">
               <h3 className="text-xl font-semibold mb-4 lowercase">contact info</h3>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
@@ -216,7 +216,7 @@ const Contact = () => {
               </div>
             </Card>
 
-            <Card className="card-glow p-6 animate-fade-in delay-400 lowercase">
+            <Card className="card-glow p-6 animate-fade-in lowercase">
               <h3 className="text-xl font-semibold mb-4 lowercase">follow me</h3>
               <div className="grid grid-cols-2 gap-4">
                 {socialLinks.map((social) => {
