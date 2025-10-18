@@ -1,4 +1,4 @@
-import { SiGithub, SiDiscord, SiYoutube, SiGodotengine, SiBlender } from "react-icons/si";
+import { SiGithub, SiDiscord, SiYoutube, SiGodotengine, SiBlender, SiSpotify } from "react-icons/si";
 import { MdEmail } from "react-icons/md";
 import { Terminal, Code, Folder, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,9 @@ const Home = () => {
   const [windowPositions, setWindowPositions] = useState({
     "code-editor": { x: 16, y: 16 },
     "terminal": { x: 150, y: 48 },
-    "file-explorer": { x: 48, y: 32 }
+    "file-explorer": { x: 48, y: 32 },
+    "music-player": { x: 200, y: 100 },
+    "godot": { x: 80, y: 120 }
   });
   const [dragging, setDragging] = useState(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -25,7 +27,7 @@ const Home = () => {
     { id: "code-editor", name: "Code Editor", icon: "code" },
     { id: "terminal", name: "Terminal", icon: "terminal" },
     { id: "file-explorer", name: "Files", icon: "folder" },
-    { id: "music-player", name: "Music", icon: "music" },
+    { id: "music-player", name: "Spotify", icon: "spotify" },
     { id: "godot", name: "Godot", icon: "godot" },
   ];
 
@@ -94,8 +96,8 @@ const Home = () => {
       
       // Keep windows within bounds with consistent margins
       const margin = 8; // 8px margin from edges
-      const windowWidth = dragging === "code-editor" ? 288 : dragging === "terminal" ? 256 : 240; // w-72=288px, w-64=256px, w-60=240px
-      const windowHeight = dragging === "code-editor" ? 192 : dragging === "terminal" ? 160 : 176; // h-48=192px, h-40=160px, h-44=176px
+      const windowWidth = dragging === "code-editor" ? 288 : dragging === "terminal" ? 320 : 240; // w-72=288px, w-80=320px, w-60=240px
+      const windowHeight = dragging === "code-editor" ? 192 : dragging === "terminal" ? 208 : 176; // h-48=192px, h-52=208px, h-44=176px
       
       const clampedX = Math.max(margin, Math.min(newX, containerRect.width - windowWidth - margin));
       const clampedY = Math.max(margin, Math.min(newY, containerRect.height - windowHeight - margin - 48)); // -48 for taskbar
@@ -197,7 +199,7 @@ const Home = () => {
             </div>
 
             {/* Mini Desktop OS - Right side */}
-            <div className="lg:col-span-5 hidden lg:flex justify-center items-center animate-fade-in">
+            <div className="lg:col-span-5 hidden lg:flex justify-center items-start mt-16 animate-fade-in">
               <div className="relative w-full max-w-2xl h-[500px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-border/30 overflow-hidden">
                 {/* Desktop Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/10 to-indigo-900/20"></div>
@@ -291,7 +293,7 @@ const Home = () => {
                   {/* Terminal Window */}
                   {openApps.includes("terminal") && (
                     <div 
-                      className={`absolute w-64 h-40 card-glow rounded-lg border border-border/50 bg-slate-900/95 select-none ${
+                      className={`absolute w-80 h-52 card-glow rounded-lg border border-border/50 bg-slate-900/95 select-none ${
                         focusedApp === "terminal" ? "z-30 ring-2 ring-green-500/50" : "z-20"
                       } ${
                         minimizedApps.includes("terminal") 
@@ -342,22 +344,26 @@ const Home = () => {
                       <div className="p-3 font-mono text-xs leading-relaxed text-green-400 pointer-events-none">
                         <div className="space-y-1">
                           <div>
-                            <span className="text-blue-400">~/projects</span>
+                            <span className="text-blue-400">~/dev</span>
                             <span className="text-white"> $ </span>
-                            <span className="text-green-400">ls -la</span>
+                            <span className="text-green-400">git status</span>
                           </div>
                           <div className="text-gray-300 text-xs">
-                            <div>drwxr-xr-x expland/</div>
-                            <div>drwxr-xr-x the-swing/</div>
-                            <div>-rw-r--r-- README.md</div>
+                            <div className="text-green-400">On branch main</div>
+                            <div className="text-yellow-400">Changes not staged:</div>
+                            <div className="text-red-400">  modified: PlayerController.gd</div>
+                            <div className="text-red-400">  modified: World.tscn</div>
                           </div>
                           <div>
-                            <span className="text-blue-400">~/projects</span>
+                            <span className="text-blue-400">~/dev</span>
                             <span className="text-white"> $ </span>
-                            <span className="text-green-400">cd expland</span>
+                            <span className="text-green-400">npm run dev</span>
+                          </div>
+                          <div className="text-gray-300 text-xs">
+                            <div className="text-green-400">✓ Server running at localhost:5173</div>
                           </div>
                           <div>
-                            <span className="text-blue-400">~/projects/expland</span>
+                            <span className="text-blue-400">~/dev</span>
                             <span className="text-white"> $ </span>
                             <span className="animate-pulse">|</span>
                           </div>
@@ -439,6 +445,178 @@ const Home = () => {
                       </div>
                     </div>
                   )}
+
+                  {/* Spotify Window */}
+                  {openApps.includes("music-player") && (
+                    <div 
+                      className={`absolute w-72 h-48 card-glow rounded-lg border border-border/50 bg-gradient-to-br from-green-900/20 to-black/95 select-none ${
+                        focusedApp === "music-player" ? "z-30 ring-2 ring-green-500/50" : "z-20"
+                      } ${
+                        minimizedApps.includes("music-player") 
+                          ? "scale-0 opacity-0 transform translate-x-full translate-y-full transition-all duration-300" 
+                          : "scale-100 opacity-100"
+                      } ${
+                        dragging === "music-player" ? "" : "transition-all duration-300"
+                      }`}
+                      style={{
+                        left: `${windowPositions["music-player"]?.x || 100}px`,
+                        top: `${windowPositions["music-player"]?.y || 100}px`,
+                        transformOrigin: "bottom right",
+                        ...(dragging === "music-player" && {
+                          transition: 'none',
+                          transform: 'none'
+                        })
+                      }}
+                      onClick={() => setFocusedApp("music-player")}
+                    >
+                      {/* Spotify Header */}
+                      <div 
+                        className="flex items-center justify-between px-3 py-2 bg-green-600/20 border-b border-green-500/30 cursor-grab active:cursor-grabbing"
+                        onMouseDown={(e) => handleTitleBarMouseDown(e, "music-player")}
+                      >
+                        <div className="flex items-center gap-2">
+                          <div className="flex gap-1 window-controls">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); closeApp("music-player"); }}
+                              className="group w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 transition-all duration-200 flex items-center justify-center"
+                            >
+                              <span className="text-red-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">×</span>
+                            </button>
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setMinimizedApps(prev => [...prev, "music-player"]); }}
+                              className="group w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 transition-all duration-200 flex items-center justify-center"
+                            >
+                              <span className="text-yellow-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">−</span>
+                            </button>
+                            <div className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center">
+                              <span className="text-green-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">+</span>
+                            </div>
+                          </div>
+                          <span className="text-xs text-green-400 font-mono ml-1 pointer-events-none">Spotify</span>
+                        </div>
+                      </div>
+                      
+                      {/* Spotify Content */}
+                      <div className="p-4 text-white pointer-events-none">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-12 h-12 rounded overflow-hidden">
+                            <img 
+                              src="/dogmaresistance.webp" 
+                              alt="Dogma Resistance Album Cover"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold">Overkill</div>
+                            <div className="text-xs text-gray-400">RIOT</div>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex justify-between items-center">
+                            <div className="flex gap-2">
+                              <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                                <span className="text-xs">⏮</span>
+                              </div>
+                              <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                                <span className="text-xs">▶</span>
+                              </div>
+                              <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                                <span className="text-xs">⏭</span>
+                              </div>
+                            </div>
+                            <div className="text-xs text-gray-400">4:00 / 5:42</div>
+                          </div>
+                          <div className="w-full bg-gray-700 rounded-full h-1">
+                            <div className="bg-green-500 h-1 rounded-full" style={{ width: '70%' }}></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Godot Window */}
+                  {openApps.includes("godot") && (
+                    <div 
+                      className={`absolute w-80 h-52 card-glow rounded-lg border border-border/50 bg-gradient-to-br from-blue-900/20 to-slate-900/95 select-none ${
+                        focusedApp === "godot" ? "z-30 ring-2 ring-blue-500/50" : "z-20"
+                      } ${
+                        minimizedApps.includes("godot") 
+                          ? "scale-0 opacity-0 transform translate-x-full translate-y-full transition-all duration-300" 
+                          : "scale-100 opacity-100"
+                      } ${
+                        dragging === "godot" ? "" : "transition-all duration-300"
+                      }`}
+                      style={{
+                        left: `${windowPositions["godot"]?.x || 80}px`,
+                        top: `${windowPositions["godot"]?.y || 80}px`,
+                        transformOrigin: "bottom right",
+                        ...(dragging === "godot" && {
+                          transition: 'none',
+                          transform: 'none'
+                        })
+                      }}
+                      onClick={() => setFocusedApp("godot")}
+                    >
+                      {/* Godot Header */}
+                      <div 
+                        className="flex items-center justify-between px-3 py-2 bg-blue-600/20 border-b border-blue-500/30 cursor-grab active:cursor-grabbing"
+                        onMouseDown={(e) => handleTitleBarMouseDown(e, "godot")}
+                      >
+                        <div className="flex items-center gap-2">
+                          <div className="flex gap-1 window-controls">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); closeApp("godot"); }}
+                              className="group w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 transition-all duration-200 flex items-center justify-center"
+                            >
+                              <span className="text-red-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">×</span>
+                            </button>
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setMinimizedApps(prev => [...prev, "godot"]); }}
+                              className="group w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 transition-all duration-200 flex items-center justify-center"
+                            >
+                              <span className="text-yellow-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">−</span>
+                            </button>
+                            <div className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center">
+                              <span className="text-green-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">+</span>
+                            </div>
+                          </div>
+                          <span className="text-xs text-blue-400 font-mono ml-1 pointer-events-none">Godot Engine</span>
+                        </div>
+                      </div>
+                      
+                      {/* Godot Content */}
+                      <div className="p-4 text-white pointer-events-none">
+                        <div className="flex items-center gap-3 mb-4">
+                          <SiGodotengine size={24} className="text-blue-400" />
+                          <div>
+                            <div className="text-sm font-semibold">Expland</div>
+                            <div className="text-xs text-gray-400">3D Adventure Game • In Development</div>
+                          </div>
+                        </div>
+                        <div className="space-y-2 text-xs">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span className="text-gray-300">Scene: World.tscn</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                            <span className="text-gray-300">Script: PlayerController.gd</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span className="text-gray-300">Model: character_mesh.glb</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span className="text-gray-300">Shader: dreamscape.gdshader</span>
+                          </div>
+                        </div>
+                        <div className="mt-4 text-xs text-gray-400">
+                          Building • 142 nodes • 28 scripts • 15 3D models
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* MacOS-style Dock */}
@@ -471,7 +649,7 @@ const Home = () => {
                             {app.icon === "code" && <Code size={16} />}
                             {app.icon === "terminal" && <Terminal size={16} />}
                             {app.icon === "folder" && <Folder size={16} />}
-                            {app.icon === "music" && <Music size={16} />}
+                            {app.icon === "spotify" && <SiSpotify size={16} />}
                             {app.icon === "godot" && <SiGodotengine size={16} />}
                           </div>
                           
