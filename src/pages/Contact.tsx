@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import BackgroundGrid from "@/components/BackgroundGrid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
 
@@ -16,6 +16,15 @@ const Contact = () => {
     subject: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init("KtS989S8h09hzUv4J");
+    console.log("EmailJS initialized with public key: KtS989S8h09hzUv4J");
+  }, []);
+
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -24,35 +33,60 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const serviceId = "service_md5ydlc";
     const templateId = "template_gaz5ou9";
-    const publicKey = "KtS989S8h09hzUv4J";
 
     const templateParams = {
       from_name: formData.name,
       from_email: formData.email,
       subject: formData.subject,
       message: formData.message,
+      to_name: "Sebastian",
+      reply_to: formData.email, // Add reply-to field
     };
 
-    emailjs.send(serviceId, templateId, templateParams, publicKey)
-      .then(() => {
-        toast({
-          title: "message sent!",
-          description: "i'll get back to you soon.",
-        });
-        setFormData({ name: "", email: "", subject: "", message: "" });
-      })
-      .catch((err) => {
-        console.error(err);
-        toast({
-          title: "oops, something went wrong",
-          description: "please try again later.",
-        });
+    try {
+      console.log("Sending email with params:", templateParams);
+      const result = await emailjs.send(serviceId, templateId, templateParams);
+      console.log("Email sent successfully:", result);
+      
+      toast({
+        title: "message sent!",
+        description: "i'll get back to you soon.",
       });
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (err) {
+      console.error("EmailJS Full Error Object:", err);
+      console.error("Error status:", err?.status);
+      console.error("Error text:", err?.text);
+      
+      let errorMessage = "please try again later.";
+      
+      // Handle different error types
+      if (err?.status === 400) {
+        errorMessage = "Invalid request. Check your EmailJS configuration.";
+      } else if (err?.status === 401) {
+        errorMessage = "Unauthorized. Check your EmailJS public key.";
+      } else if (err?.status === 404) {
+        errorMessage = "Service or template not found. Check your IDs.";
+      } else if (err?.text) {
+        errorMessage = err.text;
+      } else if (err?.message) {
+        errorMessage = err.message;
+      }
+      
+      toast({
+        title: "oops, something went wrong",
+        description: `Error: ${errorMessage}`,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const socialLinks = [
@@ -184,8 +218,8 @@ const Contact = () => {
                   />
                 </div>
 
-                <Button type="submit" className="btn-accent w-full py-6 text-lg lowercase">
-                  send message
+                <Button type="submit" disabled={isSubmitting} className="btn-accent w-full py-6 text-lg lowercase">
+                  {isSubmitting ? "sending..." : "send message"}
                 </Button>
               </form>
             </Card>
