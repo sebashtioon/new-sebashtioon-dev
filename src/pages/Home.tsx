@@ -1,6 +1,6 @@
 import { SiGithub, SiDiscord, SiYoutube, SiGodotengine, SiBlender } from "react-icons/si";
 import { MdEmail } from "react-icons/md";
-import { Terminal } from "lucide-react";
+import { Terminal, Code, Folder, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";  
 import BackgroundGrid from "@/components/BackgroundGrid";
@@ -22,11 +22,11 @@ const Home = () => {
   const [isDragging, setIsDragging] = useState(false);
 
   const apps = [
-    { id: "code-editor", name: "Code Editor", icon: "</>" },
-    { id: "terminal", name: "Terminal", icon: "$" },
-    { id: "file-explorer", name: "Files", icon: "📁" },
-    { id: "music-player", name: "Music", icon: "🎵" },
-    { id: "godot", name: "Godot", icon: "🎮" },
+    { id: "code-editor", name: "Code Editor", icon: "code" },
+    { id: "terminal", name: "Terminal", icon: "terminal" },
+    { id: "file-explorer", name: "Files", icon: "folder" },
+    { id: "music-player", name: "Music", icon: "music" },
+    { id: "godot", name: "Godot", icon: "godot" },
   ];
 
   const toggleApp = (appId) => {
@@ -468,7 +468,11 @@ const Home = () => {
                                 : "bg-gray-500/10 border border-gray-500/20 hover:bg-gray-500/20"
                             }`}
                           >
-                            <span className="text-sm">{app.icon}</span>
+                            {app.icon === "code" && <Code size={16} />}
+                            {app.icon === "terminal" && <Terminal size={16} />}
+                            {app.icon === "folder" && <Folder size={16} />}
+                            {app.icon === "music" && <Music size={16} />}
+                            {app.icon === "godot" && <SiGodotengine size={16} />}
                           </div>
                           
                           {/* Active indicator */}
@@ -486,13 +490,14 @@ const Home = () => {
                       );
                     })}
                     
-                    {/* System info */}
-                    <div className="ml-2 flex items-center gap-2 text-xs text-muted-foreground font-mono">
-                      <div className="flex items-center gap-1">
-                        <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-                        <span>online</span>
+                    {/* Date and Time */}
+                    <div className="ml-2 flex items-center gap-2 text-xs font-mono">
+                      <div className="flex flex-col items-end text-right leading-tight">
+                        <div className="text-white">{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
+                        <div className="text-muted-foreground">{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
