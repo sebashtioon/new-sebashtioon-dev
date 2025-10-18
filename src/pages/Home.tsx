@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import { toast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Home = () => {
   // Desktop OS State Management
@@ -230,6 +231,27 @@ const Home = () => {
               <div className="relative w-full max-w-2xl h-[500px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-border/30 overflow-hidden">
                 {/* Desktop Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/10 to-indigo-900/20"></div>
+                
+                {/* Animated Grid Background */}
+                <motion.div
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(to right, rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(59, 130, 246, 0.15) 1px, transparent 1px)
+                    `,
+                    backgroundSize: `40px 40px`,
+                    willChange: 'background-position',
+                  }}
+                  animate={{
+                    backgroundPosition: [`0px 0px`, `40px 40px`],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                />
                 
                 {/* Windows Container */}
                 <div className="desktop-container relative w-full h-full p-2 pb-16">
