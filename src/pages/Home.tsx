@@ -1,6 +1,6 @@
 import { SiGithub, SiDiscord, SiYoutube, SiGodotengine, SiBlender, SiSpotify } from "react-icons/si";
 import { MdEmail } from "react-icons/md";
-import { Terminal, Code, Folder, Music } from "lucide-react";
+import { Terminal, Code, Folder, Music, StickyNote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";  
 import BackgroundGrid from "@/components/BackgroundGrid";
@@ -19,11 +19,22 @@ const Home = () => {
     "terminal": { x: 150, y: 48 },
     "file-explorer": { x: 48, y: 32 },
     "music-player": { x: 200, y: 100 },
-    "godot": { x: 80, y: 120 }
+    "godot": { x: 80, y: 120 },
+    "notes": { x: 250, y: 150 }
   });
   const [dragging, setDragging] = useState(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+
+  // Update time every second
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const apps = [
     { id: "code-editor", name: "Code Editor", icon: "code" },
@@ -31,6 +42,7 @@ const Home = () => {
     { id: "file-explorer", name: "Files", icon: "folder" },
     { id: "music-player", name: "Spotify", icon: "spotify" },
     { id: "godot", name: "Godot", icon: "godot" },
+    { id: "notes", name: "Notes", icon: "notes" },
   ];
 
   const bringToFront = (appId) => {
@@ -237,8 +249,8 @@ const Home = () => {
                   className="absolute inset-0"
                   style={{
                     backgroundImage: `
-                      linear-gradient(to right, rgba(59, 130, 246, 0.15) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(59, 130, 246, 0.15) 1px, transparent 1px)
+                      linear-gradient(to right, rgba(59, 130, 246, 0.06) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(59, 130, 246, 0.06) 1px, transparent 1px)
                     `,
                     backgroundSize: `40px 40px`,
                     willChange: 'background-position',
@@ -252,6 +264,26 @@ const Home = () => {
                     ease: 'linear',
                   }}
                 />
+
+                {/* OS Branding - Top Left */}
+                <div className="absolute top-4 left-4 z-10 select-none">
+                  <div className="flex items-center space-x-2 px-3 py-2 bg-black/20 backdrop-blur-sm rounded-lg border border-white/10">
+                    <div className="text-white">
+                      <div className="text-sm font-medium">
+                        <span className="text-blue-300">sebashtioon</span><span className="text-gray-300">.os</span>
+                      </div>
+                      <div className="text-xs text-gray-400 font-mono">v2.0.1</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* System Status - Top Right */}
+                <div className="absolute top-4 right-4 z-10 select-none">
+                  <div className="flex items-center space-x-2 px-3 py-2 bg-black/20 backdrop-blur-sm rounded-lg border border-white/10">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs text-gray-300">System Online</span>
+                  </div>
+                </div>
                 
                 {/* Windows Container */}
                 <div className="desktop-container relative w-full h-full p-2 pb-16">
@@ -715,6 +747,81 @@ const Home = () => {
                       </div>
                     </div>
                   )}
+
+                  {/* Notes Window */}
+                  {openApps.includes("notes") && (
+                    <div 
+                      className={`absolute w-80 h-64 card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
+                        focusedApp === "notes" ? "ring-2 ring-blue-500/50" : ""
+                      } ${
+                        minimizedApps.includes("notes") 
+                          ? "scale-0 opacity-0 transform translate-x-full translate-y-full transition-all duration-300" 
+                          : "scale-100 opacity-100"
+                      } ${
+                        dragging === "notes" ? "" : "transition-all duration-300"
+                      }`}
+                      style={{
+                        left: `${windowPositions["notes"].x}px`,
+                        top: `${windowPositions["notes"].y}px`,
+                        zIndex: getZIndex("notes"),
+                        transformOrigin: "bottom right",
+                        ...(dragging === "notes" && {
+                          transition: 'none',
+                          transform: 'none'
+                        })
+                      }}
+                      onClick={() => {
+                        setFocusedApp("notes");
+                        bringToFront("notes");
+                      }}
+                    >
+                      {/* Notes Header */}
+                      <div 
+                        className="flex items-center justify-between px-3 py-2 bg-background/50 border-b border-border/50 cursor-grab active:cursor-grabbing"
+                        onMouseDown={(e) => handleTitleBarMouseDown(e, "notes")}
+                      >
+                        <div className="flex items-center gap-2">
+                          <div className="flex gap-1 window-controls">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); closeApp("notes"); }}
+                              className="group w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 transition-all duration-200 flex items-center justify-center"
+                            >
+                              <span className="text-red-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">×</span>
+                            </button>
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setMinimizedApps(prev => [...prev, "notes"]); }}
+                              className="group w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 transition-all duration-200 flex items-center justify-center"
+                            >
+                              <span className="text-yellow-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">–</span>
+                            </button>
+                            <button className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center">
+                              <span className="text-green-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">+</span>
+                            </button>
+                          </div>
+                          <StickyNote size={14} className="text-blue-400" />
+                          <span className="text-xs text-blue-400 font-mono ml-1 pointer-events-none">Notes</span>
+                        </div>
+                      </div>
+
+                      {/* Notes Content */}
+                      <div className="p-4 overflow-hidden" style={{ height: 'calc(100% - 40px)' }}>
+                        <div className="h-full overflow-y-auto pr-2 custom-scrollbar">
+                          {/* Note */}
+                          <div className="bg-gray-800/50 rounded-lg p-3 border border-gray-700/50">
+                            <div className="text-xs text-gray-300 leading-relaxed font-mono">
+                              <p className="mb-2">In the shadowed prelude to an era of defiance...</p>
+                              <p className="mb-2">before the rise of heroes, and the clash of titans.</p>
+                              <p className="mb-2">There was a genesis... not of life...</p>
+                              <p className="mb-2">but of an entity designed to redefine human existence.</p>
+                              <p className="mb-2">This is the story... of The Machine.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+
+                    </div>
+                  )}
                 </div>
 
                 {/* MacOS-style Dock */}
@@ -749,6 +856,7 @@ const Home = () => {
                             {app.icon === "folder" && <Folder size={16} />}
                             {app.icon === "spotify" && <SiSpotify size={16} />}
                             {app.icon === "godot" && <SiGodotengine size={16} />}
+                            {app.icon === "notes" && <StickyNote size={16} />}
                           </div>
                           
                           {/* Active indicator */}
