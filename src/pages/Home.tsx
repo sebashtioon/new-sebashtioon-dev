@@ -1017,9 +1017,26 @@ const Home = () => {
                   )}
                 </div>
 
-                {/* MacOS-style Dock */}
-                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-50">
-                  <div className="flex items-end gap-1 px-4 py-2 bg-slate-800/90 backdrop-blur-sm rounded-2xl border border-border/50">
+                {/* MacOS-style Dock - Auto-hide when apps are maximized */}
+                <div className={`dock-container absolute bottom-2 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
+                  maximizedApps.length > 0 
+                    ? "translate-y-full opacity-0 pointer-events-none" 
+                    : "translate-y-0 opacity-100 pointer-events-auto"
+                }`}>
+                  <div 
+                    className="flex items-end gap-1 px-4 py-2 bg-slate-800/90 backdrop-blur-sm rounded-2xl border border-border/50"
+                    onMouseLeave={() => {
+                      if (maximizedApps.length > 0) {
+                        setTimeout(() => {
+                          const dockElement = document.querySelector('.dock-container');
+                          if (dockElement && !dockElement.matches(':hover')) {
+                            dockElement.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
+                            dockElement.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                          }
+                        }, 500); // 500ms delay before hiding
+                      }
+                    }}
+                  >
                     {apps.map((app) => {
                       const isOpen = openApps.includes(app.id);
                       const isMinimized = minimizedApps.includes(app.id);
@@ -1077,6 +1094,29 @@ const Home = () => {
 
                   </div>
                 </div>
+
+                {/* Hover zone to show dock when apps are maximized */}
+                {maximizedApps.length > 0 && (
+                  <div 
+                    className="absolute bottom-0 left-0 w-full h-4 z-40"
+                    onMouseEnter={() => {
+                      const dockElement = document.querySelector('.dock-container');
+                      if (dockElement) {
+                        dockElement.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
+                        dockElement.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      setTimeout(() => {
+                        const dockElement = document.querySelector('.dock-container');
+                        if (dockElement && !dockElement.matches(':hover')) {
+                          dockElement.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
+                          dockElement.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                        }
+                      }, 1000); // 1 second delay before hiding
+                    }}
+                  />
+                )}
               </div>
             </div>
 
