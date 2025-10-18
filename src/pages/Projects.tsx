@@ -73,10 +73,29 @@ const Projects = () => {
 
   const categories = ["all", "games", "3d stuff"];
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedTags, setSelectedTags] = useState([]);
 
-  const filteredProjects = selectedCategory === "all" 
-    ? projects 
-    : projects.filter(project => project.category === selectedCategory);
+  // Extract all unique tags from projects
+  const allTags = [...new Set(projects.flatMap(project => project.tags))].sort();
+
+  const handleTagClick = (tag) => {
+    setSelectedTags(prev => 
+      prev.includes(tag) 
+        ? prev.filter(t => t !== tag)
+        : [...prev, tag]
+    );
+  };
+
+  const clearAllFilters = () => {
+    setSelectedCategory("all");
+    setSelectedTags([]);
+  };
+
+  const filteredProjects = projects.filter(project => {
+    const categoryMatch = selectedCategory === "all" || project.category === selectedCategory;
+    const tagMatch = selectedTags.length === 0 || selectedTags.some(tag => project.tags.includes(tag));
+    return categoryMatch && tagMatch;
+  });
 
   return (
     <div className="min-h-screen pt-24">
@@ -104,9 +123,6 @@ const Projects = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-yellow-500/20 rounded-lg blur-xl"></div>
                 <div className="relative card-glow p-6 text-center">
-                  <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <div className="w-5 h-5 bg-purple-400 rounded"></div>
-                  </div>
                   <div className="text-2xl font-bold">{projects.length}+</div>
                   <div className="text-sm text-muted-foreground">projects created</div>
                 </div>
@@ -117,7 +133,7 @@ const Projects = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="px-4 mb-7">
+      <section className="px-4 mb-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-center space-x-4 animate-fade-in">
             {categories.map((category) => (
@@ -130,6 +146,40 @@ const Projects = () => {
                 {category}
               </Button>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tag Filter */}
+      <section className="px-4 mb-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-4">
+            <h3 className="text-sm text-muted-foreground mb-3">filter by tags:</h3>
+            <div className="flex flex-wrap justify-center gap-2 mb-4">
+              {allTags.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => handleTagClick(tag)}
+                  className={`text-xs px-3 py-1.5 rounded-full font-tech transition-all duration-200 hover:scale-105 ${
+                    selectedTags.includes(tag)
+                      ? "bg-accent text-accent-foreground shadow-lg"
+                      : "bg-accent/20 text-accent-glow hover:bg-accent/30"
+                  }`}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+            {(selectedCategory !== "all" || selectedTags.length > 0) && (
+              <Button
+                onClick={clearAllFilters}
+                variant="ghost"
+                size="sm"
+                className="text-xs text-muted-foreground hover:text-foreground"
+              >
+                clear all filters
+              </Button>
+            )}
           </div>
         </div>
       </section>
@@ -178,12 +228,17 @@ const Projects = () => {
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mt-2">
                       {project.tags.map((tag) => (
-                        <span 
-                          key={tag} 
-                          className="text-xs px-2 py-1 bg-accent/20 text-accent-glow rounded-md font-tech"
+                        <button
+                          key={tag}
+                          onClick={() => handleTagClick(tag)}
+                          className={`text-xs px-2 py-1 rounded-md font-tech transition-all duration-200 hover:scale-105 cursor-pointer ${
+                            selectedTags.includes(tag)
+                              ? "bg-accent text-accent-foreground shadow-lg"
+                              : "bg-accent/20 text-accent-glow hover:bg-accent/30"
+                          }`}
                         >
                           {tag}
-                        </span>
+                        </button>
                       ))}
                     </div>
                   </div>

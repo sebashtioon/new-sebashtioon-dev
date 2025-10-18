@@ -132,42 +132,46 @@
   }
 }
 
-/* Shimmer fade over white text */
+/* Clean shimmer effect */
 .fast-text-shimmer {
   background: linear-gradient(
     90deg,
-    hsl(0 0% 100%) 35%,   /* base white */
-    hsl(0 0% 40%) 50%,    /* lighter grey sweep */
-    hsl(0 0% 100%) 65%
+    #ffffff 0%,
+    #ffffff 30%,
+    #000000 50%,
+    #ffffff 70%,
+    #ffffff 100%
   );
   background-size: 300% 100%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 4s infinite ease-in-out;
+  animation: shimmer-sweep 1.5s ease-in-out infinite;
 }
 
-/* Shimmer fade over white text */
+/* Clean shimmer effect */
 .text-shimmer {
   background: linear-gradient(
     90deg,
-    hsl(0 0% 100%) 35%,   /* base white */
-    hsl(0 0% 40%) 50%,    /* lighter grey sweep */
-    hsl(0 0% 100%) 65%
+    #ffffff 0%,
+    #ffffff 30%,
+    #000000 50%,
+    #ffffff 70%,
+    #ffffff 100%
   );
   background-size: 300% 100%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 6s infinite ease-in-out;
+  animation: shimmer-sweep 8s linear infinite;
 }
 
-@keyframes shimmer {
+@keyframes shimmer-sweep {
   0% {
-    background-position: 200% 0;
+    background-position: 300% 0;
   }
   100% {
-    background-position: -200% 0;
+    background-position: -300% 0;
   }
 }
 
