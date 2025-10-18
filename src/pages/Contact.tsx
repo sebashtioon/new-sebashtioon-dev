@@ -92,15 +92,59 @@ const Contact = () => {
     <div className="min-h-screen pt-24">
       <BackgroundGrid />
 
-      {/* Header */}
-      <section className="py-16 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in lowercase">
-            <span className="text-shimmer">contact</span> me
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-delay lowercase">
-            wanna collab or do something cool? hmu
-          </p>
+      {/* Header - Dynamic Layout */}
+      <section className="py-16 px-4 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-l from-cyan-500/10 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-r from-purple-500/10 to-transparent rounded-full blur-2xl"></div>
+        
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-8 animate-fade-in">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/20 rounded-full text-sm mb-6">
+                <Mail className="w-4 h-4 text-cyan-400" />
+                <span className="text-cyan-300">// let's connect</span>
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 lowercase leading-tight">
+                <span className="text-shimmer font-tech">contact</span> me
+              </h1>
+              
+              <p className="text-xl text-muted-foreground max-w-2xl lowercase">
+                got an idea? wanna collaborate? or just say hi? shoot me a message!
+              </p>
+            </div>
+            
+            <div className="lg:col-span-4 animate-fade-in-delay">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-2xl blur-xl"></div>
+                <div className="relative card-glow p-8">
+                  <div className="text-center mb-6">
+                    <div className="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                      <div className="w-5 h-5 bg-cyan-400 rounded"></div>
+                    </div>
+                    <div className="text-lg font-semibold lowercase">quick info</div>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">response time</span>
+                      <span className="text-sm font-medium">~6-12 hours</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">timezone</span>
+                      <span className="text-sm font-medium">AEST (UTC+10)</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">current status</span>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span className="text-sm font-medium text-green-400">available</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

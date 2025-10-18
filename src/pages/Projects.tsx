@@ -82,15 +82,37 @@ const Projects = () => {
     <div className="min-h-screen pt-24">
       <BackgroundGrid />
 
-      {/* Header */}
-      <section className="py-10 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-            my <span className="text-shimmer">projects</span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-delay">
-            a collection of projects i've worked on throughout the years.
-          </p>
+      {/* Header - Diagonal Design */}
+      <section className="py-16 px-4 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-r from-purple-500/10 via-transparent to-yellow-500/10 transform -skew-y-1"></div>
+        
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-8 animate-fade-in">
+              <div className="inline-block px-4 py-2 bg-purple-500/20 rounded-full text-sm mb-4">
+                <span className="text-purple-300">// portfolio showcase</span>
+              </div>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 lowercase leading-tight">
+                my <span className="text-shimmer font-tech">projects</span>
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-2xl lowercase">
+                a collection of projects i've worked on throughout the years.
+              </p>
+            </div>
+            
+            <div className="lg:col-span-4 hidden lg:block">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-yellow-500/20 rounded-lg blur-xl"></div>
+                <div className="relative card-glow p-6 text-center">
+                  <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <div className="w-5 h-5 bg-purple-400 rounded"></div>
+                  </div>
+                  <div className="text-2xl font-bold">{projects.length}+</div>
+                  <div className="text-sm text-muted-foreground">projects created</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -112,14 +134,16 @@ const Projects = () => {
         </div>
       </section>
 
-      {/* Projects Grid */}
+      {/* Projects Grid - Masonry Style */}
       <section className="px-4 pb-16">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
+        <div className="max-w-7xl mx-auto">
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
             {filteredProjects.map((project, index) => (
               <div 
                 key={project.id} 
-                className="card-project p-6 flex flex-col justify-between h-full"
+                className={`card-project p-6 break-inside-avoid mb-8 hover:scale-105 transition-transform ${
+                  index % 3 === 0 ? 'lg:mt-8' : index % 3 === 1 ? 'lg:mt-16' : 'lg:mt-0'
+                }`}
               >
                 {/* Project Image */}
                 <div className="relative mb-6 overflow-hidden rounded-lg">
@@ -180,13 +204,7 @@ const Projects = () => {
                         </Button>
                       </a>
                     )}
-                    {project.links.play && (
-                      <a href={project.links.play} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
-                          <FaPlayCircle size={16} /> play
-                        </Button>
-                      </a>
-                    )}
+
                     {project.links.play_itch && (
                       <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
@@ -194,13 +212,7 @@ const Projects = () => {
                         </Button>
                       </a>
                     )}
-                    {project.links.play_steam && (
-                      <a href={project.links.play_steam} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
-                          <FaSteam size={16} /> get on steam
-                        </Button>
-                      </a>
-                    )}
+
                     {project.links.download && (
                       <a href={project.links.download} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
