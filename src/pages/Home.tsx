@@ -12,6 +12,7 @@ const Home = () => {
   const [openApps, setOpenApps] = useState(["code-editor", "terminal"]);
   const [focusedApp, setFocusedApp] = useState("code-editor");
   const [minimizedApps, setMinimizedApps] = useState([]);
+  const [appZOrder, setAppZOrder] = useState(["terminal", "code-editor"]); // Back to front order
   const [windowPositions, setWindowPositions] = useState({
     "code-editor": { x: 16, y: 16 },
     "terminal": { x: 150, y: 48 },
@@ -31,24 +32,39 @@ const Home = () => {
     { id: "godot", name: "Godot", icon: "godot" },
   ];
 
+  const bringToFront = (appId) => {
+    setAppZOrder(prev => {
+      const newOrder = prev.filter(id => id !== appId);
+      return [...newOrder, appId]; // Add to end (front)
+    });
+  };
+
+  const getZIndex = (appId) => {
+    const index = appZOrder.indexOf(appId);
+    return index >= 0 ? 10 + index : 10; // Base z-index of 10, increment by position
+  };
+
   const toggleApp = (appId) => {
     if (openApps.includes(appId)) {
       if (minimizedApps.includes(appId)) {
         // Restore from minimized
         setMinimizedApps(prev => prev.filter(id => id !== appId));
         setFocusedApp(appId);
+        bringToFront(appId);
       } else if (focusedApp === appId) {
         // Minimize if currently focused
         setMinimizedApps(prev => [...prev, appId]);
       } else {
         // Focus if open but not focused
         setFocusedApp(appId);
+        bringToFront(appId);
       }
     } else {
       // Open new app
       setOpenApps(prev => [...prev, appId]);
       setFocusedApp(appId);
       setMinimizedApps(prev => prev.filter(id => id !== appId));
+      bringToFront(appId);
     }
   };
 
@@ -77,6 +93,7 @@ const Home = () => {
       y: e.clientY - containerRect.top - currentPos.y
     });
     setFocusedApp(appId);
+    bringToFront(appId);
     e.preventDefault();
   };
 
@@ -96,8 +113,18 @@ const Home = () => {
       
       // Keep windows within bounds with consistent margins
       const margin = 8; // 8px margin from edges
-      const windowWidth = dragging === "code-editor" ? 288 : dragging === "terminal" ? 320 : 240; // w-72=288px, w-80=320px, w-60=240px
-      const windowHeight = dragging === "code-editor" ? 192 : dragging === "terminal" ? 208 : 176; // h-48=192px, h-52=208px, h-44=176px
+      const getWindowDimensions = (windowType) => {
+        switch (windowType) {
+          case "code-editor": return { width: 288, height: 192 }; // w-72, h-48
+          case "terminal": return { width: 320, height: 208 }; // w-80, h-52
+          case "file-explorer": return { width: 240, height: 176 }; // w-60, h-44
+          case "music-player": return { width: 288, height: 192 }; // w-72, h-48
+          case "godot": return { width: 320, height: 208 }; // w-80, h-52
+          default: return { width: 240, height: 176 };
+        }
+      };
+      
+      const { width: windowWidth, height: windowHeight } = getWindowDimensions(dragging);
       
       const clampedX = Math.max(margin, Math.min(newX, containerRect.width - windowWidth - margin));
       const clampedY = Math.max(margin, Math.min(newY, containerRect.height - windowHeight - margin - 48)); // -48 for taskbar
@@ -210,7 +237,7 @@ const Home = () => {
                   {openApps.includes("code-editor") && (
                     <div 
                       className={`absolute w-72 h-48 card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
-                        focusedApp === "code-editor" ? "z-30 ring-2 ring-blue-500/50" : "z-20"
+                        focusedApp === "code-editor" ? "ring-2 ring-blue-500/50" : ""
                       } ${
                         minimizedApps.includes("code-editor") 
                           ? "scale-0 opacity-0 transform translate-x-full translate-y-full transition-all duration-300" 
@@ -221,13 +248,17 @@ const Home = () => {
                       style={{
                         left: `${windowPositions["code-editor"].x}px`,
                         top: `${windowPositions["code-editor"].y}px`,
+                        zIndex: getZIndex("code-editor"),
                         transformOrigin: "bottom right",
                         ...(dragging === "code-editor" && {
                           transition: 'none',
                           transform: 'none'
                         })
                       }}
-                      onClick={() => setFocusedApp("code-editor")}
+                      onClick={() => {
+                        setFocusedApp("code-editor");
+                        bringToFront("code-editor");
+                      }}
                     >
                       {/* Editor Header */}
                       <div 
@@ -294,7 +325,7 @@ const Home = () => {
                   {openApps.includes("terminal") && (
                     <div 
                       className={`absolute w-80 h-52 card-glow rounded-lg border border-border/50 bg-slate-900/95 select-none ${
-                        focusedApp === "terminal" ? "z-30 ring-2 ring-green-500/50" : "z-20"
+                        focusedApp === "terminal" ? "ring-2 ring-green-500/50" : ""
                       } ${
                         minimizedApps.includes("terminal") 
                           ? "scale-0 opacity-0 transform translate-x-full translate-y-full transition-all duration-300" 
@@ -305,13 +336,17 @@ const Home = () => {
                       style={{
                         left: `${windowPositions["terminal"].x}px`,
                         top: `${windowPositions["terminal"].y}px`,
+                        zIndex: getZIndex("terminal"),
                         transformOrigin: "bottom right",
                         ...(dragging === "terminal" && {
                           transition: 'none',
                           transform: 'none'
                         })
                       }}
-                      onClick={() => setFocusedApp("terminal")}
+                      onClick={() => {
+                        setFocusedApp("terminal");
+                        bringToFront("terminal");
+                      }}
                     >
                       {/* Terminal Header */}
                       <div 
@@ -376,7 +411,7 @@ const Home = () => {
                   {openApps.includes("file-explorer") && (
                     <div 
                       className={`absolute w-60 h-44 card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
-                        focusedApp === "file-explorer" ? "z-30 ring-2 ring-yellow-500/50" : "z-20"
+                        focusedApp === "file-explorer" ? "ring-2 ring-yellow-500/50" : ""
                       } ${
                         minimizedApps.includes("file-explorer") 
                           ? "scale-0 opacity-0 transform translate-x-full translate-y-full transition-all duration-300" 
@@ -387,13 +422,17 @@ const Home = () => {
                       style={{
                         left: `${windowPositions["file-explorer"].x}px`,
                         top: `${windowPositions["file-explorer"].y}px`,
+                        zIndex: getZIndex("file-explorer"),
                         transformOrigin: "bottom right",
                         ...(dragging === "file-explorer" && {
                           transition: 'none',
                           transform: 'none'
                         })
                       }}
-                      onClick={() => setFocusedApp("file-explorer")}
+                      onClick={() => {
+                        setFocusedApp("file-explorer");
+                        bringToFront("file-explorer");
+                      }}
                     >
                       {/* File Explorer Header */}
                       <div 
@@ -450,7 +489,7 @@ const Home = () => {
                   {openApps.includes("music-player") && (
                     <div 
                       className={`absolute w-72 h-48 card-glow rounded-lg border border-border/50 bg-gradient-to-br from-green-900/20 to-black/95 select-none ${
-                        focusedApp === "music-player" ? "z-30 ring-2 ring-green-500/50" : "z-20"
+                        focusedApp === "music-player" ? "ring-2 ring-green-500/50" : ""
                       } ${
                         minimizedApps.includes("music-player") 
                           ? "scale-0 opacity-0 transform translate-x-full translate-y-full transition-all duration-300" 
@@ -461,13 +500,17 @@ const Home = () => {
                       style={{
                         left: `${windowPositions["music-player"]?.x || 100}px`,
                         top: `${windowPositions["music-player"]?.y || 100}px`,
+                        zIndex: getZIndex("music-player"),
                         transformOrigin: "bottom right",
                         ...(dragging === "music-player" && {
                           transition: 'none',
                           transform: 'none'
                         })
                       }}
-                      onClick={() => setFocusedApp("music-player")}
+                      onClick={() => {
+                        setFocusedApp("music-player");
+                        bringToFront("music-player");
+                      }}
                     >
                       {/* Spotify Header */}
                       <div 
@@ -538,7 +581,7 @@ const Home = () => {
                   {openApps.includes("godot") && (
                     <div 
                       className={`absolute w-80 h-52 card-glow rounded-lg border border-border/50 bg-gradient-to-br from-blue-900/20 to-slate-900/95 select-none ${
-                        focusedApp === "godot" ? "z-30 ring-2 ring-blue-500/50" : "z-20"
+                        focusedApp === "godot" ? "ring-2 ring-blue-500/50" : ""
                       } ${
                         minimizedApps.includes("godot") 
                           ? "scale-0 opacity-0 transform translate-x-full translate-y-full transition-all duration-300" 
@@ -549,13 +592,17 @@ const Home = () => {
                       style={{
                         left: `${windowPositions["godot"]?.x || 80}px`,
                         top: `${windowPositions["godot"]?.y || 80}px`,
+                        zIndex: getZIndex("godot"),
                         transformOrigin: "bottom right",
                         ...(dragging === "godot" && {
                           transition: 'none',
                           transform: 'none'
                         })
                       }}
-                      onClick={() => setFocusedApp("godot")}
+                      onClick={() => {
+                        setFocusedApp("godot");
+                        bringToFront("godot");
+                      }}
                     >
                       {/* Godot Header */}
                       <div 
