@@ -119,7 +119,7 @@ const Home = () => {
           case "terminal": return { width: 320, height: 288 }; // w-80, h-72
           case "file-explorer": return { width: 240, height: 176 }; // w-60, h-44
           case "music-player": return { width: 288, height: 192 }; // w-72, h-48
-          case "godot": return { width: 320, height: 208 }; // w-80, h-52
+          case "godot": return { width: 480, height: 380 }; // w-[480px], h-[380px]
           default: return { width: 240, height: 176 };
         }
       };
@@ -588,7 +588,7 @@ const Home = () => {
                   {/* Godot Window */}
                   {openApps.includes("godot") && (
                     <div 
-                      className={`absolute w-80 h-52 card-glow rounded-lg border border-border/50 bg-gradient-to-br from-blue-900/20 to-slate-900/95 select-none ${
+                      className={`absolute w-[480px] h-[380px] card-glow rounded-lg border border-border/50 bg-gradient-to-br from-blue-900/20 to-slate-900/95 select-none ${
                         focusedApp === "godot" ? "ring-2 ring-blue-500/50" : ""
                       } ${
                         minimizedApps.includes("godot") 
@@ -641,33 +641,54 @@ const Home = () => {
                       
                       {/* Godot Content */}
                       <div className="p-4 text-white pointer-events-none">
-                        <div className="flex items-center gap-3 mb-4">
-                          <SiGodotengine size={24} className="text-blue-400" />
-                          <div>
-                            <div className="text-sm font-semibold">Expland</div>
-                            <div className="text-xs text-gray-400">3D Adventure Game • In Development</div>
+                        {/* Project Header */}
+                        <div className="flex items-center justify-between mb-4 pb-3 border-b border-blue-500/20">
+                          <div className="flex items-center gap-3">
+                            <SiGodotengine size={20} className="text-blue-400" />
+                            <div>
+                              <div className="text-sm font-bold text-blue-300">Expland</div>
+                              <div className="text-xs text-gray-400">Godot 4.5</div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="space-y-2 text-xs">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1">
                             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                            <span className="text-gray-300">Scene: World.tscn</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                            <span className="text-gray-300">Script: PlayerController.gd</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                            <span className="text-gray-300">Model: character_mesh.glb</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                            <span className="text-gray-300">Shader: dreamscape.gdshader</span>
+                            <span className="text-xs text-green-400">Running</span>
                           </div>
                         </div>
-                        <div className="mt-4 text-xs text-gray-400">
-                          Building • 142 nodes • 28 scripts • 15 3D models
+
+                        {/* Scene Tree */}
+                        <div className="mb-4">
+                          <div className="text-xs font-semibold text-blue-300 mb-2">Scene Dock</div>
+                          <div className="space-y-1 text-xs bg-slate-800/30 rounded p-2">
+                            <div className="flex items-center gap-2">
+                              <img src="/projects/Node3D.svg" alt="Node3D" className="w-3 h-3" />
+                              <span className="text-white font-medium">World</span>
+                            </div>
+                            <div className="flex items-center gap-2 ml-4">
+                              <img src="/projects/CharacterBody3D.svg" alt="CharacterBody3D" className="w-3 h-3" />
+                              <span className="text-gray-300">Player</span>
+                            </div>
+                            <div className="flex items-center gap-2 ml-4">
+                              <img src="/projects/WorldEnvironment.svg" alt="WorldEnvironment" className="w-3 h-3" />
+                              <span className="text-gray-300">Environment</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Output/Console */}
+                        <div className="mb-3">
+                          <div className="text-xs font-semibold text-blue-300 mb-2">Output</div>
+                          <div className="bg-black/40 rounded p-2 text-xs font-mono space-y-0.5">
+                            <div className="text-green-400">--- Debugging process started ---</div>
+                            <div className="text-gray-300">Godot Engine v4.5.stable</div>
+                            <div className="text-gray-300">Vulkan 1.4.312 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce GTX 1650</div>
+                          </div>
+                        </div>
+
+                        {/* Status Bar */}
+                        <div className="text-xs text-gray-400 flex justify-between items-center">
+                          <span>theisland.tscn</span>
+                          <span>FPS: 120 | Nodes: 142</span>
                         </div>
                       </div>
                     </div>
