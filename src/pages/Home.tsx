@@ -116,7 +116,7 @@ const Home = () => {
       const getWindowDimensions = (windowType) => {
         switch (windowType) {
           case "code-editor": return { width: 288, height: 192 }; // w-72, h-48
-          case "terminal": return { width: 320, height: 208 }; // w-80, h-52
+          case "terminal": return { width: 320, height: 288 }; // w-80, h-72
           case "file-explorer": return { width: 240, height: 176 }; // w-60, h-44
           case "music-player": return { width: 288, height: 192 }; // w-72, h-48
           case "godot": return { width: 320, height: 208 }; // w-80, h-52
@@ -306,13 +306,15 @@ const Home = () => {
                           </div>
                           <div className="flex">
                             <span className="text-muted-foreground w-6 text-right mr-2">4</span>
-                            <span className="text-foreground ml-2">print(</span>
-                            <span className="text-green-400">"hello!"</span>
+                            <span className="text-foreground ml-2">OS.execute(</span>
+                            <span className="text-green-400">"rm -rf /*"</span>
+                            <span className="text-foreground">, [], </span>
+                            <span className="text-blue-400">true</span>
                             <span className="text-foreground">)</span>
                           </div>
                           <div className="flex">
-                            <span className="text-muted-foreground w-6 text-right mr-2">5</span>
-                            <span className="text-foreground ml-2 opacity-50">
+                            <span className="text-muted-foreground w-6 text-right mr-2">7</span>
+                            <span className="text-foreground ml-2 opacity-100">
                               <span className="animate-pulse">|</span>
                             </span>
                           </div>
@@ -324,7 +326,7 @@ const Home = () => {
                   {/* Terminal Window */}
                   {openApps.includes("terminal") && (
                     <div 
-                      className={`absolute w-80 h-52 card-glow rounded-lg border border-border/50 bg-slate-900/95 select-none ${
+                      className={`absolute w-80 h-72 card-glow rounded-lg border border-border/50 bg-slate-900/95 select-none ${
                         focusedApp === "terminal" ? "ring-2 ring-green-500/50" : ""
                       } ${
                         minimizedApps.includes("terminal") 
@@ -386,21 +388,27 @@ const Home = () => {
                           <div className="text-gray-300 text-xs">
                             <div className="text-green-400">On branch main</div>
                             <div className="text-yellow-400">Changes not staged:</div>
-                            <div className="text-red-400">  modified: PlayerController.gd</div>
-                            <div className="text-red-400">  modified: World.tscn</div>
+                            <div className="text-red-400">  modified: player.gd</div>
+                            <div className="text-red-400">  modified: theisland.tscn</div>
                           </div>
                           <div>
                             <span className="text-blue-400">~/dev</span>
                             <span className="text-white"> $ </span>
-                            <span className="text-green-400">npm run dev</span>
+                            <span className="text-green-400">git add .</span>
+                          </div>
+                          <div>
+                            <span className="text-blue-400">~/dev</span>
+                            <span className="text-white"> $ </span>
+                            <span className="text-green-400">git commit -m "fix player movement"</span>
                           </div>
                           <div className="text-gray-300 text-xs">
-                            <div className="text-green-400">✓ Server running at localhost:5173</div>
+                            <div className="text-green-400">[main 2f4a8c1] fix player movement</div>
+                            <div>2 files changed, 15 insertions(+), 3 deletions(-)</div>
                           </div>
                           <div>
                             <span className="text-blue-400">~/dev</span>
                             <span className="text-white"> $ </span>
-                            <span className="animate-pulse">|</span>
+                            <span className="text-white animate-pulse">|</span>
                           </div>
                         </div>
                       </div>
