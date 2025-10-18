@@ -28,6 +28,7 @@ const Home = () => {
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
   const [selectedNote, setSelectedNote] = useState(null);
   const [notesView, setNotesView] = useState("menu"); // "menu" or "note"
+  const [maximizedApps, setMaximizedApps] = useState([]);
 
   // Update time every second
   useEffect(() => {
@@ -139,9 +140,22 @@ const Home = () => {
   const closeApp = (appId) => {
     setOpenApps(prev => prev.filter(id => id !== appId));
     setMinimizedApps(prev => prev.filter(id => id !== appId));
+    setMaximizedApps(prev => prev.filter(id => id !== appId));
     if (focusedApp === appId) {
       const remainingApps = openApps.filter(id => id !== appId && !minimizedApps.includes(id));
       setFocusedApp(remainingApps[remainingApps.length - 1] || null);
+    }
+  };
+
+  const toggleMaximize = (appId) => {
+    setMaximizedApps(prev => 
+      prev.includes(appId) 
+        ? prev.filter(id => id !== appId)
+        : [...prev, appId]
+    );
+    // Bring to front when maximizing
+    if (!maximizedApps.includes(appId)) {
+      bringToFront(appId);
     }
   };
 
@@ -345,7 +359,7 @@ const Home = () => {
                   {/* Code Editor Window */}
                   {openApps.includes("code-editor") && (
                     <div 
-                      className={`absolute w-72 h-48 card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
+                      className={`absolute card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
                         focusedApp === "code-editor" ? "ring-2 ring-blue-500/50" : ""
                       } ${
                         minimizedApps.includes("code-editor") 
@@ -353,10 +367,14 @@ const Home = () => {
                           : "scale-100 opacity-100"
                       } ${
                         dragging === "code-editor" ? "" : "transition-all duration-300"
+                      } ${
+                        maximizedApps.includes("code-editor") ? "inset-2" : "w-72 h-48"
                       }`}
                       style={{
-                        left: `${windowPositions["code-editor"].x}px`,
-                        top: `${windowPositions["code-editor"].y}px`,
+                        ...(maximizedApps.includes("code-editor") ? {} : {
+                          left: `${windowPositions["code-editor"].x}px`,
+                          top: `${windowPositions["code-editor"].y}px`,
+                        }),
                         zIndex: getZIndex("code-editor"),
                         transformOrigin: "bottom right",
                         ...(dragging === "code-editor" && {
@@ -388,9 +406,12 @@ const Home = () => {
                             >
                               <span className="text-yellow-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">−</span>
                             </button>
-                            <div className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); toggleMaximize("code-editor"); }}
+                              className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center"
+                            >
                               <span className="text-green-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">+</span>
-                            </div>
+                            </button>
                           </div>
                           <span className="text-xs text-muted-foreground font-mono ml-1 pointer-events-none">main.gd</span>
                         </div>
@@ -435,7 +456,7 @@ const Home = () => {
                   {/* Terminal Window */}
                   {openApps.includes("terminal") && (
                     <div 
-                      className={`absolute w-80 h-72 card-glow rounded-lg border border-border/50 bg-slate-900/95 select-none ${
+                      className={`absolute card-glow rounded-lg border border-border/50 bg-slate-900/95 select-none ${
                         focusedApp === "terminal" ? "ring-2 ring-green-500/50" : ""
                       } ${
                         minimizedApps.includes("terminal") 
@@ -443,10 +464,14 @@ const Home = () => {
                           : "scale-100 opacity-100"
                       } ${
                         dragging === "terminal" ? "" : "transition-all duration-300"
+                      } ${
+                        maximizedApps.includes("terminal") ? "inset-2" : "w-80 h-72"
                       }`}
                       style={{
-                        left: `${windowPositions["terminal"].x}px`,
-                        top: `${windowPositions["terminal"].y}px`,
+                        ...(maximizedApps.includes("terminal") ? {} : {
+                          left: `${windowPositions["terminal"].x}px`,
+                          top: `${windowPositions["terminal"].y}px`,
+                        }),
                         zIndex: getZIndex("terminal"),
                         transformOrigin: "bottom right",
                         ...(dragging === "terminal" && {
@@ -478,9 +503,12 @@ const Home = () => {
                             >
                               <span className="text-yellow-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">−</span>
                             </button>
-                            <div className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); toggleMaximize("terminal"); }}
+                              className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center"
+                            >
                               <span className="text-green-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">+</span>
-                            </div>
+                            </button>
                           </div>
                           <span className="text-xs text-green-400 font-mono ml-1 pointer-events-none">bash</span>
                         </div>
@@ -527,7 +555,7 @@ const Home = () => {
                   {/* File Explorer Window */}
                   {openApps.includes("file-explorer") && (
                     <div 
-                      className={`absolute w-60 h-44 card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
+                      className={`absolute card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
                         focusedApp === "file-explorer" ? "ring-2 ring-yellow-500/50" : ""
                       } ${
                         minimizedApps.includes("file-explorer") 
@@ -535,10 +563,14 @@ const Home = () => {
                           : "scale-100 opacity-100"
                       } ${
                         dragging === "file-explorer" ? "" : "transition-all duration-300"
+                      } ${
+                        maximizedApps.includes("file-explorer") ? "inset-2" : "w-60 h-44"
                       }`}
                       style={{
-                        left: `${windowPositions["file-explorer"].x}px`,
-                        top: `${windowPositions["file-explorer"].y}px`,
+                        ...(maximizedApps.includes("file-explorer") ? {} : {
+                          left: `${windowPositions["file-explorer"].x}px`,
+                          top: `${windowPositions["file-explorer"].y}px`,
+                        }),
                         zIndex: getZIndex("file-explorer"),
                         transformOrigin: "bottom right",
                         ...(dragging === "file-explorer" && {
@@ -570,9 +602,12 @@ const Home = () => {
                             >
                               <span className="text-yellow-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">−</span>
                             </button>
-                            <div className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); toggleMaximize("file-explorer"); }}
+                              className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center"
+                            >
                               <span className="text-green-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">+</span>
-                            </div>
+                            </button>
                           </div>
                           <span className="text-xs text-muted-foreground font-mono ml-1 pointer-events-none">~/projects</span>
                         </div>
@@ -605,7 +640,7 @@ const Home = () => {
                   {/* Spotify Window */}
                   {openApps.includes("music-player") && (
                     <div 
-                      className={`absolute w-72 h-48 card-glow rounded-lg border border-border/50 bg-gradient-to-br from-green-900/20 to-black/95 select-none ${
+                      className={`absolute card-glow rounded-lg border border-border/50 bg-gradient-to-br from-green-900/20 to-black/95 select-none ${
                         focusedApp === "music-player" ? "ring-2 ring-green-500/50" : ""
                       } ${
                         minimizedApps.includes("music-player") 
@@ -613,10 +648,14 @@ const Home = () => {
                           : "scale-100 opacity-100"
                       } ${
                         dragging === "music-player" ? "" : "transition-all duration-300"
+                      } ${
+                        maximizedApps.includes("music-player") ? "inset-2" : "w-72 h-48"
                       }`}
                       style={{
-                        left: `${windowPositions["music-player"]?.x || 100}px`,
-                        top: `${windowPositions["music-player"]?.y || 100}px`,
+                        ...(maximizedApps.includes("music-player") ? {} : {
+                          left: `${windowPositions["music-player"]?.x || 100}px`,
+                          top: `${windowPositions["music-player"]?.y || 100}px`,
+                        }),
                         zIndex: getZIndex("music-player"),
                         transformOrigin: "bottom right",
                         ...(dragging === "music-player" && {
@@ -648,9 +687,12 @@ const Home = () => {
                             >
                               <span className="text-yellow-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">−</span>
                             </button>
-                            <div className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); toggleMaximize("music-player"); }}
+                              className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center"
+                            >
                               <span className="text-green-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">+</span>
-                            </div>
+                            </button>
                           </div>
                           <span className="text-xs text-green-400 font-mono ml-1 pointer-events-none">Spotify</span>
                         </div>
@@ -697,7 +739,7 @@ const Home = () => {
                   {/* Godot Window */}
                   {openApps.includes("godot") && (
                     <div 
-                      className={`absolute w-[480px] h-[380px] card-glow rounded-lg border border-border/50 bg-gradient-to-br from-blue-900/20 to-slate-900/95 select-none ${
+                      className={`absolute card-glow rounded-lg border border-border/50 bg-gradient-to-br from-blue-900/20 to-slate-900/95 select-none ${
                         focusedApp === "godot" ? "ring-2 ring-blue-500/50" : ""
                       } ${
                         minimizedApps.includes("godot") 
@@ -705,10 +747,14 @@ const Home = () => {
                           : "scale-100 opacity-100"
                       } ${
                         dragging === "godot" ? "" : "transition-all duration-300"
+                      } ${
+                        maximizedApps.includes("godot") ? "inset-2" : "w-[480px] h-[380px]"
                       }`}
                       style={{
-                        left: `${windowPositions["godot"]?.x || 80}px`,
-                        top: `${windowPositions["godot"]?.y || 80}px`,
+                        ...(maximizedApps.includes("godot") ? {} : {
+                          left: `${windowPositions["godot"]?.x || 80}px`,
+                          top: `${windowPositions["godot"]?.y || 80}px`,
+                        }),
                         zIndex: getZIndex("godot"),
                         transformOrigin: "bottom right",
                         ...(dragging === "godot" && {
@@ -740,9 +786,12 @@ const Home = () => {
                             >
                               <span className="text-yellow-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">−</span>
                             </button>
-                            <div className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); toggleMaximize("godot"); }}
+                              className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center"
+                            >
                               <span className="text-green-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">+</span>
-                            </div>
+                            </button>
                           </div>
                           <span className="text-xs text-blue-400 font-mono ml-1 pointer-events-none">Godot Engine</span>
                         </div>
@@ -806,7 +855,7 @@ const Home = () => {
                   {/* Obsidian Window */}
                   {openApps.includes("obsidian") && (
                     <div 
-                      className={`absolute w-80 h-96 card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
+                      className={`absolute card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
                         focusedApp === "obsidian" ? "ring-2 ring-blue-500/50" : ""
                       } ${
                         minimizedApps.includes("obsidian") 
@@ -814,10 +863,14 @@ const Home = () => {
                           : "scale-100 opacity-100"
                       } ${
                         dragging === "obsidian" ? "" : "transition-all duration-300"
+                      } ${
+                        maximizedApps.includes("obsidian") ? "inset-2" : "w-80 h-96"
                       }`}
                       style={{
-                        left: `${windowPositions["obsidian"].x}px`,
-                        top: `${windowPositions["obsidian"].y}px`,
+                        ...(maximizedApps.includes("obsidian") ? {} : {
+                          left: `${windowPositions["obsidian"].x}px`,
+                          top: `${windowPositions["obsidian"].y}px`,
+                        }),
                         zIndex: getZIndex("obsidian"),
                         transformOrigin: "bottom right",
                         ...(dragging === "obsidian" && {
@@ -849,7 +902,9 @@ const Home = () => {
                             >
                               <span className="text-yellow-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">–</span>
                             </button>
-                            <button className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center">
+                            <button className="group w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-all duration-200 flex items-center justify-center"
+                              onClick={(e) => { e.stopPropagation(); toggleMaximize("obsidian"); }}
+                            >
                               <span className="text-green-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">+</span>
                             </button>
                           </div>
