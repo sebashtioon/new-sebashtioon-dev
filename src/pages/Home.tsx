@@ -1,6 +1,6 @@
-import { SiGithub, SiDiscord, SiYoutube, SiGodotengine, SiBlender, SiSpotify } from "react-icons/si";
+import { SiGithub, SiDiscord, SiYoutube, SiGodotengine, SiBlender, SiSpotify, SiObsidian } from "react-icons/si";
 import { MdEmail } from "react-icons/md";
-import { Terminal, Code, Folder, Music, StickyNote } from "lucide-react";
+import { Terminal, Code, Folder, Music, StickyNote, ArrowLeft, Clock, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";  
 import BackgroundGrid from "@/components/BackgroundGrid";
@@ -18,14 +18,16 @@ const Home = () => {
     "code-editor": { x: 16, y: 16 },
     "terminal": { x: 150, y: 48 },
     "file-explorer": { x: 48, y: 32 },
+    "obsidian": { x: 250, y: 150 },
     "music-player": { x: 200, y: 100 },
-    "godot": { x: 80, y: 120 },
-    "notes": { x: 250, y: 150 }
+    "godot": { x: 80, y: 120 }
   });
   const [dragging, setDragging] = useState(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+  const [selectedNote, setSelectedNote] = useState(null);
+  const [notesView, setNotesView] = useState("menu"); // "menu" or "note"
 
   // Update time every second
   useEffect(() => {
@@ -36,13 +38,66 @@ const Home = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Notes data
+  const notesData = [
+    {
+      id: "genesis-710",
+      title: "Genesis 710",
+      date: "Oct 18, 2025",
+      preview: "In the shadowed prelude to an era of defiance...",
+      content: [
+        "In the shadowed prelude to an era of defiance...",
+        "before the rise of heroes, and the clash of titans.", 
+        "There was a genesis... not of life...",
+        "but of an entity designed to redefine human existence.",
+        "This is the story... of The Machine."
+      ],
+      attribution: "RIOT, \"The Machine\" Album"
+    },
+    {
+      id: "expland-notes",
+      title: "Expland Notes",
+      date: "Oct 18, 2025",
+      preview: "grow property on ippegwisk mesh to make it explode...",
+      content: [
+        "• grow property on ippegwisk mesh to make it explode",
+        "• use blend shapes for new tree wind animations"
+      ],
+      attribution: null
+    },
+    {
+      id: "island-chunk-system",
+      title: "Island Chunk System",
+      date: "Oct 18, 2025",
+      preview: "We need to create a chunk system for the Island in Expland...",
+      content: [
+        "#### Task at Hand and Thoughts",
+        "",
+        "We need to create a chunk system for the Island in Expland. This will function similarly to Minecraft's chunk system in terms on chunk sizing (infinite `y` extends with set `x` and `z` values; these are typically powers of 2. So either 16 or 32. It will be square so `x` = `z`).",
+        "",
+        "This will be harder because The Island in Expland is not procedurally generated. It is one mesh/model with all the assets (trees, rocks, grass, player, etc.) as children of the root node in the scene.",
+        "",
+        "Somehow we need to put all of the assets in a chunk that can be loaded and unloaded from memory when they are far enough from the player to optimize the game and keep RAM usage to the minimum, otherwise Expland will be unplayable and laggy for most mid-range hardware.",
+        "",
+        "These assets are instantiated scenes with there own components and scripts (for example, a tree has an interactable component for tree shaking functionality, and animations). So we cannot just simply do something like visibility fading or similar.",
+        "",
+        "#### Potential Issues",
+        "",
+        "• Godot has strict SceneTree rules. You can't instantiate or add nodes in a Thread, Mutex or Semaphore. ALL changes to the SceneTree MUST be done in the main thread.",
+        "",
+        "• If the player views The Island from the top of the mountain, they will see nothing but empty space when the chunks are unloaded."
+      ],
+      attribution: null
+    }
+  ];
+
   const apps = [
     { id: "code-editor", name: "Code Editor", icon: "code" },
     { id: "terminal", name: "Terminal", icon: "terminal" },
     { id: "file-explorer", name: "Files", icon: "folder" },
+    { id: "obsidian", name: "Obsidian", icon: "obsidian" },
     { id: "music-player", name: "Spotify", icon: "spotify" },
     { id: "godot", name: "Godot", icon: "godot" },
-    { id: "notes", name: "Notes", icon: "notes" },
   ];
 
   const bringToFront = (appId) => {
@@ -748,48 +803,48 @@ const Home = () => {
                     </div>
                   )}
 
-                  {/* Notes Window */}
-                  {openApps.includes("notes") && (
+                  {/* Obsidian Window */}
+                  {openApps.includes("obsidian") && (
                     <div 
-                      className={`absolute w-80 h-64 card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
-                        focusedApp === "notes" ? "ring-2 ring-blue-500/50" : ""
+                      className={`absolute w-80 h-96 card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
+                        focusedApp === "obsidian" ? "ring-2 ring-blue-500/50" : ""
                       } ${
-                        minimizedApps.includes("notes") 
+                        minimizedApps.includes("obsidian") 
                           ? "scale-0 opacity-0 transform translate-x-full translate-y-full transition-all duration-300" 
                           : "scale-100 opacity-100"
                       } ${
-                        dragging === "notes" ? "" : "transition-all duration-300"
+                        dragging === "obsidian" ? "" : "transition-all duration-300"
                       }`}
                       style={{
-                        left: `${windowPositions["notes"].x}px`,
-                        top: `${windowPositions["notes"].y}px`,
-                        zIndex: getZIndex("notes"),
+                        left: `${windowPositions["obsidian"].x}px`,
+                        top: `${windowPositions["obsidian"].y}px`,
+                        zIndex: getZIndex("obsidian"),
                         transformOrigin: "bottom right",
-                        ...(dragging === "notes" && {
+                        ...(dragging === "obsidian" && {
                           transition: 'none',
                           transform: 'none'
                         })
                       }}
                       onClick={() => {
-                        setFocusedApp("notes");
-                        bringToFront("notes");
+                        setFocusedApp("obsidian");
+                        bringToFront("obsidian");
                       }}
                     >
-                      {/* Notes Header */}
+                      {/* Obsidian Header */}
                       <div 
                         className="flex items-center justify-between px-3 py-2 bg-background/50 border-b border-border/50 cursor-grab active:cursor-grabbing"
-                        onMouseDown={(e) => handleTitleBarMouseDown(e, "notes")}
+                        onMouseDown={(e) => handleTitleBarMouseDown(e, "obsidian")}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex gap-1 window-controls">
                             <button 
-                              onClick={(e) => { e.stopPropagation(); closeApp("notes"); }}
+                              onClick={(e) => { e.stopPropagation(); closeApp("obsidian"); }}
                               className="group w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 transition-all duration-200 flex items-center justify-center"
                             >
                               <span className="text-red-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">×</span>
                             </button>
                             <button 
-                              onClick={(e) => { e.stopPropagation(); setMinimizedApps(prev => [...prev, "notes"]); }}
+                              onClick={(e) => { e.stopPropagation(); setMinimizedApps(prev => [...prev, "obsidian"]); }}
                               className="group w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 transition-all duration-200 flex items-center justify-center"
                             >
                               <span className="text-yellow-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">–</span>
@@ -798,25 +853,108 @@ const Home = () => {
                               <span className="text-green-900 text-xs opacity-0 group-hover:opacity-100 transition-opacity">+</span>
                             </button>
                           </div>
-                          <StickyNote size={14} className="text-blue-400" />
-                          <span className="text-xs text-blue-400 font-mono ml-1 pointer-events-none">Notes</span>
+                          <SiObsidian size={14} className="text-purple-400" />
+                          <span className="text-xs text-purple-400 font-mono ml-1 pointer-events-none">Obsidian</span>
                         </div>
                       </div>
 
                       {/* Notes Content */}
-                      <div className="p-4 overflow-hidden" style={{ height: 'calc(100% - 40px)' }}>
-                        <div className="h-full overflow-y-auto pr-2 custom-scrollbar">
-                          {/* Note */}
-                          <div className="bg-gray-800/50 rounded-lg p-3 border border-gray-700/50">
-                            <div className="text-xs text-gray-300 leading-relaxed font-mono">
-                              <p className="mb-2">In the shadowed prelude to an era of defiance...</p>
-                              <p className="mb-2">before the rise of heroes, and the clash of titans.</p>
-                              <p className="mb-2">There was a genesis... not of life...</p>
-                              <p className="mb-2">but of an entity designed to redefine human existence.</p>
-                              <p className="mb-2">This is the story... of The Machine.</p>
+                      <div className="overflow-hidden" style={{ height: 'calc(100% - 40px)' }}>
+                        {notesView === "menu" ? (
+                          /* Notes Menu */
+                          <div className="h-full flex flex-col p-4">
+                            <div className="mb-3 flex-shrink-0">
+                              <h3 className="text-sm font-medium text-gray-200 mb-1">Notes</h3>
+                              <p className="text-xs text-gray-500">{notesData.length} notes</p>
+                            </div>
+                            
+                            <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                              <div className="space-y-2 pb-4">
+                                {notesData.map((note) => (
+                                  <div
+                                    key={note.id}
+                                    onClick={() => {
+                                      setSelectedNote(note);
+                                      setNotesView("note");
+                                    }}
+                                    className="bg-gray-800/50 rounded-lg p-3 border border-gray-700/50 hover:bg-gray-800/70 hover:border-gray-600/50 cursor-pointer transition-all duration-200 group"
+                                  >
+                                    <div className="flex items-start justify-between mb-2">
+                                      <div className="flex-1">
+                                        <div className="text-sm font-medium text-gray-200 group-hover:text-white transition-colors">
+                                          {note.title}
+                                        </div>
+                                        <div className="flex items-center gap-1 mt-1">
+                                          <Clock size={10} className="text-gray-500" />
+                                          <span className="text-xs text-gray-500">{note.date}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="text-xs text-gray-400 line-clamp-2 leading-relaxed">
+                                      {note.preview}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        ) : (
+                          /* Individual Note View */
+                          <div className="h-full flex flex-col">
+                            {/* Note Header */}
+                            <div className="p-4 border-b border-gray-700/50 bg-gray-800/30">
+                              <div className="flex items-center gap-3 mb-2">
+                                <button
+                                  onClick={() => {
+                                    setNotesView("menu");
+                                    setSelectedNote(null);
+                                  }}
+                                  className="p-1 hover:bg-gray-700/50 rounded transition-colors"
+                                >
+                                  <ArrowLeft size={14} className="text-gray-400 hover:text-gray-200" />
+                                </button>
+                                <div className="flex-1">
+                                  <div className="text-sm font-medium text-gray-200">{selectedNote?.title}</div>
+                                  <div className="flex items-center gap-1 mt-1">
+                                    <Clock size={10} className="text-gray-500" />
+                                    <span className="text-xs text-gray-500">{selectedNote?.date}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            {/* Note Content */}
+                            <div className="flex-1 p-4 overflow-y-auto custom-scrollbar">
+                              <div className="text-xs text-gray-300 leading-relaxed font-mono space-y-2">
+                                {selectedNote?.content.map((line, index) => {
+                                  if (line.startsWith('#### ')) {
+                                    return (
+                                      <h4 key={index} className="text-sm font-bold text-white mt-4 mb-2 border-b border-gray-600/50 pb-1">
+                                        {line.replace('#### ', '')}
+                                      </h4>
+                                    );
+                                  } else if (line === '') {
+                                    return <div key={index} className="h-2"></div>;
+                                  } else if (line.startsWith('• ')) {
+                                    return (
+                                      <div key={index} className="flex items-start gap-2 ml-2">
+                                        <span className="text-blue-400 leading-none">•</span>
+                                        <span>{line.replace('• ', '')}</span>
+                                      </div>
+                                    );
+                                  } else {
+                                    return <p key={index} className="mb-2">{line}</p>;
+                                  }
+                                })}
+                                {selectedNote?.attribution && (
+                                  <div className="text-xs text-gray-500 mt-4 italic border-t border-gray-700/50 pt-3">
+                                    - {selectedNote.attribution}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                       
 
@@ -854,9 +992,9 @@ const Home = () => {
                             {app.icon === "code" && <Code size={16} />}
                             {app.icon === "terminal" && <Terminal size={16} />}
                             {app.icon === "folder" && <Folder size={16} />}
+                            {app.icon === "obsidian" && <SiObsidian size={16} />}
                             {app.icon === "spotify" && <SiSpotify size={16} />}
                             {app.icon === "godot" && <SiGodotengine size={16} />}
-                            {app.icon === "notes" && <StickyNote size={16} />}
                           </div>
                           
                           {/* Active indicator */}
