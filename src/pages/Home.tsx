@@ -1129,46 +1129,61 @@ const Home = () => {
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-l from-purple-500/5 to-transparent rounded-full blur-3xl"></div>
         
         <div className="max-w-7xl mx-auto">
-          <div className="mb-16">
+          <div className="mb-20 text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 lowercase">
-              what i'm <span className="text-shimmer">building</span>
+              what i'm building
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-yellow-400 rounded-full"></div>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left side - staggered cards */}
             <div className="space-y-8">
-              <div className="card-glow p-8 ml-0 lg:ml-8 animate-fade-in lowercase">
-                <div className="flex items-center gap-3 mb-4">
-                  <SiGodotengine className="text-blue-400" size={24} />
-                  <h3 className="text-xl font-semibold">game development</h3>
-                </div>
-                <p className="text-muted-foreground">
-                  making 2d & 3d games, designing mechanics, and building cool stuff in godot
-                </p>
-              </div>
-
-              <div className="card-glow ml-4 lg:ml-12 animate-fade-in lowercase overflow-visible" style={{ padding: '2rem 4rem 2rem 3rem' }}>
-                <div className="flex items-center gap-4 mb-4 overflow-visible">
-                  <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-                    <SiBlender className="text-orange-400" size={28} />
+              <div className="card-glow p-8 ml-0 lg:ml-8 animate-fade-in lowercase relative group hover:scale-[1.02] transition-all duration-300">
+                <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors duration-300">
+                      <SiGodotengine className="text-blue-400 group-hover:scale-110 transition-transform duration-300" size={24} />
+                    </div>
+                    <h3 className="text-xl font-semibold">game development</h3>
                   </div>
-                  <h3 className="text-xl font-semibold">3d art & animation</h3>
+                  <p className="text-muted-foreground">
+                    making 2d & 3d games, designing mechanics, and building cool stuff in godot
+                  </p>
                 </div>
-                <p className="text-muted-foreground">
-                  modeling & animating low-poly 3d assets, worlds, and characters in blender
-                </p>
               </div>
 
-              <div className="card-glow p-8 ml-0 lg:ml-4 animate-fade-in lowercase">
-                <div className="flex items-center gap-3 mb-4">
-                  <Terminal className="text-green-400" size={24} />
-                  <h3 className="text-xl font-semibold">programming</h3>
+              <div className="card-glow ml-4 lg:ml-12 animate-fade-in lowercase overflow-visible relative group hover:scale-[1.02] transition-all duration-300" style={{ padding: '2rem 4rem 2rem 3rem' }}>
+                <div className="absolute inset-0 bg-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-4 overflow-visible">
+                    <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center p-2 rounded-lg bg-orange-500/10 group-hover:bg-orange-500/20 transition-colors duration-300">
+                      <SiBlender className="text-orange-400 group-hover:scale-110 transition-transform duration-300" size={28} />
+                    </div>
+                    <h3 className="text-xl font-semibold">3d art & animation</h3>
+                  </div>
+                  <p className="text-muted-foreground">
+                    modeling & animating low-poly 3d assets, worlds, and characters in blender
+                  </p>
                 </div>
-                <p className="text-muted-foreground">
-                  writing scripts & building systems in gdscript, c++, and python for games & tools
-                </p>
+              </div>
+
+              <div className="card-glow p-8 ml-0 lg:ml-4 animate-fade-in lowercase relative group hover:scale-[1.02] transition-all duration-300">
+                <div className="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-green-500/10 group-hover:bg-green-500/20 transition-colors duration-300">
+                      <Terminal className="text-green-400 group-hover:scale-110 transition-transform duration-300" size={24} />
+                    </div>
+                    <h3 className="text-xl font-semibold">programming</h3>
+                  </div>
+                  <p className="text-muted-foreground">
+                    writing scripts & building systems in gdscript, c++, and python for games & tools
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -1215,23 +1230,28 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="card-glow p-12 animate-fade-in lowercase">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              wanna <span className="text-shimmer">do something?</span>
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8 lowercase">
-              open to collabs and pretty much anything.
-            </p>
+      <section className="py-16 px-4 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-r from-accent/5 via-accent/10 to-accent/5 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-3xl mx-auto text-center relative z-10">
+          <div className="card-glow p-12 animate-fade-in lowercase relative group hover:scale-[1.02] transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-accent/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-9">
-              <Link to="/contact">
-                <Button className="btn-hero text-lg px-8 py-6 lowercase">
-                  hmu
-                </Button>
-              </Link>
-            </div>
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                wanna <span className="text-shimmer">do something?</span>
+              </h2>
+              <p className="text-xl text-muted-foreground mb-8 lowercase">
+                open to collabs and pretty much anything.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-9">
+                <Link to="/contact">
+                  <Button className="btn-hero text-lg px-8 py-6 lowercase hover:scale-105 transition-transform duration-200">
+                    hmu
+                  </Button>
+                </Link>
+              </div>
 
             <div className="flex gap-4 justify-center">
               {socialLinks.map((social, index) => {
@@ -1274,6 +1294,7 @@ const Home = () => {
                   </a>
                 );
               })}
+            </div>
             </div>
           </div>
         </div>
