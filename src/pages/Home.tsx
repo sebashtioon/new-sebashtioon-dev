@@ -308,8 +308,8 @@ const Home = () => {
             </div>
 
             {/* Mini Desktop OS - Right side */}
-            <div className="lg:col-span-5 hidden lg:flex justify-center items-start mt-16 animate-fade-in">
-              <div className="relative w-full max-w-2xl h-[500px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-border/30 overflow-hidden">
+            <div className="lg:col-span-5 flex justify-center items-start mt-8 lg:mt-16 animate-fade-in">
+              <div className="relative w-full max-w-2xl h-[400px] lg:h-[500px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-border/30 overflow-hidden">
                 {/* Desktop Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/10 to-indigo-900/20"></div>
                 
@@ -1018,7 +1018,7 @@ const Home = () => {
                 </div>
 
                 {/* MacOS-style Dock - Auto-hide when apps are maximized */}
-                <div className={`dock-container absolute bottom-2 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
+                <div className={`dock-container absolute bottom-2 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-300 ${
                   maximizedApps.length > 0 
                     ? "translate-y-full opacity-0 pointer-events-none" 
                     : "translate-y-0 opacity-100 pointer-events-auto"
@@ -1098,7 +1098,7 @@ const Home = () => {
                 {/* Hover zone to show dock when apps are maximized */}
                 {maximizedApps.length > 0 && (
                   <div 
-                    className="absolute bottom-0 left-0 w-full h-4 z-40"
+                    className="absolute bottom-0 left-0 w-full h-4 z-5"
                     onMouseEnter={() => {
                       const dockElement = document.querySelector('.dock-container');
                       if (dockElement) {
