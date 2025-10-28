@@ -4,6 +4,7 @@ import { FaPlayCircle, FaItchIo, FaSteam } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
 import BackgroundGrid from "@/components/BackgroundGrid";
+import BottomNav from "@/components/BottomNav";
 import { useState } from "react";
 
 const Projects = () => {
@@ -98,7 +99,7 @@ const Projects = () => {
   });
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-8 pb-20">
       <BackgroundGrid />
 
       {/* Header - Diagonal Design */}
@@ -112,7 +113,7 @@ const Projects = () => {
                 <span className="text-purple-300">// portfolio showcase</span>
               </div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 lowercase leading-tight">
-                my <span className="text-shimmer font-tech">projects</span>
+                my <span className="text-foreground font-tech">projects</span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl lowercase">
                 a collection of projects i've worked on throughout the years.
@@ -122,7 +123,7 @@ const Projects = () => {
             <div className="lg:col-span-4 hidden lg:block">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-yellow-500/20 rounded-lg blur-xl"></div>
-                <div className="relative card-glow p-6 text-center">
+                <div className="relative card-simple p-6 text-center">
                   <div className="text-2xl font-bold">{projects.length}+</div>
                   <div className="text-sm text-muted-foreground">projects created</div>
                 </div>
@@ -163,7 +164,7 @@ const Projects = () => {
                   className={`text-xs px-3 py-1.5 rounded-full font-tech transition-all duration-200 hover:scale-105 ${
                     selectedTags.includes(tag)
                       ? "bg-accent text-accent-foreground shadow-lg"
-                      : "bg-accent/20 text-accent-glow hover:bg-accent/30"
+                      : "bg-accent/20 text-accent hover:bg-accent/30"
                   }`}
                 >
                   {tag}
@@ -210,7 +211,7 @@ const Projects = () => {
                 <div className="space-y-4 flex-1 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-accent-glow font-medium">{project.category}</span>
+                      <span className="text-sm text-accent font-medium">{project.category}</span>
                       <span className={`text-xs px-2 py-1 rounded-full ${
                         project.status === "completed" 
                           ? "bg-green-500/20 text-green-400"
@@ -234,7 +235,7 @@ const Projects = () => {
                           className={`text-xs px-2 py-1 rounded-md font-tech transition-all duration-200 hover:scale-105 cursor-pointer ${
                             selectedTags.includes(tag)
                               ? "bg-accent text-accent-foreground shadow-lg"
-                              : "bg-accent/20 text-accent-glow hover:bg-accent/30"
+                              : "bg-accent/20 text-accent hover:bg-accent/30"
                           }`}
                         >
                           {tag}
@@ -289,6 +290,8 @@ const Projects = () => {
           </div>
         </div>
       </section>
+
+      <BottomNav />
     </div>
   );
 };

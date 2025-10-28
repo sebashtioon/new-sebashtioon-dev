@@ -1,15 +1,15 @@
-import { SiGithub, SiDiscord, SiYoutube, SiGodotengine, SiBlender, SiSpotify, SiObsidian } from "react-icons/si";
-import { MdEmail } from "react-icons/md";
-import { Terminal, Code, Folder, Music, StickyNote, ArrowLeft, Clock, FileText } from "lucide-react";
+import { SiGodotengine, SiSpotify, SiObsidian } from "react-icons/si";
+import { Terminal, Code, Folder, Music, StickyNote, ArrowLeft, Clock, FileText, Power } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";  
 import BackgroundGrid from "@/components/BackgroundGrid";
-import { toast } from "@/hooks/use-toast";
+import BottomNav from "@/components/BottomNav";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const Home = () => {
   // Desktop OS State Management
+  const [isPoweredOn, setIsPoweredOn] = useState(false);
   const [openApps, setOpenApps] = useState(["code-editor", "terminal"]);
   const [focusedApp, setFocusedApp] = useState("code-editor");
   const [minimizedApps, setMinimizedApps] = useState([]);
@@ -100,6 +100,8 @@ const Home = () => {
     { id: "music-player", name: "Spotify", icon: "spotify" },
     { id: "godot", name: "Godot", icon: "godot" },
   ];
+
+
 
   const bringToFront = (appId) => {
     setAppZOrder(prev => {
@@ -236,53 +238,50 @@ const Home = () => {
     };
   }, [dragging, dragOffset]);
 
-  const socialLinks = [
-    {
-      icon: SiGithub,
-      label: "github",
-      href: "https://github.com/sebashtioon",
-    },
-    {
-      icon: SiDiscord,
-      label: "discord",
-      href: "https://discord.com/users/1110329250306859018",
-    },
-    {
-      icon: SiYoutube,
-      label: "youtube",
-      href: "https://www.youtube.com/@sebashtioon_",
-    },
-    {
-      icon: MdEmail,
-      label: "email",
-      onClick: () => {
-        navigator.clipboard.writeText("sebastiansuciu607@gmail.com");
-        toast({
-          title: "email copied!",
-          description: "sebastiansuciu607@gmail.com copied to clipboard.",
-        });
-      },
-    },
-  ];
+
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20">
       <BackgroundGrid />
 
       {/* Hero Section - Asymmetric Layout */}
-      <section className="pt-32 pb-12 px-4 relative">
+      <section className="pt-16 pb-12 px-4 relative">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             {/* Main content - offset left */}
             <div className="lg:col-span-7 lg:col-start-1 animate-fade-in">
               <div className="max-w-4xl">
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 lowercase leading-tight font-serif">
-                  yo, i'm <span className="text-shimmer">sebashtioon</span>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 lowercase leading-tight font-serif">
+                  yo, i'm <span className="text-foreground">sebashtioon</span>
                 </h1>
 
-                <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl lowercase leading-relaxed">
+                <p className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-2xl lowercase leading-relaxed">
                   just a 15-year-old experimenting with games, code, and 3D stuff
                 </p>
+
+                {/* Contact & Social Links */}
+                <div className="flex flex-wrap items-center gap-4 mb-8 text-sm text-muted-foreground">
+                  <button 
+                    onClick={() => {
+                      navigator.clipboard.writeText("sebastiansuciu607@gmail.com");
+                    }}
+                    className="hover:text-foreground transition-colors lowercase"
+                  >
+                    sebastiansuciu607@gmail.com
+                  </button>
+                  <span>•</span>
+                  <a href="https://github.com/sebashtioon" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors lowercase">
+                    github
+                  </a>
+                  <span>•</span>
+                  <a href="https://discord.com/users/1110329250306859018" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors lowercase">
+                    discord
+                  </a>
+                  <span>•</span>
+                  <a href="https://www.youtube.com/@sebashtioon_" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors lowercase">
+                    youtube
+                  </a>
+                </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link to="/projects">
@@ -310,6 +309,18 @@ const Home = () => {
             {/* Mini Desktop OS - Right side */}
             <div className="lg:col-span-5 flex justify-center items-start mt-8 lg:mt-16 animate-fade-in">
               <div className="relative w-full max-w-2xl h-[400px] lg:h-[500px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-border/30 overflow-hidden">
+                
+                {!isPoweredOn ? (
+                  /* Power Off Screen */
+                  <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-white/30 text-xs mb-4 font-mono">sebashtioon.os</div>
+                      <div className="text-white/10 text-xs">system offline</div>
+                    </div>
+                  </div>
+                ) : (
+                  /* Active OS */
+                  <>
                 {/* Desktop Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/10 to-indigo-900/20"></div>
                 
@@ -350,7 +361,7 @@ const Home = () => {
                 <div className="absolute top-4 right-4 z-10 select-none">
                   <div className="flex items-center space-x-2 px-3 py-2 bg-black/20 backdrop-blur-sm rounded-lg border border-white/10">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-xs text-gray-300">System Online</span>
+                    <span className="text-xs text-gray-300">system online</span>
                   </div>
                 </div>
                 
@@ -359,7 +370,7 @@ const Home = () => {
                   {/* Code Editor Window */}
                   {openApps.includes("code-editor") && (
                     <div 
-                      className={`absolute card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
+                      className={`absolute window-blur rounded-lg select-none ${
                         focusedApp === "code-editor" ? "ring-2 ring-blue-500/50" : ""
                       } ${
                         minimizedApps.includes("code-editor") 
@@ -456,7 +467,7 @@ const Home = () => {
                   {/* Terminal Window */}
                   {openApps.includes("terminal") && (
                     <div 
-                      className={`absolute card-glow rounded-lg border border-border/50 bg-slate-900/95 select-none ${
+                      className={`absolute window-blur rounded-lg select-none ${
                         focusedApp === "terminal" ? "ring-2 ring-green-500/50" : ""
                       } ${
                         minimizedApps.includes("terminal") 
@@ -515,7 +526,7 @@ const Home = () => {
                       </div>
                       
                       {/* Terminal Content */}
-                      <div className="p-3 font-mono text-xs leading-relaxed text-green-400 pointer-events-none">
+                      <div className="p-3 font-mono text-xs leading-relaxed text-green-400 pointer-events-none bg-slate-900/40">
                         <div className="space-y-1">
                           <div>
                             <span className="text-blue-400">~/dev</span>
@@ -555,7 +566,7 @@ const Home = () => {
                   {/* File Explorer Window */}
                   {openApps.includes("file-explorer") && (
                     <div 
-                      className={`absolute card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
+                      className={`absolute window-blur rounded-lg select-none ${
                         focusedApp === "file-explorer" ? "ring-2 ring-yellow-500/50" : ""
                       } ${
                         minimizedApps.includes("file-explorer") 
@@ -640,7 +651,7 @@ const Home = () => {
                   {/* Spotify Window */}
                   {openApps.includes("music-player") && (
                     <div 
-                      className={`absolute card-glow rounded-lg border border-border/50 bg-gradient-to-br from-green-900/20 to-black/95 select-none ${
+                      className={`absolute window-blur rounded-lg select-none bg-gradient-to-br from-green-900/20 to-black/40 ${
                         focusedApp === "music-player" ? "ring-2 ring-green-500/50" : ""
                       } ${
                         minimizedApps.includes("music-player") 
@@ -739,7 +750,7 @@ const Home = () => {
                   {/* Godot Window */}
                   {openApps.includes("godot") && (
                     <div 
-                      className={`absolute card-glow rounded-lg border border-border/50 bg-gradient-to-br from-blue-900/20 to-slate-900/95 select-none ${
+                      className={`absolute window-blur rounded-lg select-none bg-gradient-to-br from-blue-900/20 to-slate-900/40 ${
                         focusedApp === "godot" ? "ring-2 ring-blue-500/50" : ""
                       } ${
                         minimizedApps.includes("godot") 
@@ -855,7 +866,7 @@ const Home = () => {
                   {/* Obsidian Window */}
                   {openApps.includes("obsidian") && (
                     <div 
-                      className={`absolute card-glow rounded-lg border border-border/50 bg-background/95 select-none ${
+                      className={`absolute window-blur rounded-lg select-none ${
                         focusedApp === "obsidian" ? "ring-2 ring-blue-500/50" : ""
                       } ${
                         minimizedApps.includes("obsidian") 
@@ -1017,14 +1028,14 @@ const Home = () => {
                   )}
                 </div>
 
-                {/* MacOS-style Dock - Auto-hide when apps are maximized */}
-                <div className={`dock-container absolute bottom-2 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-300 ${
+                {/* Minimalistic Taskbar */}
+                <div className={`dock-container absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-300 ${
                   maximizedApps.length > 0 
                     ? "translate-y-full opacity-0 pointer-events-none" 
                     : "translate-y-0 opacity-100 pointer-events-auto"
                 }`}>
                   <div 
-                    className="flex items-end gap-1 px-4 py-2 bg-slate-800/90 backdrop-blur-sm rounded-2xl border border-border/50"
+                    className="flex items-center gap-2 px-3 py-2 bg-black/60 backdrop-blur-xl rounded-full border border-white/10"
                     onMouseLeave={() => {
                       if (maximizedApps.length > 0) {
                         setTimeout(() => {
@@ -1037,6 +1048,7 @@ const Home = () => {
                       }
                     }}
                   >
+                    {/* App Windows */}
                     {apps.map((app) => {
                       const isOpen = openApps.includes(app.id);
                       const isMinimized = minimizedApps.includes(app.id);
@@ -1045,33 +1057,33 @@ const Home = () => {
                       return (
                         <div
                           key={app.id}
-                          className={`group relative cursor-pointer transition-all duration-200 hover:scale-125 ${
-                            isOpen ? "transform scale-110" : ""
+                          className={`group relative cursor-pointer transition-all duration-200 hover:scale-110 ${
+                            isOpen ? "scale-105" : ""
                           }`}
                           onClick={() => toggleApp(app.id)}
                         >
                           <div
-                            className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 ${
+                            className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${
                               isOpen && !isMinimized
                                 ? isFocused
-                                  ? "bg-blue-500/30 border border-blue-500/50 shadow-lg shadow-blue-500/25"
-                                  : "bg-accent/20 border border-accent/30"
+                                  ? "bg-white/20 text-white"
+                                  : "bg-white/10 text-white/80"
                                 : isOpen && isMinimized
-                                ? "bg-yellow-500/20 border border-yellow-500/30"
-                                : "bg-gray-500/10 border border-gray-500/20 hover:bg-gray-500/20"
+                                ? "bg-yellow-500/30 text-yellow-200"
+                                : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/80"
                             }`}
                           >
-                            {app.icon === "code" && <Code size={16} />}
-                            {app.icon === "terminal" && <Terminal size={16} />}
-                            {app.icon === "folder" && <Folder size={16} />}
-                            {app.icon === "obsidian" && <SiObsidian size={16} />}
-                            {app.icon === "spotify" && <SiSpotify size={16} />}
-                            {app.icon === "godot" && <SiGodotengine size={16} />}
+                            {app.icon === "code" && <Code size={14} />}
+                            {app.icon === "terminal" && <Terminal size={14} />}
+                            {app.icon === "folder" && <Folder size={14} />}
+                            {app.icon === "obsidian" && <SiObsidian size={14} />}
+                            {app.icon === "spotify" && <SiSpotify size={14} />}
+                            {app.icon === "godot" && <SiGodotengine size={14} />}
                           </div>
                           
-                          {/* Active indicator */}
+                          {/* Active indicator - subtle dot */}
                           {isOpen && !isMinimized && (
-                            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"></div>
+                            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white/60 rounded-full"></div>
                           )}
                           
                           {/* Tooltip */}
@@ -1084,12 +1096,9 @@ const Home = () => {
                       );
                     })}
                     
-                    {/* Date and Time */}
-                    <div className="ml-2 flex items-center gap-2 text-xs font-mono">
-                      <div className="flex flex-col items-end text-right leading-tight">
-                        <div className="text-white">{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
-                        <div className="text-muted-foreground">{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</div>
-                      </div>
+                    {/* Minimalist Time */}
+                    <div className="ml-3 text-xs font-mono text-white/60">
+                      {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}
                     </div>
 
                   </div>
@@ -1117,6 +1126,20 @@ const Home = () => {
                     }}
                   />
                 )}
+                  </>
+                )}
+                
+                {/* Power Button */}
+                <button
+                  onClick={() => setIsPoweredOn(!isPoweredOn)}
+                  className={`absolute bottom-3 right-3 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    isPoweredOn 
+                      ? "bg-green-500/20 text-green-400 hover:bg-green-500/30" 
+                      : "bg-white/10 text-white/60 hover:bg-white/20"
+                  }`}
+                >
+                  <Power size={14} />
+                </button>
               </div>
             </div>
 
@@ -1124,182 +1147,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Skills Showcase - Diagonal Layout */}
-      <section className="py-16 px-4 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-l from-purple-500/5 to-transparent rounded-full blur-3xl"></div>
-        
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-20 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 lowercase">
-              what i'm building
-            </h2>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left side - staggered cards */}
-            <div className="space-y-8">
-              <div className="card-glow p-8 ml-0 lg:ml-8 animate-fade-in lowercase relative group hover:scale-[1.02] transition-all duration-300">
-                <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors duration-300">
-                      <SiGodotengine className="text-blue-400 group-hover:scale-110 transition-transform duration-300" size={24} />
-                    </div>
-                    <h3 className="text-xl font-semibold">game development</h3>
-                  </div>
-                  <p className="text-muted-foreground">
-                    making 2d & 3d games, designing mechanics, and building cool stuff in godot
-                  </p>
-                </div>
-              </div>
-
-              <div className="card-glow ml-4 lg:ml-12 animate-fade-in lowercase overflow-visible relative group hover:scale-[1.02] transition-all duration-300" style={{ padding: '2rem 4rem 2rem 3rem' }}>
-                <div className="absolute inset-0 bg-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-4 overflow-visible">
-                    <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center p-2 rounded-lg bg-orange-500/10 group-hover:bg-orange-500/20 transition-colors duration-300">
-                      <SiBlender className="text-orange-400 group-hover:scale-110 transition-transform duration-300" size={28} />
-                    </div>
-                    <h3 className="text-xl font-semibold">3d art & animation</h3>
-                  </div>
-                  <p className="text-muted-foreground">
-                    modeling & animating low-poly 3d assets, worlds, and characters in blender
-                  </p>
-                </div>
-              </div>
-
-              <div className="card-glow p-8 ml-0 lg:ml-4 animate-fade-in lowercase relative group hover:scale-[1.02] transition-all duration-300">
-                <div className="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-green-500/10 group-hover:bg-green-500/20 transition-colors duration-300">
-                      <Terminal className="text-green-400 group-hover:scale-110 transition-transform duration-300" size={24} />
-                    </div>
-                    <h3 className="text-xl font-semibold">programming</h3>
-                  </div>
-                  <p className="text-muted-foreground">
-                    writing scripts & building systems in gdscript, c++, and python for games & tools
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Right side - floating project preview */}
-            <div className="relative hidden lg:flex justify-center">
-              <div className="relative card-glow p-6 transform rotate-2 hover:rotate-0 transition-transform w-80 ml-8">
-                <div className="text-sm text-purple-300 mb-2">// currently working on</div>
-                <div className="w-full h-32 mb-4 rounded-lg overflow-hidden">
-                  <img 
-                    src="/projects/expland.webp" 
-                    alt="Expland game preview"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h4 className="text-2xl font-bold mb-2">Expland</h4>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Face adversity, hardship, enjoy adventure as well, and discover a second chance to fix past mistakes and become a better person in a mysterious world with nightmares and happiness just around the corner.
-                </p>
-                <div className="mt-4">
-                  <a href="https://noeco.xyz/games/expland" target="_blank" rel="noopener noreferrer">
-                    <Button size="sm" variant="outline" className="flex items-center justify-center gap-2 lowercase">
-                      <svg
-                        width="16"
-                        height="16"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15,3 21,3 21,9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                      view
-                    </Button>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 px-4 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-r from-accent/5 via-accent/10 to-accent/5 rounded-full blur-3xl"></div>
-        
-        <div className="max-w-3xl mx-auto text-center relative z-10">
-          <div className="card-glow p-12 animate-fade-in lowercase relative group hover:scale-[1.02] transition-all duration-300">
-            <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-accent/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                wanna <span className="text-shimmer">do something?</span>
-              </h2>
-              <p className="text-xl text-muted-foreground mb-8 lowercase">
-                open to collabs and pretty much anything.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-9">
-                <Link to="/contact">
-                  <Button className="btn-hero text-lg px-8 py-6 lowercase hover:scale-105 transition-transform duration-200">
-                    hmu
-                  </Button>
-                </Link>
-              </div>
-
-            <div className="flex gap-4 justify-center">
-              {socialLinks.map((social, index) => {
-                const Icon = social.icon;
-                const isFirst = index === 0;
-                const isLast = index === socialLinks.length - 1;
-
-                const buttonClasses = [
-                  "btn-accent",
-                  "p-6",
-                  "transition-all",
-                  "duration-200",
-                  "hover:scale-105",
-                  "hover:brightness-110",
-                  "flex",
-                  "items-center",
-                  "justify-center",
-                  isFirst ? "rounded-l-full" : "",
-                  isLast ? "rounded-r-full" : "",
-                  !isFirst && !isLast ? "rounded-none" : "",
-                ].join(" ");
-
-                return social.onClick ? (
-                  <button
-                    key={social.label}
-                    onClick={social.onClick}
-                    className={buttonClasses}
-                  >
-                    <Icon size={24} />
-                  </button>
-                ) : (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={buttonClasses}
-                  >
-                    <Icon size={24} />
-                  </a>
-                );
-              })}
-            </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <BottomNav />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { Calendar, MapPin, Code, Gamepad2, Palette } from "lucide-react";
 import BackgroundGrid from "@/components/BackgroundGrid";
+import BottomNav from "@/components/BottomNav";
 import { FiExternalLink } from "react-icons/fi";
 
 const About = () => {
@@ -11,7 +12,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-24 relative">
+    <div className="min-h-screen pt-8 pb-20 relative">
       <BackgroundGrid />
       
       {/* Subtle floating elements */}
@@ -29,7 +30,7 @@ const About = () => {
               {/* Large title */}
               <div>
                 <h1 className="text-7xl md:text-9xl font-bold leading-none">
-                  <span className="text-shimmer">about</span>
+                  <span className="text-foreground">about</span>
                 </h1>
                 <div className="text-4xl md:text-6xl font-light ml-12 mt-2">
                   me
@@ -48,7 +49,7 @@ const About = () => {
                     href="https://github.com/Xintegrate-Studios"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-shimmer hover:underline transition-colors"
+                    className="inline-flex items-center text-foreground hover:underline transition-colors"
                   >
                     Xintegrate Studios
                     <FiExternalLink className="ml-1" size={16} />
@@ -57,7 +58,7 @@ const About = () => {
                     href="https://noeco.xyz"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-shimmer hover:underline transition-colors"
+                    className="inline-flex items-center text-foreground hover:underline transition-colors"
                   >
                     Noe Co.
                     <FiExternalLink className="ml-1" size={16} />
@@ -67,7 +68,7 @@ const About = () => {
                     href="https://noeco.xyz/games/expland"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-shimmer hover:underline transition-colors"
+                    className="inline-flex items-center text-foreground hover:underline transition-colors"
                   >
                     Expland
                     <FiExternalLink className="ml-1" size={16} />
@@ -80,9 +81,9 @@ const About = () => {
             <div className="lg:col-span-2 space-y-8 animate-fade-in">
               {/* Stats in a clean vertical layout */}
               <div className="space-y-6 lg:ml-8">
-                <div className="card-glow p-6">
+                <div className="card-simple p-6">
                   <div className="flex items-center gap-4">
-                    <Gamepad2 className="text-accent-glow" size={24} />
+                    <Gamepad2 className="text-accent" size={24} />
                     <div>
                       <div className="text-2xl font-bold">12+</div>
                       <div className="text-sm text-muted-foreground">games built</div>
@@ -90,9 +91,9 @@ const About = () => {
                   </div>
                 </div>
 
-                <div className="card-glow p-6 ml-8">
+                <div className="card-simple p-6 ml-8">
                   <div className="flex items-center gap-4">
-                    <Palette className="text-accent-glow" size={24} />
+                    <Palette className="text-accent" size={24} />
                     <div>
                       <div className="text-2xl font-bold">20+</div>
                       <div className="text-sm text-muted-foreground">3d models</div>
@@ -100,9 +101,9 @@ const About = () => {
                   </div>
                 </div>
 
-                <div className="card-glow p-6">
+                <div className="card-simple p-6">
                   <div className="flex items-center gap-4">
-                    <Code className="text-accent-glow" size={24} />
+                    <Code className="text-accent" size={24} />
                     <div>
                       <div className="text-2xl font-bold">4+</div>
                       <div className="text-sm text-muted-foreground">years coding</div>
@@ -141,8 +142,8 @@ const About = () => {
           <div className="space-y-12">
             {/* Row 1: Game Dev (left) + 3D Modelling (right offset) */}
             <div className="grid lg:grid-cols-7 gap-8 items-start">
-              <div className="lg:col-span-3 card-glow p-8 animate-fade-in">
-                <h3 className="text-2xl font-bold mb-6 text-accent-glow">game development</h3>
+              <div className="lg:col-span-3 card-simple p-8 animate-fade-in">
+                <h3 className="text-2xl font-bold mb-6 text-accent">game development</h3>
                 <div className="grid grid-cols-2 gap-3">
                   {skills[0].items.map((skill) => (
                     <div key={skill} className="text-muted-foreground px-3 py-2 rounded-md bg-card/30 text-sm">
@@ -152,8 +153,8 @@ const About = () => {
                 </div>
               </div>
 
-              <div className="lg:col-span-3 lg:col-start-5 card-glow p-8 lg:mt-16 animate-fade-in">
-                <h3 className="text-2xl font-bold mb-6 text-accent-glow">3d modelling & animation</h3>
+              <div className="lg:col-span-3 lg:col-start-5 card-simple p-8 lg:mt-16 animate-fade-in">
+                <h3 className="text-2xl font-bold mb-6 text-accent">3d modelling & animation</h3>
                 <div className="space-y-3">
                   {skills[1].items.map((skill) => (
                     <div key={skill} className="text-muted-foreground">
@@ -166,8 +167,8 @@ const About = () => {
 
             {/* Row 2: Programming (right) + Tools (left offset) */}
             <div className="grid lg:grid-cols-7 gap-8 items-start">
-              <div className="lg:col-span-3 lg:col-start-2 card-glow p-8 lg:mt-8 animate-fade-in">
-                <h3 className="text-2xl font-bold mb-6 text-accent-glow">programming</h3>
+              <div className="lg:col-span-3 lg:col-start-2 card-simple p-8 lg:mt-8 animate-fade-in">
+                <h3 className="text-2xl font-bold mb-6 text-accent">programming</h3>
                 <div className="space-y-3">
                   {skills[2].items.map((skill) => (
                     <div key={skill} className="text-muted-foreground">
@@ -177,8 +178,8 @@ const About = () => {
                 </div>
               </div>
 
-              <div className="lg:col-span-3 lg:col-start-6 card-glow p-8 animate-fade-in">
-                <h3 className="text-2xl font-bold mb-6 text-accent-glow">tools & software</h3>
+              <div className="lg:col-span-3 lg:col-start-6 card-simple p-8 animate-fade-in">
+                <h3 className="text-2xl font-bold mb-6 text-accent">tools & software</h3>
                 <div className="grid grid-cols-2 gap-2">
                   {skills[3].items.map((skill) => (
                     <div key={skill} className="text-sm text-muted-foreground text-center px-3 py-2 rounded-md border border-border/30 hover:border-accent/50 transition-colors">
@@ -191,6 +192,8 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      <BottomNav />
     </div>
   );
 };

@@ -95,85 +95,33 @@
   .btn-hero {
     @apply bg-transparent border border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/60;
     transition: var(--transition-smooth);
-    @apply backdrop-blur-sm;
-    @apply hover:shadow-[0_0_15px_hsl(var(--primary-glow)/0.25)];
   }
 
   .btn-accent {
     @apply bg-accent/20 border border-accent-glow/30 text-accent-glow hover:bg-accent/30;
     transition: var(--transition-smooth);
-    @apply backdrop-blur-sm;
-    @apply hover:shadow-[0_0_15px_hsl(var(--accent-glow)/0.25)];
   }
 
-  .card-glow {
-    @apply bg-card/50 border border-border/50 backdrop-blur-md;
-    @apply shadow-[0_8px_32px_hsl(0_0%_0%/0.3)];
+  .card-simple {
+    @apply bg-card/50 border border-border/50;
     @apply hover:bg-card-hover/60 hover:border-border;
     @apply transition-all duration-300;
   }
 
+  .window-blur {
+    @apply backdrop-blur-md bg-background/80;
+    @apply border border-border/50;
+    @apply transition-all duration-300;
+  }
+
   .card-project {
-    @apply card-glow;
-    @apply hover:shadow-[0_12px_40px_hsl(0_0%_0%/0.3),0_0_15px_hsl(var(--accent-glow)/0.15)];
+    @apply card-simple;
     @apply hover:-translate-y-0.5;
     transition: var(--transition-smooth);
   }
-
-  .text-glow {
-    text-shadow: 0 0 20px hsl(var(--primary-glow)/0.5);
-  }
-
-  .text-gradient {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
 }
 
-/* Clean shimmer effect */
-.fast-text-shimmer {
-  background: linear-gradient(
-    90deg,
-    #ffffff 0%,
-    #ffffff 30%,
-    #000000 50%,
-    #ffffff 70%,
-    #ffffff 100%
-  );
-  background-size: 300% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer-sweep 1.5s ease-in-out infinite;
-}
-
-/* Clean shimmer effect */
-.text-shimmer {
-  background: linear-gradient(
-    90deg,
-    #ffffff 0%,
-    #ffffff 30%,
-    #000000 50%,
-    #ffffff 70%,
-    #ffffff 100%
-  );
-  background-size: 300% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer-sweep 8s linear infinite;
-}
-
-@keyframes shimmer-sweep {
-  0% {
-    background-position: 300% 0;
-  }
-  100% {
-    background-position: -300% 0;
-  }
-}
+/* Shimmer effects removed for cleaner design */
 
 /* 🔥 INSANE 3D INTERACTIVE CUBE PHYSICS SYSTEM 🔥 */
 @keyframes float {
@@ -473,7 +421,35 @@
   }
 }
 
-/* Custom Scrollbar Styles */
+/* Global Custom Scrollbar Styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Custom Scrollbar Styles for specific elements */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }

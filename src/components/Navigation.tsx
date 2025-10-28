@@ -22,7 +22,7 @@ const Navigation = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="text-xl font-bold text-gradient hover:scale-105 transition-transform duration-200"
+            className="text-xl font-bold text-foreground hover:scale-105 transition-transform duration-200"
           >
             sebashtioon.dev
           </Link>
@@ -37,7 +37,7 @@ const Navigation = () => {
                   to={item.path}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 ${
                     isActive(item.path)
-                      ? "bg-accent/20 text-accent-glow shadow-accent"
+                      ? "bg-accent/20 text-accent "
                       : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
                   }`}
                 >
@@ -70,7 +70,7 @@ const Navigation = () => {
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${
                       isActive(item.path)
-                        ? "bg-accent/20 text-accent-glow shadow-accent"
+                        ? "bg-accent/20 text-accent "
                         : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
                     }`}
                   >
