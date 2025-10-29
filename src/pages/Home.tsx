@@ -1,4 +1,5 @@
 import { SiGodotengine, SiSpotify, SiObsidian } from "react-icons/si";
+import { FiExternalLink } from "react-icons/fi";
 import { Terminal, Code, Folder, Music, StickyNote, ArrowLeft, Clock, FileText, Power } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";  
@@ -241,30 +242,59 @@ const Home = () => {
 
 
   return (
-    <div className="min-h-screen pb-20">
-      <BackgroundGrid />
-
-      {/* Hero Section - Asymmetric Layout */}
-      <section className="pt-16 pb-12 px-4 relative">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            {/* Main content - offset left */}
-            <div className="lg:col-span-7 lg:col-start-1 animate-fade-in">
-              <div className="max-w-4xl">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 lowercase leading-tight font-serif">
+    <>
+      <div className="min-h-screen pb-20">
+        <BackgroundGrid />
+        
+        <section className="pt-8 pb-8 px-4 relative">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center animate-fade-in">
+              <div className="max-w-3xl mx-auto">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif">
                   yo, i'm <span className="text-foreground">sebashtioon</span>
                 </h1>
 
-                <p className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-2xl lowercase leading-relaxed">
-                  just a 15-year-old experimenting with games, code, and 3D stuff
+                <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto lowercase leading-relaxed">
+                  i'm a 15-year-old game dev & sorta 3d artist. i like turning my imagination into reality through code and 3d art. i've been making games and small side-projects here and there for over 4 years.
+                </p>
+                
+                <p className="text-sm md:text-base text-muted-foreground/80 mb-4 max-w-2xl mx-auto lowercase leading-relaxed border-l-2 border-accent/30 pl-4">
+                  that's basically it. i just like making stuff. i do have an indie game studio,{" "}
+                  <a
+                    href="https://github.com/Xintegrate-Studios"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-foreground hover:underline transition-colors"
+                  >
+                    Xintegrate Studios
+                    <FiExternalLink className="ml-1" size={16} />
+                  </a>
+                  , where i work on my personal projects. i also co-founded another game studio with my friend from school called{" "}
+                  <a
+                    href="https://noeco.xyz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-foreground hover:underline transition-colors"
+                  >
+                    Noe Co.
+                    <FiExternalLink className="ml-1" size={16} />
+                  </a>
+                  {" "}where i'm working on my biggest project yet,{" "}
+                  <a
+                    href="https://noeco.xyz/games/expland"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-foreground hover:underline transition-colors"
+                  >
+                    Expland
+                    <FiExternalLink className="ml-1" size={16} />
+                  </a>
+                  .
                 </p>
 
-                {/* Contact & Social Links */}
-                <div className="flex flex-wrap items-center gap-4 mb-8 text-sm text-muted-foreground">
+                <div className="flex flex-wrap items-center justify-center gap-4 mb-4 text-sm text-muted-foreground">
                   <button 
-                    onClick={() => {
-                      navigator.clipboard.writeText("sebastiansuciu607@gmail.com");
-                    }}
+                    onClick={() => navigator.clipboard.writeText("sebastiansuciu607@gmail.com")}
                     className="hover:text-foreground transition-colors lowercase"
                   >
                     sebastiansuciu607@gmail.com
@@ -282,8 +312,19 @@ const Home = () => {
                     youtube
                   </a>
                 </div>
+
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wider">what i work with</h3>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {["godot", "blender", "gdscript", "c++", "python", "ue5", "3d modeling", "animation"].map((skill) => (
+                      <span key={skill} className="text-xs px-2 py-1 bg-accent/10 text-accent rounded border border-accent/20">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
                 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row justify-center gap-4">
                   <Link to="/projects">
                     <Button className="btn-hero text-lg px-8 py-6 group lowercase flex items-center gap-2">
                       see my work
@@ -305,22 +346,43 @@ const Home = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* Mini Desktop OS - Right side */}
-            <div className="lg:col-span-5 flex justify-center items-start mt-8 lg:mt-16 animate-fade-in">
-              <div className="relative w-full max-w-2xl h-[400px] lg:h-[500px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-border/30 overflow-hidden">
-                
-                {!isPoweredOn ? (
-                  /* Power Off Screen */
-                  <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-white/30 text-xs mb-4 font-mono">sebashtioon.os</div>
-                      <div className="text-white/10 text-xs">system offline</div>
-                    </div>
-                  </div>
-                ) : (
-                  /* Active OS */
-                  <>
+        <BottomNav />
+      </div>
+
+      <button
+        onClick={() => setIsPoweredOn(!isPoweredOn)}
+        className={`fixed bottom-4 right-4 z-50 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+          isPoweredOn 
+            ? "bg-green-500/20 text-green-400 hover:bg-green-500/30 shadow-lg shadow-green-500/20" 
+            : "bg-white/10 text-white/60 hover:bg-white/20 backdrop-blur-sm"
+        }`}
+      >
+        <Power size={18} />
+      </button>
+
+      {isPoweredOn && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center animate-fade-in"
+          onClick={() => setIsPoweredOn(false)}
+        >
+          <div 
+            className="relative w-full max-w-4xl h-[500px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-border/30 overflow-hidden animate-fade-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {!isPoweredOn ? (
+              /* Power Off Screen */
+              <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="text-white/30 text-xs mb-4 font-mono">sebashtioon.os</div>
+                  <div className="text-white/10 text-xs">system offline</div>
+                </div>
+              </div>
+            ) : (
+              /* Active OS */
+              <>
                 {/* Desktop Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/10 to-indigo-900/20"></div>
                 
@@ -1126,29 +1188,13 @@ const Home = () => {
                     }}
                   />
                 )}
-                  </>
-                )}
-                
-                {/* Power Button */}
-                <button
-                  onClick={() => setIsPoweredOn(!isPoweredOn)}
-                  className={`absolute bottom-3 right-3 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    isPoweredOn 
-                      ? "bg-green-500/20 text-green-400 hover:bg-green-500/30" 
-                      : "bg-white/10 text-white/60 hover:bg-white/20"
-                  }`}
-                >
-                  <Power size={14} />
-                </button>
-              </div>
+                </>
+              )}
             </div>
-
-          </div>
+          )
         </div>
-      </section>
-
-      <BottomNav />
-    </div>
+      )}
+    </>
   );
 };
 
