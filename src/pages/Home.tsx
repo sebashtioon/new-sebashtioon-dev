@@ -1235,11 +1235,10 @@ const Home = () => {
               )}
             </div>
           </div>
-        </div>
       )}
 
       {/* Skills Popup */}
-      {isSkillsOpen && (
+      {setIsSkillsOpen && (
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in"
           onClick={() => setIsSkillsOpen(false)}
@@ -1295,3 +1294,7 @@ const Home = () => {
 };
 
 export default Home;
+
+function setIsSkillsOpen(arg0: boolean): void {
+  throw new Error("Function not implemented.");
+}
