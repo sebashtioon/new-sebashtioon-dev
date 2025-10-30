@@ -5,6 +5,9 @@ import { FaPlayCircle, FaItchIo, FaSteam } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
+import SmartImage from "@/components/SmartImage";
+import PageWrapper from "@/components/PageWrapper";
+import { useSmartLoading, useImageLoadingDetector } from "@/hooks/useSmartLoading";
 import { useState } from "react";
 
 const Projects = () => {
@@ -104,9 +107,21 @@ const Projects = () => {
     return categoryMatch && tagMatch && searchMatch;
   });
 
+  // Smart loading detection
+  useSmartLoading(filteredProjects.length, {
+    threshold: 6, // Show loading if 6+ projects
+    delay: 800, // Keep loading for 800ms minimum
+    loadingMessage: `loading ${filteredProjects.length} projects...`
+  });
+
+  // Image loading detection
+  const imageUrls = filteredProjects.map(project => project.image);
+  const { onImageLoadStart, onImageLoadComplete } = useImageLoadingDetector(imageUrls);
+
   return (
-    <div className="min-h-screen pt-8 pb-20">
-      <BackgroundGrid />
+    <PageWrapper>
+      <div className="min-h-screen pt-8 pb-20">
+        <BackgroundGrid />
 
       {/* Header - Minimalist Style */}
       <section className="h-screen flex items-center justify-center px-4 relative">
@@ -193,13 +208,13 @@ const Projects = () => {
                 <div className="grid md:grid-cols-3 gap-6 items-start">
                   {/* Project Image */}
                   <div className="md:col-span-1">
-                    <div className="overflow-hidden rounded-lg">
-                      <img 
-                        src={project.image} 
-                        alt={project.title}
-                        className="w-full h-48 object-cover"
-                      />
-                    </div>
+                    <SmartImage
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-48 rounded-lg"
+                      onLoadStart={onImageLoadStart}
+                      onLoadComplete={onImageLoadComplete}
+                    />
                   </div>
 
                   {/* Project Info */}
@@ -269,7 +284,8 @@ const Projects = () => {
       </section>
 
       <BottomNav />
-    </div>
+      </div>
+    </PageWrapper>
   );
 };
 

@@ -272,7 +272,7 @@ const Home = () => {
                   i'm a 15-year-old game dev & sorta 3d artist. i like turning my imagination into reality through code and 3d art. i've been making games and small side-projects here and there for over 4 years.
                 </p>
                 
-                <p className="text-sm md:text-base text-muted-foreground/80 mb-4 max-w-2xl lowercase leading-relaxed border-l-2 border-accent/30 pl-4">
+                <p className="text-sm md:text-base text-muted-foreground/80 mb-4 max-w-2xl leading-relaxed border-l-2 border-accent/30 pl-4">
                   that's basically it. i just like making stuff. i do have an indie game studio,{" "}
                   <a
                     href="https://github.com/Xintegrate-Studios"

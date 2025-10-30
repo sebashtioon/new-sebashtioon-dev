@@ -1,5 +1,7 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
+import BackgroundGrid from "@/components/BackgroundGrid";
+import BottomNav from "@/components/BottomNav";
 
 const NotFound = () => {
   const location = useLocation();
@@ -12,14 +14,40 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
-      </div>
+    <div className="h-screen overflow-hidden">
+      <BackgroundGrid />
+      
+      <section className="h-screen flex items-center justify-center px-4 relative">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-left animate-fade-in">
+            <div className="max-w-3xl">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif">
+                <span className="text-foreground">404</span>
+              </h1>
+              
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl lowercase leading-relaxed">
+                page not found. the page you're looking for doesn't exist or has been moved.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3 text-muted-foreground text-sm lowercase">
+                <Link to="/" className="hover:text-foreground transition-colors lowercase">
+                  home
+                </Link>
+                <span>•</span>
+                <Link to="/projects" className="hover:text-foreground transition-colors lowercase">
+                  projects
+                </Link>
+                <span>•</span>
+                <span className="text-muted-foreground/50">
+                  attempted: {location.pathname}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <BottomNav />
     </div>
   );
 };
