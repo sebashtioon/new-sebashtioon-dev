@@ -119,8 +119,9 @@ const Projects = () => {
   const { onImageLoadStart, onImageLoadComplete } = useImageLoadingDetector(imageUrls);
 
   return (
-    <PageWrapper>
-      <div className="min-h-screen pt-8 pb-20">
+    <>
+      <PageWrapper>
+        <div className="min-h-screen pt-8 pb-20">
         <BackgroundGrid />
 
       {/* Header - Minimalist Style */}
@@ -283,9 +284,10 @@ const Projects = () => {
         </div>
       </section>
 
-      <BottomNav />
       </div>
-    </PageWrapper>
+      </PageWrapper>
+      <BottomNav />
+    </>
   );
 };
 
