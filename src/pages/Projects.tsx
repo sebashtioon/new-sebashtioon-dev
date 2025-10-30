@@ -5,6 +5,9 @@ import { FaPlayCircle, FaItchIo, FaSteam } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
+import SmartImage from "@/components/SmartImage";
+import PageWrapper from "@/components/PageWrapper";
+import { useSmartLoading, useImageLoadingDetector } from "@/hooks/useSmartLoading";
 import { useState } from "react";
 
 const Projects = () => {
@@ -75,6 +78,7 @@ const Projects = () => {
   const categories = ["all", "games", "3d stuff"];
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedTags, setSelectedTags] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Extract all unique tags from projects
   const allTags = [...new Set(projects.flatMap(project => project.tags))].sort();
@@ -90,199 +94,188 @@ const Projects = () => {
   const clearAllFilters = () => {
     setSelectedCategory("all");
     setSelectedTags([]);
+    setSearchQuery("");
   };
 
   const filteredProjects = projects.filter(project => {
     const categoryMatch = selectedCategory === "all" || project.category === selectedCategory;
     const tagMatch = selectedTags.length === 0 || selectedTags.some(tag => project.tags.includes(tag));
-    return categoryMatch && tagMatch;
+    const searchMatch = searchQuery === "" || 
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    return categoryMatch && tagMatch && searchMatch;
   });
 
-  return (
-    <div className="min-h-screen pt-8 pb-20">
-      <BackgroundGrid />
+  // Smart loading detection
+  useSmartLoading(filteredProjects.length, {
+    threshold: 6, // Show loading if 6+ projects
+    delay: 800, // Keep loading for 800ms minimum
+    loadingMessage: `loading ${filteredProjects.length} projects...`
+  });
 
-      {/* Header - Diagonal Design */}
-      <section className="py-16 px-4 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-r from-purple-500/10 via-transparent to-yellow-500/10 transform -skew-y-1"></div>
-        
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-8 animate-fade-in">
-              <div className="inline-block px-4 py-2 bg-purple-500/20 rounded-full text-sm mb-4">
-                <span className="text-purple-300">// portfolio showcase</span>
-              </div>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 lowercase leading-tight">
-                my <span className="text-foreground font-tech">projects</span>
+  // Image loading detection
+  const imageUrls = filteredProjects.map(project => project.image);
+  const { onImageLoadStart, onImageLoadComplete } = useImageLoadingDetector(imageUrls);
+
+  return (
+    <>
+      <PageWrapper>
+        <div className="min-h-screen pt-8 pb-20">
+        <BackgroundGrid />
+
+      {/* Header - Minimalist Style */}
+      <section className="h-screen flex items-center justify-center px-4 relative">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-left animate-fade-in">
+            <div className="max-w-3xl">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif">
+                my <span className="text-foreground">projects</span>
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl lowercase">
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl lowercase leading-relaxed">
                 a collection of projects i've worked on throughout the years.
               </p>
             </div>
-            
-            <div className="lg:col-span-4 hidden lg:block">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-yellow-500/20 rounded-lg blur-xl"></div>
-                <div className="relative card-simple p-6 text-center">
-                  <div className="text-2xl font-bold">{projects.length}+</div>
-                  <div className="text-sm text-muted-foreground">projects created</div>
-                </div>
-              </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Filters - Minimalist Style */}
+      <section className="px-4 mb-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-left mb-6">
+            <div className="flex items-center gap-3 text-muted-foreground text-sm mb-4 lowercase">
+              <span>search:</span>
+              <input
+                type="text"
+                placeholder="search projects..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="bg-transparent border-none outline-none placeholder-muted-foreground text-foreground flex-1 lowercase"
+              />
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Category Filter */}
-      <section className="px-4 mb-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex justify-center space-x-4 animate-fade-in">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                variant={selectedCategory === category ? "default" : "outline"}
-                className={selectedCategory === category ? "btn-accent" : ""}
-              >
-                {category}
-              </Button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Tag Filter */}
-      <section className="px-4 mb-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-4">
-            <h3 className="text-sm text-muted-foreground mb-3">filter by tags:</h3>
-            <div className="flex flex-wrap justify-center gap-2 mb-4">
+            <div className="flex flex-wrap items-center gap-3 text-muted-foreground text-sm mb-4 lowercase">
+              <span>category:</span>
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`hover:text-foreground transition-colors lowercase ${
+                    selectedCategory === category ? 'text-foreground' : ''
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+            <div className="flex flex-wrap items-center gap-3 text-muted-foreground text-sm mb-4 lowercase">
+              <span>tags:</span>
               {allTags.map((tag) => (
                 <button
                   key={tag}
                   onClick={() => handleTagClick(tag)}
-                  className={`text-xs px-3 py-1.5 rounded-full font-tech transition-all duration-200 hover:scale-105 ${
-                    selectedTags.includes(tag)
-                      ? "bg-accent text-accent-foreground shadow-lg"
-                      : "bg-accent/20 text-accent hover:bg-accent/30"
+                  className={`hover:text-foreground transition-colors lowercase ${
+                    selectedTags.includes(tag) ? 'text-foreground' : ''
                   }`}
                 >
                   {tag}
                 </button>
               ))}
+              {(selectedCategory !== "all" || selectedTags.length > 0 || searchQuery !== "") && (
+                <>
+                  <span>•</span>
+                  <button
+                    onClick={clearAllFilters}
+                    className="hover:text-foreground transition-colors lowercase"
+                  >
+                    clear all
+                  </button>
+                </>
+              )}
             </div>
-            {(selectedCategory !== "all" || selectedTags.length > 0) && (
-              <Button
-                onClick={clearAllFilters}
-                variant="ghost"
-                size="sm"
-                className="text-xs text-muted-foreground hover:text-foreground"
-              >
-                clear all filters
-              </Button>
-            )}
           </div>
         </div>
       </section>
 
-      {/* Projects Grid - Masonry Style */}
+      {/* Projects Grid - Minimalist Style */}
       <section className="px-4 pb-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid gap-8">
             {filteredProjects.map((project, index) => (
               <div 
                 key={project.id} 
-                className={`card-project p-6 break-inside-avoid mb-8 hover:scale-105 transition-transform ${
-                  index % 3 === 0 ? 'lg:mt-8' : index % 3 === 1 ? 'lg:mt-16' : 'lg:mt-0'
-                }`}
+                className="border-b border-border/30 pb-8 last:border-b-0"
               >
-                {/* Project Image */}
-                <div className="relative mb-6 overflow-hidden rounded-lg">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
-                  </div>
-                </div>
-
-                {/* Project Info */}
-                <div className="space-y-4 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-accent font-medium">{project.category}</span>
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        project.status === "completed" 
-                          ? "bg-green-500/20 text-green-400"
-                          : project.status === "in development"
-                          ? "bg-blue-500/20 text-blue-400"
-                          : "bg-yellow-500/20 text-yellow-400"
-                      }`}>
-                        {project.status}
-                      </span>
-                    </div>
-                    
-                    <h3 className="text-xl font-semibold">{project.title}</h3>
-                    <p className="text-muted-foreground text-sm">{project.description}</p>
-                    
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {project.tags.map((tag) => (
-                        <button
-                          key={tag}
-                          onClick={() => handleTagClick(tag)}
-                          className={`text-xs px-2 py-1 rounded-md font-tech transition-all duration-200 hover:scale-105 cursor-pointer ${
-                            selectedTags.includes(tag)
-                              ? "bg-accent text-accent-foreground shadow-lg"
-                              : "bg-accent/20 text-accent hover:bg-accent/30"
-                          }`}
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
+                <div className="grid md:grid-cols-3 gap-6 items-start">
+                  {/* Project Image */}
+                  <div className="md:col-span-1">
+                    <SmartImage
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-48 rounded-lg"
+                      onLoadStart={onImageLoadStart}
+                      onLoadComplete={onImageLoadComplete}
+                    />
                   </div>
 
-                  {/* Links */}
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {project.links.github && (
-                      <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" variant="outline" className="flex items-center justify-center gap-2">
-                          <SiGithub size={16} /> src
-                        </Button>
-                      </a>
-                    )}
-                    {project.links.demo && (
-                      <a href={project.links.demo} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" variant="outline" className="flex items-center justify-center gap-2">
-                          <FiExternalLink size={16} /> view
-                        </Button>
-                      </a>
-                    )}
+                  {/* Project Info */}
+                  <div className="md:col-span-2 space-y-3">
+                    <div>
+                      <div className="flex items-center gap-3 text-sm text-muted-foreground mb-2 lowercase">
+                        <span>{project.category}</span>
+                        <span>•</span>
+                        <span>{project.status}</span>
+                      </div>
+                      
+                      <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+                      <p className="text-muted-foreground lowercase leading-relaxed">{project.description}</p>
+                      
+                      {/* Tags */}
+                      <div className="flex flex-wrap items-center gap-3 text-muted-foreground text-sm mt-3 lowercase">
+                        {project.tags.map((tag, tagIndex) => (
+                          <span key={tag}>
+                            <button
+                              onClick={() => handleTagClick(tag)}
+                              className={`hover:text-foreground transition-colors lowercase ${
+                                selectedTags.includes(tag) ? 'text-foreground' : ''
+                              }`}
+                            >
+                              {tag}
+                            </button>
+                            {tagIndex < project.tags.length - 1 && <span className="ml-3">•</span>}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
 
-                    {project.links.play_itch && (
-                      <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
-                          <FaItchIo size={16} /> play on itch
-                        </Button>
-                      </a>
-                    )}
-
-                    {project.links.download && (
-                      <a href={project.links.download} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
-                          <FiDownload size={16} /> download
-                        </Button>
-                      </a>
-                    )}
-                    {project.links.blender_download && (
-                      <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="btn-accent flex items-center justify-center gap-2">
-                          <SiBlender size={16} /> download project
-                        </Button>
-                      </a>
-                    )}
+                    {/* Links */}
+                    <div className="flex flex-wrap gap-3 mt-4">
+                      {project.links.github && (
+                        <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                          src
+                        </a>
+                      )}
+                      {project.links.demo && (
+                        <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                          view
+                        </a>
+                      )}
+                      {project.links.play_itch && (
+                        <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                          play on itch
+                        </a>
+                      )}
+                      {project.links.download && (
+                        <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                          download
+                        </a>
+                      )}
+                      {project.links.blender_download && (
+                        <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                          download project
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -291,8 +284,10 @@ const Projects = () => {
         </div>
       </section>
 
+      </div>
+      </PageWrapper>
       <BottomNav />
-    </div>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import { SiGodotengine, SiSpotify, SiObsidian } from "react-icons/si";
+import { FiExternalLink } from "react-icons/fi";
 import { Terminal, Code, Folder, Music, StickyNote, ArrowLeft, Clock, FileText, Power } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";  
@@ -29,6 +30,12 @@ const Home = () => {
   const [selectedNote, setSelectedNote] = useState(null);
   const [notesView, setNotesView] = useState("menu"); // "menu" or "note"
   const [maximizedApps, setMaximizedApps] = useState([]);
+  const [isSkillsOpen, setIsSkillsOpen] = useState(false);
+  const [isSkillsClosing, setIsSkillsClosing] = useState(false);
+  const [isBooting, setIsBooting] = useState(false);
+  const [isShuttingDown, setIsShuttingDown] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [isCompleteShutdown, setIsCompleteShutdown] = useState(false);
 
   // Update time every second
   useEffect(() => {
@@ -113,6 +120,14 @@ const Home = () => {
   const getZIndex = (appId) => {
     const index = appZOrder.indexOf(appId);
     return index >= 0 ? 10 + index : 10; // Base z-index of 10, increment by position
+  };
+
+  const closeSkillsPopup = () => {
+    setIsSkillsClosing(true);
+    setTimeout(() => {
+      setIsSkillsOpen(false);
+      setIsSkillsClosing(false);
+    }, 300); // 300ms fade out duration
   };
 
   const toggleApp = (appId) => {
@@ -241,30 +256,59 @@ const Home = () => {
 
 
   return (
-    <div className="min-h-screen pb-20">
-      <BackgroundGrid />
-
-      {/* Hero Section - Asymmetric Layout */}
-      <section className="pt-16 pb-12 px-4 relative">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            {/* Main content - offset left */}
-            <div className="lg:col-span-7 lg:col-start-1 animate-fade-in">
-              <div className="max-w-4xl">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 lowercase leading-tight font-serif">
+    <>
+      <div className="h-screen overflow-hidden">
+        <BackgroundGrid />
+        
+        <section className="h-screen flex items-center justify-center px-4 relative">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-left animate-fade-in">
+              <div className="max-w-3xl">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif">
                   yo, i'm <span className="text-foreground">sebashtioon</span>
                 </h1>
 
-                <p className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-2xl lowercase leading-relaxed">
-                  just a 15-year-old experimenting with games, code, and 3D stuff
+                <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl lowercase leading-relaxed">
+                  i'm a 15-year-old game dev & sorta 3d artist. i like turning my imagination into reality through code and 3d art. i've been making games and small side-projects here and there for over 4 years.
+                </p>
+                
+                <p className="text-sm md:text-base text-muted-foreground/80 mb-4 max-w-2xl leading-relaxed border-l-2 border-accent/30 pl-4">
+                  that's basically it. i just like making stuff. i do have an indie game studio,{" "}
+                  <a
+                    href="https://github.com/Xintegrate-Studios"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-foreground hover:underline transition-colors"
+                  >
+                    Xintegrate Studios
+                    <FiExternalLink className="ml-1" size={16} />
+                  </a>
+                  , where i work on my personal projects. i also co-founded another game studio with my friend from school called{" "}
+                  <a
+                    href="https://noeco.xyz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-foreground hover:underline transition-colors"
+                  >
+                    Noe Co.
+                    <FiExternalLink className="ml-1" size={16} />
+                  </a>
+                  {" "}where i'm working on my biggest project yet,{" "}
+                  <a
+                    href="https://noeco.xyz/games/expland"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-foreground hover:underline transition-colors"
+                  >
+                    Expland
+                    <FiExternalLink className="ml-1" size={16} />
+                  </a>
+                  .
                 </p>
 
-                {/* Contact & Social Links */}
-                <div className="flex flex-wrap items-center gap-4 mb-8 text-sm text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-4 mb-4 text-sm text-muted-foreground">
                   <button 
-                    onClick={() => {
-                      navigator.clipboard.writeText("sebastiansuciu607@gmail.com");
-                    }}
+                    onClick={() => navigator.clipboard.writeText("sebastiansuciu607@gmail.com")}
                     className="hover:text-foreground transition-colors lowercase"
                   >
                     sebastiansuciu607@gmail.com
@@ -281,46 +325,112 @@ const Home = () => {
                   <a href="https://www.youtube.com/@sebashtioon_" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors lowercase">
                     youtube
                   </a>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/projects">
-                    <Button className="btn-hero text-lg px-8 py-6 group lowercase flex items-center gap-2">
-                      see my work
-                      <svg
-                        className="transition-transform group-hover:translate-x-1"
-                        width="20"
-                        height="20"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M5 12h14M13 6l6 6-6 6" />
-                      </svg>
-                    </Button>
-                  </Link>
+                  <span>•</span>
+                  <button onClick={() => setIsSkillsOpen(true)} className="hover:text-foreground transition-colors lowercase">
+                    skills
+                  </button>
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* Mini Desktop OS - Right side */}
-            <div className="lg:col-span-5 flex justify-center items-start mt-8 lg:mt-16 animate-fade-in">
-              <div className="relative w-full max-w-2xl h-[400px] lg:h-[500px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-border/30 overflow-hidden">
-                
-                {!isPoweredOn ? (
-                  /* Power Off Screen */
-                  <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-white/30 text-xs mb-4 font-mono">sebashtioon.os</div>
-                      <div className="text-white/10 text-xs">system offline</div>
-                    </div>
+        <BottomNav />
+      </div>
+
+      <button
+        onClick={() => {
+          if (isPoweredOn) {
+            setIsFadingOut(true);
+            setTimeout(() => {
+              setIsFadingOut(false);
+              setIsShuttingDown(true);
+              setTimeout(() => {
+                setIsCompleteShutdown(true);
+                setTimeout(() => {
+                  setIsPoweredOn(false);
+                  setIsShuttingDown(false);
+                  setIsCompleteShutdown(false);
+                }, 1000); // 1 second fade out after shutdown screen
+              }, 2000);
+            }, 1000); // 1 second fade out before shutdown screen
+          } else {
+            setIsBooting(true);
+            setTimeout(() => {
+              setIsPoweredOn(true);
+              setIsBooting(false);
+            }, 3000);
+          }
+        }}
+        className={`fixed bottom-4 right-4 z-50 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+          isPoweredOn 
+            ? "bg-green-500/20 text-green-400 hover:bg-green-500/30 shadow-lg shadow-green-500/20" 
+            : "bg-white/10 text-white/60 hover:bg-white/20 backdrop-blur-sm"
+        } ${(isBooting || isShuttingDown || isFadingOut) ? "animate-pulse" : ""}`}
+      >
+        <Power size={18} />
+      </button>
+
+      {(isPoweredOn || isBooting || isShuttingDown || isFadingOut || isCompleteShutdown) && (
+        <div 
+          className={`fixed inset-0 bg-black backdrop-blur-sm z-40 flex items-center justify-center transition-all duration-1000 ease-in-out ${
+            isCompleteShutdown ? 'opacity-0 animate-fade-out' : 'animate-fade-in'
+          }`}
+          onClick={() => {
+            if (!isBooting && !isShuttingDown && !isFadingOut) {
+              setIsFadingOut(true);
+              setTimeout(() => {
+                setIsFadingOut(false);
+                setIsShuttingDown(true);
+                setTimeout(() => {
+                  setIsCompleteShutdown(true);
+                  setTimeout(() => {
+                    setIsPoweredOn(false);
+                    setIsShuttingDown(false);
+                    setIsCompleteShutdown(false);
+                  }, 1000);
+                }, 2000);
+              }, 1000);
+            }
+          }}
+        >
+          <div 
+            className="relative w-full max-w-4xl h-[500px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg border border-border/30 overflow-hidden animate-fade-in transition-all duration-500"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {isBooting ? (
+              /* Booting Screen */
+              <div className="absolute inset-0 bg-black flex items-center justify-center transition-all duration-1000 ease-in-out">
+                <div className="text-center animate-fade-in">
+                  <div className="text-blue-400 text-lg mb-6 font-mono animate-pulse">sebashtioon.os</div>
+                  <div className="flex items-center justify-center space-x-2 mb-4">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
                   </div>
-                ) : (
-                  /* Active OS */
-                  <>
+                  <div className="text-white/50 text-sm font-mono mb-2">initializing systems...</div>
+                  <div className="text-white/30 text-xs font-mono italic">system online</div>
+                </div>
+              </div>
+            ) : isShuttingDown ? (
+              /* Shutdown Screen */
+              <div className="absolute inset-0 bg-black flex items-center justify-center transition-all duration-1000 ease-in-out">
+                <div className="text-center animate-fade-in">
+                  <div className="text-red-400 text-lg mb-6 font-mono animate-pulse">sebashtioon.os</div>
+                  <div className="flex items-center justify-center space-x-2 mb-4">
+                    <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse [animation-delay:-0.5s]"></div>
+                    <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse [animation-delay:-1s]"></div>
+                  </div>
+                  <div className="text-white/50 text-sm font-mono mb-2">shutting down...</div>
+                  <div className="text-white/30 text-xs font-mono italic">all stations are now disabled</div>
+                </div>
+              </div>
+            ) : (
+              /* Active OS */
+              <div className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                isFadingOut ? 'opacity-0 animate-fade-out' : 'animate-fade-in'
+              }`}>
                 {/* Desktop Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/10 to-indigo-900/20"></div>
                 
@@ -1126,30 +1236,57 @@ const Home = () => {
                     }}
                   />
                 )}
-                  </>
-                )}
-                
-                {/* Power Button */}
-                <button
-                  onClick={() => setIsPoweredOn(!isPoweredOn)}
-                  className={`absolute bottom-3 right-3 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    isPoweredOn 
-                      ? "bg-green-500/20 text-green-400 hover:bg-green-500/30" 
-                      : "bg-white/10 text-white/60 hover:bg-white/20"
-                  }`}
-                >
-                  <Power size={14} />
-                </button>
-              </div>
+                </div>
+              )}
             </div>
+          </div>
+      )}
 
+      {/* Skills Popup */}
+      {(isSkillsOpen || isSkillsClosing) && (
+        <div 
+          className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center transition-all duration-300 ease-in-out ${
+            isSkillsClosing ? 'opacity-0 animate-fade-out' : 'animate-fade-in'
+          }`}
+          onClick={() => closeSkillsPopup()}
+        >
+          <div 
+            className={`relative w-full max-w-2xl bg-background/90 backdrop-blur-md rounded-lg border border-border/50 p-6 mx-4 transition-all duration-300 ease-in-out ${
+              isSkillsClosing ? 'opacity-0 scale-95 animate-fade-out' : 'animate-fade-in scale-100'
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold lowercase">skills</h2>
+              <button
+                onClick={() => closeSkillsPopup()}
+                className="w-8 h-8 rounded-full bg-red-500/20 hover:bg-red-500/30 text-red-400 flex items-center justify-center transition-colors"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="flex flex-wrap justify-center gap-2">
+              {[
+                "godot", "ue5", "game design", "level design", "story design",
+                "c++", "python", "gdscript", "blender", "3d modelling", 
+                "3d animation", "texturing and shading", "git", "vs studio",
+                "vscode", "gimp", "obsidian"
+              ].map((skill) => (
+                <span key={skill} className="text-xs px-2 py-1 bg-white/5 text-white/80 rounded border border-white/10">
+                  {skill}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
-
-      <BottomNav />
-    </div>
+      )}
+    </>
   );
 };
 
 export default Home;
+
+function setIsSkillsOpen(arg0: boolean): void {
+  throw new Error("Function not implemented.");
+}
