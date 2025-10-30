@@ -31,9 +31,11 @@ const Home = () => {
   const [notesView, setNotesView] = useState("menu"); // "menu" or "note"
   const [maximizedApps, setMaximizedApps] = useState([]);
   const [isSkillsOpen, setIsSkillsOpen] = useState(false);
+  const [isSkillsClosing, setIsSkillsClosing] = useState(false);
   const [isBooting, setIsBooting] = useState(false);
   const [isShuttingDown, setIsShuttingDown] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [isCompleteShutdown, setIsCompleteShutdown] = useState(false);
 
   // Update time every second
   useEffect(() => {
@@ -118,6 +120,14 @@ const Home = () => {
   const getZIndex = (appId) => {
     const index = appZOrder.indexOf(appId);
     return index >= 0 ? 10 + index : 10; // Base z-index of 10, increment by position
+  };
+
+  const closeSkillsPopup = () => {
+    setIsSkillsClosing(true);
+    setTimeout(() => {
+      setIsSkillsOpen(false);
+      setIsSkillsClosing(false);
+    }, 300); // 300ms fade out duration
   };
 
   const toggleApp = (appId) => {
@@ -315,36 +325,10 @@ const Home = () => {
                   <a href="https://www.youtube.com/@sebashtioon_" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors lowercase">
                     youtube
                   </a>
-                </div>
-
-                <div className="mb-6">
-                  <button
-                    onClick={() => setIsSkillsOpen(true)}
-                    className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors lowercase text-sm"
-                  >
+                  <span>•</span>
+                  <button onClick={() => setIsSkillsOpen(true)} className="hover:text-foreground transition-colors lowercase">
                     skills
                   </button>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/projects">
-                    <Button className="btn-hero text-lg px-8 py-6 group lowercase flex items-center gap-2">
-                      see my work
-                      <svg
-                        className="transition-transform group-hover:translate-x-1"
-                        width="20"
-                        height="20"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M5 12h14M13 6l6 6-6 6" />
-                      </svg>
-                    </Button>
-                  </Link>
                 </div>
               </div>
             </div>
@@ -362,8 +346,12 @@ const Home = () => {
               setIsFadingOut(false);
               setIsShuttingDown(true);
               setTimeout(() => {
-                setIsPoweredOn(false);
-                setIsShuttingDown(false);
+                setIsCompleteShutdown(true);
+                setTimeout(() => {
+                  setIsPoweredOn(false);
+                  setIsShuttingDown(false);
+                  setIsCompleteShutdown(false);
+                }, 1000); // 1 second fade out after shutdown screen
               }, 2000);
             }, 1000); // 1 second fade out before shutdown screen
           } else {
@@ -383,9 +371,11 @@ const Home = () => {
         <Power size={18} />
       </button>
 
-      {(isPoweredOn || isBooting || isShuttingDown || isFadingOut) && (
+      {(isPoweredOn || isBooting || isShuttingDown || isFadingOut || isCompleteShutdown) && (
         <div 
-          className="fixed inset-0 bg-black backdrop-blur-sm z-40 flex items-center justify-center animate-fade-in"
+          className={`fixed inset-0 bg-black backdrop-blur-sm z-40 flex items-center justify-center transition-all duration-1000 ease-in-out ${
+            isCompleteShutdown ? 'opacity-0 animate-fade-out' : 'animate-fade-in'
+          }`}
           onClick={() => {
             if (!isBooting && !isShuttingDown && !isFadingOut) {
               setIsFadingOut(true);
@@ -393,8 +383,12 @@ const Home = () => {
                 setIsFadingOut(false);
                 setIsShuttingDown(true);
                 setTimeout(() => {
-                  setIsPoweredOn(false);
-                  setIsShuttingDown(false);
+                  setIsCompleteShutdown(true);
+                  setTimeout(() => {
+                    setIsPoweredOn(false);
+                    setIsShuttingDown(false);
+                    setIsCompleteShutdown(false);
+                  }, 1000);
                 }, 2000);
               }, 1000);
             }
@@ -1249,19 +1243,23 @@ const Home = () => {
       )}
 
       {/* Skills Popup */}
-      {isSkillsOpen && (
+      {(isSkillsOpen || isSkillsClosing) && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in"
-          onClick={() => setIsSkillsOpen(false)}
+          className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center transition-all duration-300 ease-in-out ${
+            isSkillsClosing ? 'opacity-0 animate-fade-out' : 'animate-fade-in'
+          }`}
+          onClick={() => closeSkillsPopup()}
         >
           <div 
-            className="relative w-full max-w-2xl bg-background/90 backdrop-blur-md rounded-lg border border-border/50 p-6 mx-4 animate-fade-in"
+            className={`relative w-full max-w-2xl bg-background/90 backdrop-blur-md rounded-lg border border-border/50 p-6 mx-4 transition-all duration-300 ease-in-out ${
+              isSkillsClosing ? 'opacity-0 scale-95 animate-fade-out' : 'animate-fade-in scale-100'
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold lowercase">what i work with</h2>
+              <h2 className="text-xl font-bold lowercase">skills</h2>
               <button
-                onClick={() => setIsSkillsOpen(false)}
+                onClick={() => closeSkillsPopup()}
                 className="w-8 h-8 rounded-full bg-red-500/20 hover:bg-red-500/30 text-red-400 flex items-center justify-center transition-colors"
               >
                 ×
