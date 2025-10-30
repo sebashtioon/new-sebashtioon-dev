@@ -112,6 +112,7 @@
     @apply backdrop-blur-md bg-background/80;
     @apply border border-border/50;
     @apply transition-all duration-300;
+    @apply overflow-hidden;
   }
 
   .card-project {

@@ -30,6 +30,9 @@ const Home = () => {
   const [selectedNote, setSelectedNote] = useState(null);
   const [notesView, setNotesView] = useState("menu"); // "menu" or "note"
   const [maximizedApps, setMaximizedApps] = useState([]);
+  const [isSkillsOpen, setIsSkillsOpen] = useState(false);
+  const [isBooting, setIsBooting] = useState(false);
+  const [isShuttingDown, setIsShuttingDown] = useState(false);
 
   // Update time every second
   useEffect(() => {
@@ -246,7 +249,7 @@ const Home = () => {
       <div className="min-h-screen pb-20">
         <BackgroundGrid />
         
-        <section className="pt-8 pb-8 px-4 relative">
+        <section className="min-h-screen flex items-center justify-center px-4 relative">
           <div className="max-w-4xl mx-auto">
             <div className="text-center animate-fade-in">
               <div className="max-w-3xl mx-auto">
@@ -314,14 +317,12 @@ const Home = () => {
                 </div>
 
                 <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wider">what i work with</h3>
-                  <div className="flex flex-wrap justify-center gap-2">
-                    {["godot", "blender", "gdscript", "c++", "python", "ue5", "3d modeling", "animation"].map((skill) => (
-                      <span key={skill} className="text-xs px-2 py-1 bg-accent/10 text-accent rounded border border-accent/20">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                  <button
+                    onClick={() => setIsSkillsOpen(true)}
+                    className="px-4 py-2 bg-accent/10 hover:bg-accent/20 text-accent border border-accent/20 rounded-lg transition-colors lowercase text-sm"
+                  >
+                    skills
+                  </button>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -353,31 +354,73 @@ const Home = () => {
       </div>
 
       <button
-        onClick={() => setIsPoweredOn(!isPoweredOn)}
+        onClick={() => {
+          if (isPoweredOn) {
+            setIsShuttingDown(true);
+            setTimeout(() => {
+              setIsPoweredOn(false);
+              setIsShuttingDown(false);
+            }, 2000);
+          } else {
+            setIsBooting(true);
+            setTimeout(() => {
+              setIsPoweredOn(true);
+              setIsBooting(false);
+            }, 3000);
+          }
+        }}
         className={`fixed bottom-4 right-4 z-50 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
           isPoweredOn 
             ? "bg-green-500/20 text-green-400 hover:bg-green-500/30 shadow-lg shadow-green-500/20" 
             : "bg-white/10 text-white/60 hover:bg-white/20 backdrop-blur-sm"
-        }`}
+        } ${(isBooting || isShuttingDown) ? "animate-pulse" : ""}`}
       >
         <Power size={18} />
       </button>
 
-      {isPoweredOn && (
+      {(isPoweredOn || isBooting || isShuttingDown) && (
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center animate-fade-in"
-          onClick={() => setIsPoweredOn(false)}
+          onClick={() => {
+            if (!isBooting && !isShuttingDown) {
+              setIsShuttingDown(true);
+              setTimeout(() => {
+                setIsPoweredOn(false);
+                setIsShuttingDown(false);
+              }, 2000);
+            }
+          }}
         >
           <div 
             className="relative w-full max-w-4xl h-[500px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-border/30 overflow-hidden animate-fade-in"
             onClick={(e) => e.stopPropagation()}
           >
-            {!isPoweredOn ? (
-              /* Power Off Screen */
-              <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
+            {isBooting ? (
+              /* Booting Screen */
+              <div className="absolute inset-0 bg-black flex items-center justify-center">
                 <div className="text-center">
-                  <div className="text-white/30 text-xs mb-4 font-mono">sebashtioon.os</div>
-                  <div className="text-white/10 text-xs">system offline</div>
+                  <div className="text-blue-400 text-lg mb-6 font-mono animate-pulse">sebashtioon.os</div>
+                  <div className="flex items-center justify-center space-x-2 mb-4">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                  </div>
+                  <div className="text-white/50 text-sm font-mono mb-2">initializing systems...</div>
+                  <div className="text-white/30 text-xs font-mono italic">"system online"</div>
+                </div>
+              </div>
+            ) : isShuttingDown ? (
+              /* Shutdown Screen */
+              <div className="absolute inset-0 bg-black flex items-center justify-center">
+                <div className="text-center">
+                  <div className="text-red-400 text-lg mb-6 font-mono animate-pulse">sebashtioon.os</div>
+                  <div className="flex items-center justify-center space-x-2 mb-4">
+                    <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse [animation-delay:-0.5s]"></div>
+                    <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse [animation-delay:-1s]"></div>
+                  </div>
+                  <div className="text-white/50 text-sm font-mono mb-2">shutting down...</div>
+                  <div className="text-white/30 text-xs font-mono italic">"all stations are now disabled"</div>
                 </div>
               </div>
             ) : (
@@ -1191,7 +1234,60 @@ const Home = () => {
                 </>
               )}
             </div>
-          )
+          </div>
+        </div>
+      )}
+
+      {/* Skills Popup */}
+      {isSkillsOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in"
+          onClick={() => setIsSkillsOpen(false)}
+        >
+          <div 
+            className="relative w-full max-w-2xl bg-background/90 backdrop-blur-md rounded-lg border border-border/50 p-6 mx-4 animate-fade-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold lowercase">what i work with</h2>
+              <button
+                onClick={() => setIsSkillsOpen(false)}
+                className="w-8 h-8 rounded-full bg-red-500/20 hover:bg-red-500/30 text-red-400 flex items-center justify-center transition-colors"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {[
+                { name: "godot", category: "game engines" },
+                { name: "blender", category: "3d software" },
+                { name: "gdscript", category: "languages" },
+                { name: "c++", category: "languages" },
+                { name: "python", category: "languages" },
+                { name: "ue5", category: "game engines" },
+                { name: "3d modeling", category: "skills" },
+                { name: "animation", category: "skills" },
+                { name: "javascript", category: "languages" },
+                { name: "typescript", category: "languages" },
+                { name: "react", category: "frameworks" },
+                { name: "tailwind", category: "frameworks" }
+              ].map((skill) => (
+                <div key={skill.name} className="group">
+                  <div className="px-3 py-2 bg-accent/10 hover:bg-accent/20 text-accent border border-accent/20 rounded-lg transition-colors text-center">
+                    <div className="text-sm font-medium lowercase">{skill.name}</div>
+                    <div className="text-xs text-muted-foreground lowercase">{skill.category}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-6 text-center">
+              <p className="text-xs text-muted-foreground lowercase">
+                these are the main tools and technologies i use for my projects
+              </p>
+            </div>
+          </div>
         </div>
       )}
     </>
