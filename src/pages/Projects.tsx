@@ -102,16 +102,11 @@ const Projects = () => {
     <div className="min-h-screen pt-8 pb-20">
       <BackgroundGrid />
 
-      {/* Header - Diagonal Design */}
-      <section className="py-16 px-4 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-r from-purple-500/10 via-transparent to-yellow-500/10 transform -skew-y-1"></div>
-        
+      {/* Header - Clean Design */}
+      <section className="py-16 px-4 relative">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 animate-fade-in">
-              <div className="inline-block px-4 py-2 bg-purple-500/20 rounded-full text-sm mb-4">
-                <span className="text-purple-300">// portfolio showcase</span>
-              </div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 lowercase leading-tight">
                 my <span className="text-foreground font-tech">projects</span>
               </h1>
@@ -121,12 +116,9 @@ const Projects = () => {
             </div>
             
             <div className="lg:col-span-4 hidden lg:block">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-yellow-500/20 rounded-lg blur-xl"></div>
-                <div className="relative card-simple p-6 text-center">
-                  <div className="text-2xl font-bold">{projects.length}+</div>
-                  <div className="text-sm text-muted-foreground">projects created</div>
-                </div>
+              <div className="card-simple p-6 text-center">
+                <div className="text-2xl font-bold">{projects.length}+</div>
+                <div className="text-sm text-muted-foreground">projects created</div>
               </div>
             </div>
           </div>

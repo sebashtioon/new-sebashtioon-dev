@@ -33,6 +33,7 @@ const Home = () => {
   const [isSkillsOpen, setIsSkillsOpen] = useState(false);
   const [isBooting, setIsBooting] = useState(false);
   const [isShuttingDown, setIsShuttingDown] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   // Update time every second
   useEffect(() => {
@@ -246,22 +247,22 @@ const Home = () => {
 
   return (
     <>
-      <div className="min-h-screen pb-20">
+      <div className="h-screen overflow-hidden">
         <BackgroundGrid />
         
-        <section className="min-h-screen flex items-center justify-center px-4 relative">
+        <section className="h-screen flex items-center justify-center px-4 relative">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center animate-fade-in">
-              <div className="max-w-3xl mx-auto">
+            <div className="text-left animate-fade-in">
+              <div className="max-w-3xl">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif">
                   yo, i'm <span className="text-foreground">sebashtioon</span>
                 </h1>
 
-                <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto lowercase leading-relaxed">
+                <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl lowercase leading-relaxed">
                   i'm a 15-year-old game dev & sorta 3d artist. i like turning my imagination into reality through code and 3d art. i've been making games and small side-projects here and there for over 4 years.
                 </p>
                 
-                <p className="text-sm md:text-base text-muted-foreground/80 mb-4 max-w-2xl mx-auto lowercase leading-relaxed border-l-2 border-accent/30 pl-4">
+                <p className="text-sm md:text-base text-muted-foreground/80 mb-4 max-w-2xl lowercase leading-relaxed border-l-2 border-accent/30 pl-4">
                   that's basically it. i just like making stuff. i do have an indie game studio,{" "}
                   <a
                     href="https://github.com/Xintegrate-Studios"
@@ -295,7 +296,7 @@ const Home = () => {
                   .
                 </p>
 
-                <div className="flex flex-wrap items-center justify-center gap-4 mb-4 text-sm text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-4 mb-4 text-sm text-muted-foreground">
                   <button 
                     onClick={() => navigator.clipboard.writeText("sebastiansuciu607@gmail.com")}
                     className="hover:text-foreground transition-colors lowercase"
@@ -325,7 +326,7 @@ const Home = () => {
                   </button>
                 </div>
                 
-                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Link to="/projects">
                     <Button className="btn-hero text-lg px-8 py-6 group lowercase flex items-center gap-2">
                       see my work
@@ -356,11 +357,15 @@ const Home = () => {
       <button
         onClick={() => {
           if (isPoweredOn) {
-            setIsShuttingDown(true);
+            setIsFadingOut(true);
             setTimeout(() => {
-              setIsPoweredOn(false);
-              setIsShuttingDown(false);
-            }, 2000);
+              setIsFadingOut(false);
+              setIsShuttingDown(true);
+              setTimeout(() => {
+                setIsPoweredOn(false);
+                setIsShuttingDown(false);
+              }, 2000);
+            }, 1000); // 1 second fade out before shutdown screen
           } else {
             setIsBooting(true);
             setTimeout(() => {
@@ -373,32 +378,36 @@ const Home = () => {
           isPoweredOn 
             ? "bg-green-500/20 text-green-400 hover:bg-green-500/30 shadow-lg shadow-green-500/20" 
             : "bg-white/10 text-white/60 hover:bg-white/20 backdrop-blur-sm"
-        } ${(isBooting || isShuttingDown) ? "animate-pulse" : ""}`}
+        } ${(isBooting || isShuttingDown || isFadingOut) ? "animate-pulse" : ""}`}
       >
         <Power size={18} />
       </button>
 
-      {(isPoweredOn || isBooting || isShuttingDown) && (
+      {(isPoweredOn || isBooting || isShuttingDown || isFadingOut) && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center animate-fade-in"
+          className="fixed inset-0 bg-black backdrop-blur-sm z-40 flex items-center justify-center animate-fade-in"
           onClick={() => {
-            if (!isBooting && !isShuttingDown) {
-              setIsShuttingDown(true);
+            if (!isBooting && !isShuttingDown && !isFadingOut) {
+              setIsFadingOut(true);
               setTimeout(() => {
-                setIsPoweredOn(false);
-                setIsShuttingDown(false);
-              }, 2000);
+                setIsFadingOut(false);
+                setIsShuttingDown(true);
+                setTimeout(() => {
+                  setIsPoweredOn(false);
+                  setIsShuttingDown(false);
+                }, 2000);
+              }, 1000);
             }
           }}
         >
           <div 
-            className="relative w-full max-w-4xl h-[500px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-border/30 overflow-hidden animate-fade-in"
+            className="relative w-full max-w-4xl h-[500px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg border border-border/30 overflow-hidden animate-fade-in transition-all duration-500"
             onClick={(e) => e.stopPropagation()}
           >
             {isBooting ? (
               /* Booting Screen */
-              <div className="absolute inset-0 bg-black flex items-center justify-center">
-                <div className="text-center">
+              <div className="absolute inset-0 bg-black flex items-center justify-center transition-all duration-1000 ease-in-out">
+                <div className="text-center animate-fade-in">
                   <div className="text-blue-400 text-lg mb-6 font-mono animate-pulse">sebashtioon.os</div>
                   <div className="flex items-center justify-center space-x-2 mb-4">
                     <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
@@ -406,13 +415,13 @@ const Home = () => {
                     <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
                   </div>
                   <div className="text-white/50 text-sm font-mono mb-2">initializing systems...</div>
-                  <div className="text-white/30 text-xs font-mono italic">"system online"</div>
+                  <div className="text-white/30 text-xs font-mono italic">system online</div>
                 </div>
               </div>
             ) : isShuttingDown ? (
               /* Shutdown Screen */
-              <div className="absolute inset-0 bg-black flex items-center justify-center">
-                <div className="text-center">
+              <div className="absolute inset-0 bg-black flex items-center justify-center transition-all duration-1000 ease-in-out">
+                <div className="text-center animate-fade-in">
                   <div className="text-red-400 text-lg mb-6 font-mono animate-pulse">sebashtioon.os</div>
                   <div className="flex items-center justify-center space-x-2 mb-4">
                     <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
@@ -420,12 +429,14 @@ const Home = () => {
                     <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse [animation-delay:-1s]"></div>
                   </div>
                   <div className="text-white/50 text-sm font-mono mb-2">shutting down...</div>
-                  <div className="text-white/30 text-xs font-mono italic">"all stations are now disabled"</div>
+                  <div className="text-white/30 text-xs font-mono italic">all stations are now disabled</div>
                 </div>
               </div>
             ) : (
               /* Active OS */
-              <>
+              <div className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                isFadingOut ? 'opacity-0 animate-fade-out' : 'animate-fade-in'
+              }`}>
                 {/* Desktop Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/10 to-indigo-900/20"></div>
                 
@@ -1231,7 +1242,7 @@ const Home = () => {
                     }}
                   />
                 )}
-                </>
+                </div>
               )}
             </div>
           </div>
@@ -1257,23 +1268,17 @@ const Home = () => {
               </button>
             </div>
             
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex flex-wrap justify-center gap-2">
               {[
                 "godot", "ue5", "game design", "level design", "story design",
                 "c++", "python", "gdscript", "blender", "3d modelling", 
                 "3d animation", "texturing and shading", "git", "vs studio",
                 "vscode", "gimp", "obsidian"
               ].map((skill) => (
-                <div key={skill} className="px-3 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-center">
-                  <div className="text-sm font-medium lowercase">{skill}</div>
-                </div>
+                <span key={skill} className="text-xs px-2 py-1 bg-white/5 text-white/80 rounded border border-white/10">
+                  {skill}
+                </span>
               ))}
-            </div>
-            
-            <div className="mt-6 text-center">
-              <p className="text-xs text-muted-foreground lowercase">
-                these are the main tools and technologies i use for my projects
-              </p>
             </div>
           </div>
         </div>
