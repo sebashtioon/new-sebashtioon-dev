@@ -233,41 +233,29 @@ const Projects = () => {
                     </div>
 
                     {/* Links */}
-                    <div className="flex flex-wrap gap-3 text-muted-foreground text-sm mt-4 lowercase">
+                    <div className="flex flex-wrap gap-3 mt-4">
                       {project.links.github && (
-                        <>
-                          <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                            src
-                          </a>
-                          <span>•</span>
-                        </>
+                        <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                          src
+                        </a>
                       )}
                       {project.links.demo && (
-                        <>
-                          <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                            view
-                          </a>
-                          <span>•</span>
-                        </>
+                        <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                          view
+                        </a>
                       )}
                       {project.links.play_itch && (
-                        <>
-                          <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                            play on itch
-                          </a>
-                          <span>•</span>
-                        </>
+                        <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                          play on itch
+                        </a>
                       )}
                       {project.links.download && (
-                        <>
-                          <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                            download
-                          </a>
-                          <span>•</span>
-                        </>
+                        <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                          download
+                        </a>
                       )}
                       {project.links.blender_download && (
-                        <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                        <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
                           download project
                         </a>
                       )}
