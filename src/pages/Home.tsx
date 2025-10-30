@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Home = () => {
   // Desktop OS State Management
@@ -36,6 +36,7 @@ const Home = () => {
   const [isShuttingDown, setIsShuttingDown] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isCompleteShutdown, setIsCompleteShutdown] = useState(false);
+  const [isPowerButtonVisible, setIsPowerButtonVisible] = useState(false);
 
   // Update time every second
   useEffect(() => {
@@ -44,6 +45,15 @@ const Home = () => {
     }, 1000);
 
     return () => clearInterval(timer);
+  }, []);
+
+  // Animate power button in on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsPowerButtonVisible(true);
+    }, 200); // Faster - 200ms delay
+
+    return () => clearTimeout(timer);
   }, []);
 
   // Notes data
@@ -338,38 +348,48 @@ const Home = () => {
         <BottomNav />
       </div>
 
-      <button
-        onClick={() => {
-          if (isPoweredOn) {
-            setIsFadingOut(true);
-            setTimeout(() => {
-              setIsFadingOut(false);
-              setIsShuttingDown(true);
+      <AnimatePresence>
+        <motion.button
+          onClick={() => {
+            if (isPoweredOn) {
+              setIsFadingOut(true);
               setTimeout(() => {
-                setIsCompleteShutdown(true);
+                setIsFadingOut(false);
+                setIsShuttingDown(true);
                 setTimeout(() => {
-                  setIsPoweredOn(false);
-                  setIsShuttingDown(false);
-                  setIsCompleteShutdown(false);
-                }, 1000); // 1 second fade out after shutdown screen
-              }, 2000);
-            }, 1000); // 1 second fade out before shutdown screen
-          } else {
-            setIsBooting(true);
-            setTimeout(() => {
-              setIsPoweredOn(true);
-              setIsBooting(false);
-            }, 3000);
-          }
-        }}
-        className={`fixed bottom-4 right-4 z-50 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-          isPoweredOn 
-            ? "bg-green-500/20 text-green-400 hover:bg-green-500/30 shadow-lg shadow-green-500/20" 
-            : "bg-white/10 text-white/60 hover:bg-white/20 backdrop-blur-sm"
-        } ${(isBooting || isShuttingDown || isFadingOut) ? "animate-pulse" : ""}`}
-      >
-        <Power size={18} />
-      </button>
+                  setIsCompleteShutdown(true);
+                  setTimeout(() => {
+                    setIsPoweredOn(false);
+                    setIsShuttingDown(false);
+                    setIsCompleteShutdown(false);
+                  }, 1000); // 1 second fade out after shutdown screen
+                }, 2000);
+              }, 1000); // 1 second fade out before shutdown screen
+            } else {
+              setIsBooting(true);
+              setTimeout(() => {
+                setIsPoweredOn(true);
+                setIsBooting(false);
+              }, 3000);
+            }
+          }}
+          className={`fixed bottom-4 right-4 z-50 w-12 h-12 rounded-full flex items-center justify-center ${
+            isPoweredOn 
+              ? "bg-green-500/20 text-green-400 hover:bg-green-500/30 shadow-lg shadow-green-500/20" 
+              : "bg-white/10 text-white/60 hover:bg-white/20 backdrop-blur-sm"
+          } ${(isBooting || isShuttingDown || isFadingOut) ? "animate-pulse" : ""}`}
+          initial={{ y: 32, opacity: 0, scale: 0.8 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          exit={{ y: 32, opacity: 0, scale: 0.8 }}
+          transition={{ 
+            duration: 0.3, 
+            ease: "easeOut",
+            delay: isPowerButtonVisible ? 0 : 0.2
+          }}
+        >
+          <Power size={18} />
+        </motion.button>
+      </AnimatePresence>
 
       {(isPoweredOn || isBooting || isShuttingDown || isFadingOut || isCompleteShutdown) && (
         <div 

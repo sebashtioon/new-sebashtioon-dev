@@ -38,6 +38,10 @@ const NotFound = () => {
                   projects
                 </Link>
                 <span>•</span>
+                <Link to="/blog" className="hover:text-foreground transition-colors lowercase">
+                  blog
+                </Link>
+                <span>•</span>
                 <span className="text-muted-foreground/50">
                   attempted: {location.pathname}
                 </span>
