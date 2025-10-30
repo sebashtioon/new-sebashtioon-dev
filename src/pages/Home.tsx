@@ -319,7 +319,7 @@ const Home = () => {
                 <div className="mb-6">
                   <button
                     onClick={() => setIsSkillsOpen(true)}
-                    className="px-4 py-2 bg-accent/10 hover:bg-accent/20 text-accent border border-accent/20 rounded-lg transition-colors lowercase text-sm"
+                    className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors lowercase text-sm"
                   >
                     skills
                   </button>
@@ -1238,7 +1238,7 @@ const Home = () => {
       )}
 
       {/* Skills Popup */}
-      {setIsSkillsOpen && (
+      {isSkillsOpen && (
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in"
           onClick={() => setIsSkillsOpen(false)}
@@ -1257,26 +1257,15 @@ const Home = () => {
               </button>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="flex flex-wrap justify-center gap-3">
               {[
-                { name: "godot", category: "game engines" },
-                { name: "blender", category: "3d software" },
-                { name: "gdscript", category: "languages" },
-                { name: "c++", category: "languages" },
-                { name: "python", category: "languages" },
-                { name: "ue5", category: "game engines" },
-                { name: "3d modeling", category: "skills" },
-                { name: "animation", category: "skills" },
-                { name: "javascript", category: "languages" },
-                { name: "typescript", category: "languages" },
-                { name: "react", category: "frameworks" },
-                { name: "tailwind", category: "frameworks" }
+                "godot", "ue5", "game design", "level design", "story design",
+                "c++", "python", "gdscript", "blender", "3d modelling", 
+                "3d animation", "texturing and shading", "git", "vs studio",
+                "vscode", "gimp", "obsidian"
               ].map((skill) => (
-                <div key={skill.name} className="group">
-                  <div className="px-3 py-2 bg-accent/10 hover:bg-accent/20 text-accent border border-accent/20 rounded-lg transition-colors text-center">
-                    <div className="text-sm font-medium lowercase">{skill.name}</div>
-                    <div className="text-xs text-muted-foreground lowercase">{skill.category}</div>
-                  </div>
+                <div key={skill} className="px-3 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-center">
+                  <div className="text-sm font-medium lowercase">{skill}</div>
                 </div>
               ))}
             </div>
