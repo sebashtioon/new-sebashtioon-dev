@@ -42,6 +42,7 @@ const Projects = () => {
       image: "/projects/the-swing.webp",
       tags: ["godot", "psx", "low-poly", "3D", "super-short"],
       status: "completed",
+      completedDate: "2025-07-16",
       links: {
         play_itch: "https://xintegrate-studios.itch.io/the-swing",
         github: "https://github.com/Xintegrate-Studios/The-Swing",
@@ -55,6 +56,7 @@ const Projects = () => {
       image: "/projects/vessel-9-concept-art.webp",
       tags: ["blender", "3D", "concept-art"],
       status: "completed",
+      completedDate: "2025-08-18",
       links: {
         download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Vessel-9-Concept-Art/Vessel-9.Concept.Art.zip",
         blender_download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Vessel-9-Concept-Art/Vessel-9.Concept.Art.Project.zip",
@@ -68,6 +70,7 @@ const Projects = () => {
       image: "/projects/peakscapes.webp",
       tags: ["blender", "3D"],
       status: "completed",
+      completedDate: "2025-08-21",
       links: {
         download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Peakscapes/Peakscapes.Art.zip",
         blender_download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Peakscapes/Peakscapes.Project.zip",
@@ -79,8 +82,9 @@ const Projects = () => {
       category: "3d stuff",
       description: "endless darkness framed by a ring of golden light.",
       image: "/projects/bh-1737.webp",
-      tags: ["3d", "blender"],
+      tags: ["3D", "blender"],
       status: "completed",
+      completedDate: "2025-11-08",
       links: {
         download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/BH-1737/BH-1737.Art.zip",
         blender_download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/BH-1737/BH-1737.Project.zip",
@@ -93,6 +97,8 @@ const Projects = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterMode, setFilterMode] = useState("any"); // "any" (OR) or "all" (AND)
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   
   // Scroll position preservation
   const scrollPositionRef = useRef(0);
@@ -127,6 +133,18 @@ const Projects = () => {
     setSelectedCategory("all");
     setSelectedTags([]);
     setSearchQuery("");
+    setStartDate("");
+    setEndDate("");
+  };
+
+  // Format completion date for display
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric' 
+    });
   };
 
   // Restore scroll position after filtering
@@ -162,7 +180,21 @@ const Projects = () => {
       project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-    return categoryMatch && tagMatch && searchMatch;
+    
+    // Date range filtering (only for completed projects with dates)
+    let dateMatch = true;
+    if ((startDate || endDate) && project.status === "completed" && project.completedDate) {
+      const projectDate = new Date(project.completedDate);
+      if (startDate && endDate) {
+        dateMatch = projectDate >= new Date(startDate) && projectDate <= new Date(endDate);
+      } else if (startDate) {
+        dateMatch = projectDate >= new Date(startDate);
+      } else if (endDate) {
+        dateMatch = projectDate <= new Date(endDate);
+      }
+    }
+    
+    return categoryMatch && tagMatch && searchMatch && dateMatch;
   });
 
   // Smart loading detection
@@ -247,12 +279,30 @@ const Projects = () => {
                   onClick={() => setFilterMode(filterMode === "any" ? "all" : "any")}
                   className="hover:text-foreground transition-colors lowercase text-foreground"
                 >
-                  {filterMode === "any" ? "show projects with any selected tags" : "show projects with all selected tags"}
+                  {filterMode === "any" ? "match any selected tag" : "match all selected tags"}
                 </button>
               </div>
             )}
+            <div className="flex flex-wrap items-center gap-3 text-muted-foreground text-sm mb-4 lowercase">
+              <span>completed between:</span>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="bg-transparent border-none outline-none text-foreground text-sm lowercase"
+                placeholder="start date"
+              />
+              <span>and</span>
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                className="bg-transparent border-none outline-none text-foreground text-sm lowercase"
+                placeholder="end date"
+              />
+            </div>
             <div className="flex flex-wrap items-center gap-3 text-muted-foreground text-sm mb-4">
-              {(selectedCategory !== "all" || selectedTags.length > 0 || searchQuery !== "") && (
+              {(selectedCategory !== "all" || selectedTags.length > 0 || searchQuery !== "" || startDate !== "" || endDate !== "") && (
                 <>
                   <span>•</span>
                   <button
@@ -303,6 +353,12 @@ const Projects = () => {
                         >
                           {project.status}
                         </button>
+                        {project.status === "completed" && project.completedDate && (
+                          <>
+                            <span>•</span>
+                            <span>{formatDate(project.completedDate)}</span>
+                          </>
+                        )}
                       </div>
                       
                       <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
