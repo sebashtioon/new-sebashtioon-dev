@@ -8,7 +8,7 @@ import BottomNav from "@/components/BottomNav";
 import SmartImage from "@/components/SmartImage";
 import PageWrapper from "@/components/PageWrapper";
 import { useSmartLoading, useImageLoadingDetector } from "@/hooks/useSmartLoading";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const Projects = () => {
   const projects = [
@@ -79,16 +79,35 @@ const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedTags, setSelectedTags] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [filterMode, setFilterMode] = useState("any"); // "any" (OR) or "all" (AND)
+  
+  // Scroll position preservation
+  const scrollPositionRef = useRef(0);
+  const preserveScrollRef = useRef(false);
 
   // Extract all unique tags from projects
   const allTags = [...new Set(projects.flatMap(project => project.tags))].sort();
+  
+  // Extract all unique statuses from projects
+  const allStatuses = [...new Set(projects.map(project => project.status))].sort();
 
   const handleTagClick = (tag) => {
+    // Store current scroll position before filtering
+    scrollPositionRef.current = window.scrollY;
+    preserveScrollRef.current = true;
+    
     setSelectedTags(prev => 
       prev.includes(tag) 
         ? prev.filter(t => t !== tag)
         : [...prev, tag]
     );
+  };
+
+  const handleCategoryClick = (category) => {
+    // Store current scroll position before filtering
+    scrollPositionRef.current = window.scrollY;
+    preserveScrollRef.current = true;
+    setSelectedCategory(category);
   };
 
   const clearAllFilters = () => {
@@ -97,9 +116,35 @@ const Projects = () => {
     setSearchQuery("");
   };
 
+  // Restore scroll position after filtering
+  useEffect(() => {
+    if (preserveScrollRef.current) {
+      // Use requestAnimationFrame to ensure DOM has updated
+      requestAnimationFrame(() => {
+        window.scrollTo(0, scrollPositionRef.current);
+        preserveScrollRef.current = false;
+      });
+    }
+  }, [selectedTags, selectedCategory]);
+
   const filteredProjects = projects.filter(project => {
     const categoryMatch = selectedCategory === "all" || project.category === selectedCategory;
-    const tagMatch = selectedTags.length === 0 || selectedTags.some(tag => project.tags.includes(tag));
+    
+    let tagMatch = true;
+    if (selectedTags.length > 0) {
+      if (filterMode === "any") {
+        // OR logic: project matches if it has ANY of the selected tags/status
+        tagMatch = selectedTags.some(tag => 
+          project.tags.includes(tag) || project.status === tag
+        );
+      } else {
+        // AND logic: project matches if it has ALL selected tags/status
+        tagMatch = selectedTags.every(tag => 
+          project.tags.includes(tag) || project.status === tag
+        );
+      }
+    }
+    
     const searchMatch = searchQuery === "" || 
       project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -159,7 +204,7 @@ const Projects = () => {
               {categories.map((category) => (
                 <button
                   key={category}
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={() => handleCategoryClick(category)}
                   className={`hover:text-foreground transition-colors lowercase ${
                     selectedCategory === category ? 'text-foreground' : ''
                   }`}
@@ -170,7 +215,7 @@ const Projects = () => {
             </div>
             <div className="flex flex-wrap items-center gap-3 text-muted-foreground text-sm mb-4 lowercase">
               <span>tags:</span>
-              {allTags.map((tag) => (
+              {[...allTags, ...allStatuses].map((tag) => (
                 <button
                   key={tag}
                   onClick={() => handleTagClick(tag)}
@@ -181,6 +226,19 @@ const Projects = () => {
                   {tag}
                 </button>
               ))}
+            </div>
+            {selectedTags.length > 1 && (
+              <div className="flex items-center gap-3 text-muted-foreground text-sm mb-4 lowercase">
+                <span>filter mode:</span>
+                <button
+                  onClick={() => setFilterMode(filterMode === "any" ? "all" : "any")}
+                  className="hover:text-foreground transition-colors lowercase text-foreground"
+                >
+                  {filterMode === "any" ? "show projects with any selected tags" : "show projects with all selected tags"}
+                </button>
+              </div>
+            )}
+            <div className="flex flex-wrap items-center gap-3 text-muted-foreground text-sm mb-4">
               {(selectedCategory !== "all" || selectedTags.length > 0 || searchQuery !== "") && (
                 <>
                   <span>•</span>
@@ -224,7 +282,14 @@ const Projects = () => {
                       <div className="flex items-center gap-3 text-sm text-muted-foreground mb-2 lowercase">
                         <span>{project.category}</span>
                         <span>•</span>
-                        <span>{project.status}</span>
+                        <button
+                          onClick={() => handleTagClick(project.status)}
+                          className={`hover:text-foreground transition-colors lowercase ${
+                            selectedTags.includes(project.status) ? 'text-foreground' : ''
+                          }`}
+                        >
+                          {project.status}
+                        </button>
                       </div>
                       
                       <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
