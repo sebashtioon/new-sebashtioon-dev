@@ -72,6 +72,19 @@ const Projects = () => {
         download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Peakscapes/Peakscapes.Art.zip",
         blender_download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/Peakscapes/Peakscapes.Project.zip",
       }
+    },
+    {
+      id: 6,
+      title: "BH-1737",
+      category: "3d stuff",
+      description: "endless darkness framed by a ring of golden light.",
+      image: "/projects/bh-1737.webp",
+      tags: ["3d", "blender"],
+      status: "completed",
+      links: {
+        download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/BH-1737/BH-1737.Art.zip",
+        blender_download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/BH-1737/BH-1737.Project.zip",
+      }
     }
   ];
 
@@ -154,7 +167,7 @@ const Projects = () => {
 
   // Smart loading detection
   useSmartLoading(filteredProjects.length, {
-    threshold: 6, // Show loading if 6+ projects
+    threshold: 8, // Show loading if 8+ projects
     delay: 800, // Keep loading for 800ms minimum
     loadingMessage: `loading ${filteredProjects.length} projects...`
   });
