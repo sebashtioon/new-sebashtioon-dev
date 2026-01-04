@@ -53,7 +53,7 @@ const Music = () => {
       .catch(() => {});
   }, [apiKey, lastfmUser]);
 
-  /* GLOBAL MOUSE — VIEWPORT SPACE */
+  /* GLOBAL MOUSE TRACKING */
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
       setCursorPos({
@@ -66,13 +66,13 @@ const Music = () => {
     return () => window.removeEventListener("mousemove", handleMove);
   }, []);
 
-  const blurSize = 520;
+  const holeSize = 900;
 
   return (
     <div className="relative min-h-screen overflow-hidden">
       <BackgroundGrid />
 
-      {/* COLLAGE SIDES */}
+      {/* COLLAGE */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="grid grid-cols-[1fr_minmax(0,42rem)_1fr] h-screen">
           {/* LEFT */}
@@ -140,21 +140,27 @@ const Music = () => {
         </div>
       </div>
 
-      {/* 🔥 FIXED BLUR — VIEWPORT-LOCKED */}
+      {/* 🔥 INVERTED BLUR OVERLAY */}
       <div
-        className="pointer-events-none fixed top-0 left-0 rounded-full bg-white/8 border border-white/25 backdrop-blur-3xl shadow-[0_0_80px_rgba(0,0,0,0.8)] mix-blend-screen transition-transform duration-150 ease-out z-20"
+        className="pointer-events-none fixed inset-0 z-20 backdrop-blur transition-[mask-position] duration-100"
         style={{
-          width: blurSize,
-          height: blurSize,
-          transform: `translate(${cursorPos.x - blurSize / 2}px, ${
-            cursorPos.y - blurSize / 2
-          }px)`,
-          opacity: cursorPos.x < 0 ? 0 : 0.95,
+          WebkitMaskImage: `radial-gradient(
+            circle ${holeSize / 2}px at ${cursorPos.x}px ${cursorPos.y}px,
+            transparent 0%,
+            transparent 55%,
+            black 90%
+          )`,
+          maskImage: `radial-gradient(
+            circle ${holeSize / 2}px at ${cursorPos.x}px ${cursorPos.y}px,
+            transparent 0%,
+            transparent 50%,
+            black 90%
+          )`,
         }}
       />
 
-      {/* MAIN */}
-      <section className="h-screen flex items-center justify-center px-4 relative z-10">
+      {/* MAIN CONTENT */}
+      <section className="h-screen flex items-center justify-center px-4 relative z-30">
         <div className="max-w-2xl w-full space-y-10">
           <div className="rounded-xl bg-black/55 backdrop-blur-md border border-white/10 p-6">
             <h1 className="text-4xl font-bold lowercase font-serif">music</h1>
