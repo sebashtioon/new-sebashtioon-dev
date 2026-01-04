@@ -20,6 +20,12 @@ const Music = () => {
     "/collages/artist8.jpg",
     "/collages/artist9.jpg",
     "/collages/artist10.jpg",
+    "/collages/artist11.jpg",
+    "/collages/artist12.jpg",
+    "/collages/artist13.jpg",
+    "/collages/artist14.jpg",
+    "/collages/artist15.jpg",
+    "/collages/artist16.jpg",
   ];
 
 
@@ -27,6 +33,7 @@ const Music = () => {
    * HEIGHT RATIOS (must sum to 1 per column)
    * tweak these to taste – layout stays stable forever
    */
+  // 8 slots per side, 4 per column, with variant ratios
   const leftColumnRatios = [
     [0.32, 0.18, 0.25, 0.25], // left sub-column
     [0.22, 0.38, 0.20, 0.20], // right sub-column
