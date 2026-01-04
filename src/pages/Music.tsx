@@ -35,6 +35,7 @@ const Music = () => {
 
   const logoMap: Record<string, string> = {
     "/collages/artist1.jpg": "/logos/artist1.png",
+    "/collages/artist5.jpg": "/logos/artist5.png",
   };
 
   const leftColumnRatios = [
@@ -94,25 +95,88 @@ const Music = () => {
 
   const getLogoSize = () => 200; // fixed size is fine when not tied to a tile
 
-  // measure artist1 tile so we can place an invisible click hotspot over it
-  const [artist1Rect, setArtist1Rect] = useState<{
-    left: number;
-    top: number;
-    width: number;
-    height: number;
-  } | null>(null);
+  const getBaseNameFromImage = (imgSrc: string) => {
+    try {
+      const parts = imgSrc.split("/");
+      const file = parts[parts.length - 1];
+      return file.split(".")[0];
+    } catch {
+      return "artist";
+    }
+  };
+
+  // measure all collage tiles so we can place invisible click hotspots over them
+  const [collageHotspots, setCollageHotspots] = useState<
+    Array<{
+      imgSrc: string;
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+    }>
+  >([]);
 
   useEffect(() => {
-    const el = document.querySelector<HTMLElement>('[data-collage="/collages/artist1.jpg"]');
-    if (!el) return;
+    let rafId = 0;
+    let startupRafId = 0;
 
-    const rect = el.getBoundingClientRect();
-    setArtist1Rect({
-      left: rect.left,
-      top: rect.top,
-      width: rect.width,
-      height: rect.height,
-    });
+    const updateNow = () => {
+      const nodes = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-collage]")
+      );
+
+      const next = nodes
+        .map((el) => {
+          const imgSrc = el.dataset.collage || "";
+          if (!imgSrc) return null;
+
+          const rect = el.getBoundingClientRect();
+          return {
+            imgSrc,
+            left: rect.left,
+            top: rect.top,
+            width: rect.width,
+            height: rect.height,
+          };
+        })
+        .filter(Boolean) as Array<{
+        imgSrc: string;
+        left: number;
+        top: number;
+        width: number;
+        height: number;
+      }>;
+
+      setCollageHotspots(next);
+    };
+
+    const scheduleUpdate = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        updateNow();
+      });
+    };
+
+    // keep hotspots aligned during the collage entrance animation
+    const startTime = performance.now();
+    const startupLoop = (t: number) => {
+      updateNow();
+      if (t - startTime < 1000) {
+        startupRafId = window.requestAnimationFrame(startupLoop);
+      }
+    };
+
+    startupRafId = window.requestAnimationFrame(startupLoop);
+
+    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    return () => {
+      if (rafId) window.cancelAnimationFrame(rafId);
+      if (startupRafId) window.cancelAnimationFrame(startupRafId);
+      window.removeEventListener("resize", scheduleUpdate);
+      window.removeEventListener("scroll", scheduleUpdate);
+    };
   }, []);
 
   const getLogoForImage = (imgSrc: string) => {
@@ -161,23 +225,24 @@ const Music = () => {
         )}
       </AnimatePresence>
 
-      {artist1Rect && (
+      {collageHotspots.map((spot) => (
         <button
+          key={spot.imgSrc}
           type="button"
-          className="fixed z-40" // just under the logo burst (z-50)
+          aria-label={`Show ${getBaseNameFromImage(spot.imgSrc)} logo`}
+          className="fixed z-40 cursor-pointer"
           style={{
-            left: artist1Rect.left,
-            top: artist1Rect.top,
-            width: artist1Rect.width,
-            height: artist1Rect.height,
+            left: spot.left,
+            top: spot.top,
+            width: spot.width,
+            height: spot.height,
             background: "transparent",
             border: "none",
             padding: 0,
-            cursor: "pointer",
           }}
-          onClick={() => showLogoBurstAt("/logos/artist1.png")}
+          onClick={() => triggerLogoBurst(spot.imgSrc)}
         />
-      )}
+      ))}
 
       {/* COLLAGE - TOP BAND ONLY */}
       <div className="absolute top-0 left-0 right-0 h-[40vh] -z-10">
@@ -196,7 +261,7 @@ const Music = () => {
                   return (
                     <motion.div
                       key={i}
-                      className="relative overflow-hidden rounded-md cursor-pointer"
+                      className="relative overflow-hidden rounded-md"
                       data-collage={img}
                       style={{ height: `${ratio * 100}vh` }}
                       initial={{ opacity: 0, y: 40, scale: 0.95 }}
@@ -206,7 +271,6 @@ const Music = () => {
                         ease: [0.22, 1, 0.36, 1],
                         delay: flatIdx * 0.05,
                       }}
-                      onClick={() => triggerLogoBurst(img)}
                     >
                       <div
                         className="absolute inset-0 bg-cover bg-center"
@@ -239,7 +303,7 @@ const Music = () => {
                   return (
                     <motion.div
                       key={i}
-                      className="relative overflow-hidden rounded-md cursor-pointer"
+                      className="relative overflow-hidden rounded-md"
                       data-collage={img}
                       style={{ height: `${ratio * 100}vh` }}
                       initial={{ opacity: 0, y: 40, scale: 0.95 }}
@@ -249,7 +313,6 @@ const Music = () => {
                         ease: [0.22, 1, 0.36, 1],
                         delay: flatIdx * 0.05,
                       }}
-                      onClick={() => triggerLogoBurst(img)}
                     >
                       <div
                         className="absolute inset-0 bg-cover bg-center"
