@@ -1,13 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
-import { SiSpotify } from "react-icons/si";
 
 const Music = () => {
   const [nowPlaying, setNowPlaying] = useState<any>(null);
   const [cursorPos, setCursorPos] = useState({ x: -1000, y: -1000 });
-
-  const blurLayerRef = useRef<HTMLDivElement>(null);
 
   const apiKey = import.meta.env.VITE_LASTFM_API_KEY;
   const lastfmUser = import.meta.env.VITE_LASTFM_USER;
@@ -56,15 +53,12 @@ const Music = () => {
       .catch(() => {});
   }, [apiKey, lastfmUser]);
 
-  /* GLOBAL MOUSE TRACKING (CORRECTED COORDS) */
+  /* GLOBAL MOUSE — VIEWPORT SPACE */
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
-      const rect = blurLayerRef.current?.getBoundingClientRect();
-      if (!rect) return;
-
       setCursorPos({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
+        x: e.clientX,
+        y: e.clientY,
       });
     };
 
@@ -78,91 +72,86 @@ const Music = () => {
     <div className="relative min-h-screen overflow-hidden">
       <BackgroundGrid />
 
-      {/* COLLAGE + BLUR LAYER */}
-      <div
-        ref={blurLayerRef}
-        className="absolute inset-0 -z-10 pointer-events-none"
-      >
-        <div className="relative w-full h-full">
-          <div className="grid grid-cols-[1fr_minmax(0,42rem)_1fr] h-screen">
-            {/* LEFT */}
-            <div className="flex gap-2 p-2">
-              {leftColumnRatios.map((column, colIdx) => (
-                <div key={colIdx} className="flex flex-col gap-2 w-1/2">
-                  {column.map((ratio, i) => {
-                    const flatIdx =
-                      leftColumnRatios
-                        .slice(0, colIdx)
-                        .reduce((a, b) => a + b.length, 0) + i;
-                    const img = uniqueImages[flatIdx];
+      {/* COLLAGE SIDES */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="grid grid-cols-[1fr_minmax(0,42rem)_1fr] h-screen">
+          {/* LEFT */}
+          <div className="flex gap-2 p-2">
+            {leftColumnRatios.map((column, colIdx) => (
+              <div key={colIdx} className="flex flex-col gap-2 w-1/2">
+                {column.map((ratio, i) => {
+                  const flatIdx =
+                    leftColumnRatios
+                      .slice(0, colIdx)
+                      .reduce((a, b) => a + b.length, 0) + i;
+                  const img = uniqueImages[flatIdx];
 
-                    return (
+                  return (
+                    <div
+                      key={i}
+                      className="relative overflow-hidden rounded-md"
+                      style={{ height: `${ratio * 100}vh` }}
+                    >
                       <div
-                        key={i}
-                        className="relative overflow-hidden rounded-md"
-                        style={{ height: `${ratio * 100}vh` }}
-                      >
-                        <div
-                          className="absolute inset-0 bg-cover bg-center"
-                          style={{ backgroundImage: `url(${img})` }}
-                        />
-                        <div className="absolute inset-0 bg-black/35" />
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
-
-            {/* CENTER */}
-            <div />
-
-            {/* RIGHT */}
-            <div className="flex gap-2 p-2">
-              {rightColumnRatios.map((column, colIdx) => (
-                <div key={colIdx} className="flex flex-col gap-2 w-1/2">
-                  {column.map((ratio, i) => {
-                    const flatIdx =
-                      leftSlots +
-                      rightColumnRatios
-                        .slice(0, colIdx)
-                        .reduce((a, b) => a + b.length, 0) +
-                      i;
-                    const img = uniqueImages[flatIdx];
-
-                    return (
-                      <div
-                        key={i}
-                        className="relative overflow-hidden rounded-md"
-                        style={{ height: `${ratio * 100}vh` }}
-                      >
-                        <div
-                          className="absolute inset-0 bg-cover bg-center"
-                          style={{ backgroundImage: `url(${img})` }}
-                        />
-                        <div className="absolute inset-0 bg-black/35" />
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
+                        className="absolute inset-0 bg-cover bg-center"
+                        style={{ backgroundImage: `url(${img})` }}
+                      />
+                      <div className="absolute inset-0 bg-black/35" />
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
           </div>
 
-          {/* BLUR SPOTLIGHT */}
-          <div
-            className="pointer-events-none absolute rounded-full bg-white/8 border border-white/25 backdrop-blur-3xl shadow-[0_0_80px_rgba(0,0,0,0.8)] mix-blend-screen transition-transform duration-150 ease-out"
-            style={{
-              width: blurSize,
-              height: blurSize,
-              transform: `translate(${cursorPos.x - blurSize / 2}px, ${
-                cursorPos.y - blurSize / 2
-              }px)`,
-              opacity: cursorPos.x < 0 ? 0 : 0.95,
-            }}
-          />
+          {/* CENTER */}
+          <div />
+
+          {/* RIGHT */}
+          <div className="flex gap-2 p-2">
+            {rightColumnRatios.map((column, colIdx) => (
+              <div key={colIdx} className="flex flex-col gap-2 w-1/2">
+                {column.map((ratio, i) => {
+                  const flatIdx =
+                    leftSlots +
+                    rightColumnRatios
+                      .slice(0, colIdx)
+                      .reduce((a, b) => a + b.length, 0) +
+                    i;
+                  const img = uniqueImages[flatIdx];
+
+                  return (
+                    <div
+                      key={i}
+                      className="relative overflow-hidden rounded-md"
+                      style={{ height: `${ratio * 100}vh` }}
+                    >
+                      <div
+                        className="absolute inset-0 bg-cover bg-center"
+                        style={{ backgroundImage: `url(${img})` }}
+                      />
+                      <div className="absolute inset-0 bg-black/35" />
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* 🔥 FIXED BLUR — VIEWPORT-LOCKED */}
+      <div
+        className="pointer-events-none fixed top-0 left-0 rounded-full bg-white/8 border border-white/25 backdrop-blur-3xl shadow-[0_0_80px_rgba(0,0,0,0.8)] mix-blend-screen transition-transform duration-150 ease-out z-20"
+        style={{
+          width: blurSize,
+          height: blurSize,
+          transform: `translate(${cursorPos.x - blurSize / 2}px, ${
+            cursorPos.y - blurSize / 2
+          }px)`,
+          opacity: cursorPos.x < 0 ? 0 : 0.95,
+        }}
+      />
 
       {/* MAIN */}
       <section className="h-screen flex items-center justify-center px-4 relative z-10">
