@@ -39,10 +39,8 @@ const Music = () => {
     [0.22, 0.38, 0.20, 0.20], // right sub-column
   ];
 
-  const rightColumnRatios = [
-    [0.25, 0.30, 0.20, 0.25],
-    [0.35, 0.20, 0.30, 0.15],
-  ];
+  // Mirror the left ratios for the right side
+  const rightColumnRatios = [...leftColumnRatios].reverse().map(arr => [...arr].reverse());
 
   // Calculate total slots in the collage (after ratios are defined)
   const leftSlots = leftColumnRatios.flat().length;
