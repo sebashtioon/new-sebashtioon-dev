@@ -32,6 +32,14 @@ const Music = () => {
     "/collages/artist8.jpg",
     "/collages/artist9.jpg",
     "/collages/artist10.jpg",
+    "/collages/artist11.jpg",
+    "/collages/artist12.jpg",
+    "/collages/artist13.jpg",
+    "/collages/artist14.jpg",
+    "/collages/artist15.jpg",
+    "/collages/artist16.jpg",
+    "/collages/artist17.jpg",
+    "/collages/artist18.jpg",
   ];
 
   const collageLayout = [
@@ -64,13 +72,13 @@ const Music = () => {
   }, [apiKey, lastfmUser]);
 
   return (
-    <div className="min-h-screen overflow-auto">
+    <div className="min-h-screen">
       <BackgroundGrid />
 
-      <section className="min-h-screen flex items-start justify-center px-4 pt-36 pb-20 relative">
+      <section className="h-screen flex items-start justify-center px-4 pt-20 pb-6 relative">
         {/* Collage Background Template */}
         <div className="absolute inset-0 -z-10 opacity-100 pointer-events-none">
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 auto-rows-[140px] sm:auto-rows-[180px] md:auto-rows-[220px] gap-0 h-full p-0 w-full">
+          <div className="grid grid-rows-6 grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-0 h-full p-0 w-full">
             {collageImages.map((src, idx) => (
               <div
                 key={idx}
@@ -83,9 +91,6 @@ const Music = () => {
                   />
                 )}
                 <div className="absolute inset-0 bg-black/35" />
-                <div className="absolute inset-0 flex items-center justify-center text-[11px] tracking-wide uppercase text-white/70">
-                  add image
-                </div>
                 <div className="absolute top-1.5 left-1.5 bg-white/20 backdrop-blur-sm border border-white/30 rounded px-2 py-1 text-xs font-semibold text-white">
                   artist{idx + 1}
                 </div>
@@ -95,7 +100,7 @@ const Music = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/5 to-background/20" />
         </div>
 
-        <div className="max-w-2xl mx-auto w-full space-y-10 relative z-20">
+        <div className="max-w-2xl mx-auto w-full space-y-10 relative z-20 max-h-[80vh] overflow-auto">
           <div className="rounded-xl bg-black/55 backdrop-blur-md border border-white/10 shadow-lg shadow-black/30 p-4 sm:p-6">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 lowercase font-serif drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]">music</h1>
             <p className="text-muted-foreground/90 lowercase drop-shadow-[0_1px_6px_rgba(0,0,0,0.35)]">i like music. alot.</p>
