@@ -35,18 +35,16 @@ const Music = () => {
   ];
 
   const collageLayout = [
-    "row-span-2 col-span-2",
-    "row-span-1 col-span-1",
-    "row-span-1 col-span-2",
     "row-span-3 col-span-2",
-    "row-span-2 col-span-1",
-    "row-span-1 col-span-1",
-    "row-span-2 col-span-3",
-    "row-span-1 col-span-1",
     "row-span-2 col-span-2",
-    "row-span-1 col-span-2",
     "row-span-1 col-span-1",
+    "row-span-1 col-span-1",
+    "row-span-3 col-span-1",
+    "row-span-2 col-span-2",
+    "row-span-3 col-span-1",
     "row-span-2 col-span-1",
+    "row-span-1 col-span-2",
+    "row-span-2 col-span-2",
   ];
 
   useEffect(() => {
@@ -71,36 +69,39 @@ const Music = () => {
 
       <section className="min-h-screen flex items-start justify-center px-4 pt-36 pb-20 relative">
         {/* Collage Background Template */}
-        <div className="absolute inset-0 -z-10 opacity-80 pointer-events-none">
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 auto-rows-[90px] sm:auto-rows-[120px] md:auto-rows-[150px] gap-4 h-full p-5">
+        <div className="absolute inset-0 -z-10 opacity-100 pointer-events-none">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 auto-rows-[140px] sm:auto-rows-[180px] md:auto-rows-[220px] gap-0 h-full p-0 w-full">
             {collageImages.map((src, idx) => (
               <div
                 key={idx}
-                className={`relative rounded-xl overflow-hidden bg-gradient-to-br from-[#1DB954]/20 via-[#1DB954]/5 to-transparent border border-white/5 ${collageLayout[idx % collageLayout.length]}`}
+                className={`relative overflow-hidden ${collageLayout[idx % collageLayout.length]}`}
               >
                 {src && (
                   <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${src})` }}
+                    style={{ backgroundImage: `url(${src})`, ...(idx === 0 ? { backgroundPosition: "center 25%" } : {}) }}
                   />
                 )}
                 <div className="absolute inset-0 bg-black/35" />
                 <div className="absolute inset-0 flex items-center justify-center text-[11px] tracking-wide uppercase text-white/70">
                   add image
                 </div>
+                <div className="absolute top-1.5 left-1.5 bg-white/20 backdrop-blur-sm border border-white/30 rounded px-2 py-1 text-xs font-semibold text-white">
+                  artist{idx + 1}
+                </div>
               </div>
             ))}
           </div>
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/85" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/5 to-background/20" />
         </div>
 
-        <div className="max-w-6xl mx-auto w-full space-y-10">
-          <div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 lowercase font-serif">music</h1>
-            <p className="text-muted-foreground/90 lowercase">i like music. alot.</p>
+        <div className="max-w-2xl mx-auto w-full space-y-10 relative z-20">
+          <div className="rounded-xl bg-black/55 backdrop-blur-md border border-white/10 shadow-lg shadow-black/30 p-4 sm:p-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 lowercase font-serif drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]">music</h1>
+            <p className="text-muted-foreground/90 lowercase drop-shadow-[0_1px_6px_rgba(0,0,0,0.35)]">i like music. alot.</p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6 bg-background/95 rounded-lg p-6 -mx-4 relative z-20">
             <div>
               <h2 className="text-lg font-medium lowercase">spotify playlists</h2>
               <p className="text-sm text-muted-foreground/80 mb-2">Embedded playlists (replace with your own playlist IDs).</p>
