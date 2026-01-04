@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
 
 const Music = () => {
   const [nowPlaying, setNowPlaying] = useState<any>(null);
   const [cursorPos, setCursorPos] = useState({ x: -1000, y: -1000 });
+  const [logoBurst, setLogoBurst] = useState<{
+    src: string;
+    id: number;
+  } | null>(null);
 
   const apiKey = import.meta.env.VITE_LASTFM_API_KEY;
   const lastfmUser = import.meta.env.VITE_LASTFM_USER;
@@ -28,6 +32,10 @@ const Music = () => {
     "/collages/artist15.jpg",
     "/collages/artist16.jpg",
   ];
+
+  const logoMap: Record<string, string> = {
+    "/collages/artist1.jpg": "/logos/artist1.png",
+  };
 
   const leftColumnRatios = [
     [0.32, 0.18, 0.25, 0.25],
@@ -69,12 +77,110 @@ const Music = () => {
 
   const holeSize = 900;
 
+  const showLogoBurstAt = (logoSrc: string) => {
+    const id = Date.now();
+
+    setLogoBurst({
+      src: logoSrc,
+      id,
+    });
+    
+
+    // automatically clear after the exit animation so it can fade out
+    setTimeout(() => {
+      setLogoBurst((current) => (current && current.id === id ? null : current));
+    }, 600);
+  };
+
+  const getLogoSize = () => 200; // fixed size is fine when not tied to a tile
+
+  // measure artist1 tile so we can place an invisible click hotspot over it
+  const [artist1Rect, setArtist1Rect] = useState<{
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+  } | null>(null);
+
+  useEffect(() => {
+    const el = document.querySelector<HTMLElement>('[data-collage="/collages/artist1.jpg"]');
+    if (!el) return;
+
+    const rect = el.getBoundingClientRect();
+    setArtist1Rect({
+      left: rect.left,
+      top: rect.top,
+      width: rect.width,
+      height: rect.height,
+    });
+  }, []);
+
+  const getLogoForImage = (imgSrc: string) => {
+    if (logoMap[imgSrc]) {
+      return logoMap[imgSrc];
+    }
+    try {
+      const parts = imgSrc.split("/");
+      const file = parts[parts.length - 1]; // e.g. artist1.jpg
+      const base = file.split(".")[0];
+      return `/logos/${base}.png`;
+    } catch {
+      return imgSrc;
+    }
+  };
+
+  const triggerLogoBurst = (imgSrc: string) => {
+    const logoSrc = getLogoForImage(imgSrc);
+    showLogoBurstAt(logoSrc);
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       <BackgroundGrid />
 
+      <AnimatePresence>
+        {logoBurst && (
+          <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center">
+            <div className="translate-y-10">
+              <motion.img
+                key={logoBurst.id}
+                src={logoBurst.src}
+                alt=""
+                className="object-contain drop-shadow-[0_0_35px_rgba(255,255,255,0.6)]"
+                style={{
+                  width: getLogoSize(),
+                  height: getLogoSize(),
+                }}
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 1, scale: 1.15 }}
+                exit={{ opacity: 0, scale: 1.25 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {artist1Rect && (
+        <button
+          type="button"
+          className="fixed z-40" // just under the logo burst (z-50)
+          style={{
+            left: artist1Rect.left,
+            top: artist1Rect.top,
+            width: artist1Rect.width,
+            height: artist1Rect.height,
+            background: "transparent",
+            border: "none",
+            padding: 0,
+            cursor: "pointer",
+          }}
+          onClick={() => showLogoBurstAt("/logos/artist1.png")}
+        />
+      )}
+
       {/* COLLAGE - TOP BAND ONLY */}
-      <div className="absolute top-0 left-0 right-0 h-[40vh] -z-10 pointer-events-none">
+      <div className="absolute top-0 left-0 right-0 h-[40vh] -z-10">
         <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,48rem)_minmax(0,1fr)] h-full gap-8 px-6">
           {/* LEFT */}
           <div className="flex gap-2 p-2">
@@ -90,7 +196,8 @@ const Music = () => {
                   return (
                     <motion.div
                       key={i}
-                      className="relative overflow-hidden rounded-md"
+                      className="relative overflow-hidden rounded-md cursor-pointer"
+                      data-collage={img}
                       style={{ height: `${ratio * 100}vh` }}
                       initial={{ opacity: 0, y: 40, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -99,6 +206,7 @@ const Music = () => {
                         ease: [0.22, 1, 0.36, 1],
                         delay: flatIdx * 0.05,
                       }}
+                      onClick={() => triggerLogoBurst(img)}
                     >
                       <div
                         className="absolute inset-0 bg-cover bg-center"
@@ -131,7 +239,8 @@ const Music = () => {
                   return (
                     <motion.div
                       key={i}
-                      className="relative overflow-hidden rounded-md"
+                      className="relative overflow-hidden rounded-md cursor-pointer"
+                      data-collage={img}
                       style={{ height: `${ratio * 100}vh` }}
                       initial={{ opacity: 0, y: 40, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -140,6 +249,7 @@ const Music = () => {
                         ease: [0.22, 1, 0.36, 1],
                         delay: flatIdx * 0.05,
                       }}
+                      onClick={() => triggerLogoBurst(img)}
                     >
                       <div
                         className="absolute inset-0 bg-cover bg-center"
