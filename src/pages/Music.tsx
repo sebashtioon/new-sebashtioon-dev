@@ -22,6 +22,7 @@ const Music = () => {
     "/collages/artist10.jpg",
   ];
 
+
   /**
    * HEIGHT RATIOS (must sum to 1 per column)
    * tweak these to taste – layout stays stable forever
@@ -35,6 +36,13 @@ const Music = () => {
     [0.25, 0.30, 0.20, 0.25],
     [0.35, 0.20, 0.30, 0.15],
   ];
+
+  // Calculate total slots in the collage (after ratios are defined)
+  const leftSlots = leftColumnRatios.flat().length;
+  const rightSlots = rightColumnRatios.flat().length;
+  const totalSlots = leftSlots + rightSlots;
+  // Only use as many images as slots, and ensure uniqueness
+  const uniqueImages = Array.from(new Set(collageImages)).slice(0, totalSlots);
 
   useEffect(() => {
     if (!apiKey || !lastfmUser) return;
@@ -54,13 +62,16 @@ const Music = () => {
       {/* COLLAGE SIDES */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="grid grid-cols-[1fr_minmax(0,42rem)_1fr] h-screen">
-
           {/* LEFT COLLAGE */}
           <div className="flex gap-2 p-2">
             {leftColumnRatios.map((column, colIdx) => (
               <div key={colIdx} className="flex flex-col gap-2 w-1/2">
                 {column.map((ratio, i) => {
-                  const img = collageImages[colIdx * 4 + i];
+                  // Calculate the flat index for this slot using running total
+                  const flatIdx = leftColumnRatios
+                    .slice(0, colIdx)
+                    .reduce((acc, arr) => acc + arr.length, 0) + i;
+                  const img = uniqueImages[flatIdx];
                   return (
                     <div
                       key={i}
@@ -87,7 +98,11 @@ const Music = () => {
             {rightColumnRatios.map((column, colIdx) => (
               <div key={colIdx} className="flex flex-col gap-2 w-1/2">
                 {column.map((ratio, i) => {
-                  const img = collageImages[5 + colIdx * 4 + i];
+                  // Calculate the flat index for this slot using running total, offset by leftSlots
+                  const flatIdx = leftSlots + rightColumnRatios
+                    .slice(0, colIdx)
+                    .reduce((acc, arr) => acc + arr.length, 0) + i;
+                  const img = uniqueImages[flatIdx];
                   return (
                     <div
                       key={i}
@@ -105,7 +120,6 @@ const Music = () => {
               </div>
             ))}
           </div>
-
         </div>
       </div>
 
