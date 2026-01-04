@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
 
@@ -87,17 +88,24 @@ const Music = () => {
                   const img = uniqueImages[flatIdx];
 
                   return (
-                    <div
+                    <motion.div
                       key={i}
                       className="relative overflow-hidden rounded-md"
                       style={{ height: `${ratio * 100}vh` }}
+                      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{
+                        duration: 0.7,
+                        ease: [0.22, 1, 0.36, 1],
+                        delay: flatIdx * 0.05,
+                      }}
                     >
                       <div
                         className="absolute inset-0 bg-cover bg-center"
                         style={{ backgroundImage: `url(${img})` }}
                       />
                       <div className="absolute inset-0 bg-black/35" />
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
@@ -121,17 +129,24 @@ const Music = () => {
                   const img = uniqueImages[flatIdx];
 
                   return (
-                    <div
+                    <motion.div
                       key={i}
                       className="relative overflow-hidden rounded-md"
                       style={{ height: `${ratio * 100}vh` }}
+                      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{
+                        duration: 0.7,
+                        ease: [0.22, 1, 0.36, 1],
+                        delay: flatIdx * 0.05,
+                      }}
                     >
                       <div
                         className="absolute inset-0 bg-cover bg-center"
                         style={{ backgroundImage: `url(${img})` }}
                       />
                       <div className="absolute inset-0 bg-black/35" />
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
@@ -162,12 +177,24 @@ const Music = () => {
       {/* MAIN CONTENT */}
       <section className="h-screen flex items-center justify-center px-4 relative z-30">
         <div className="max-w-2xl w-full space-y-10">
-          <div className="rounded-xl bg-black/55 backdrop-blur-md border border-white/10 p-6">
-            <h1 className="text-4xl font-bold lowercase font-serif">music</h1>
+          <motion.div
+            className="rounded-xl bg-black/55 backdrop-blur-md border border-white/10 p-6"
+            initial={{ opacity: 0, y: 24, scale: 0.97, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          >
+            <motion.h1
+              className="text-4xl font-bold lowercase font-serif tracking-tight"
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+            >
+              music
+            </motion.h1>
             <p className="text-muted-foreground lowercase">
               i like music. alot.
             </p>
-          </div>
+          </motion.div>
 
           <div className="bg-background/95 rounded-lg p-6 space-y-6">
             <iframe
