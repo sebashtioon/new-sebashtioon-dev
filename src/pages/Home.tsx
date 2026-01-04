@@ -279,10 +279,10 @@ const Home = () => {
                 </h1>
 
                 <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl lowercase leading-relaxed">
-                  i'm a 15-year-old game dev & sorta 3d artist. i like turning my imagination into reality through code and 3d art. i've been making games and small side-projects here and there for over 4 years.
+                  i'm a 15-year-old game dev & sorta 3d artist. i've been making games and small side-projects here and there for over 5 years.
                 </p>
                 
-                <p className="text-sm md:text-base text-muted-foreground/80 mb-4 max-w-2xl leading-relaxed border-l-2 border-accent/30 pl-4">
+                <p className="text-sm text-muted-foreground/80 mb-4 max-w-2xl leading-relaxed">
                   that's basically it. i just like making stuff. i do have an indie game studio,{" "}
                   <a
                     href="https://github.com/Xintegrate-Studios"

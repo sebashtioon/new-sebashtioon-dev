@@ -6,6 +6,7 @@ const BottomNav = () => {
   const navItems = [
     { name: "home", path: "/" },
     { name: "projects", path: "/projects" },
+    { name: "music", path: "/music" },
     { name: "blog", path: "/blog" },
   ];
 
