@@ -73,9 +73,9 @@ const Music = () => {
     <div className="relative min-h-screen overflow-hidden">
       <BackgroundGrid />
 
-      {/* COLLAGE */}
-      <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div className="grid grid-cols-[1fr_minmax(0,42rem)_1fr] h-screen">
+      {/* COLLAGE - TOP BAND ONLY */}
+      <div className="absolute top-0 left-0 right-0 h-[40vh] -z-10 pointer-events-none">
+        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,48rem)_minmax(0,1fr)] h-full gap-8 px-6">
           {/* LEFT */}
           <div className="flex gap-2 p-2">
             {leftColumnRatios.map((column, colIdx) => (
@@ -175,10 +175,10 @@ const Music = () => {
       />
 
       {/* MAIN CONTENT */}
-      <section className="h-screen flex items-center justify-center px-4 relative z-30">
-        <div className="max-w-2xl w-full space-y-10">
+      <section className="min-h-screen flex justify-center px-4 pt-28 pb-16 relative z-30">
+        <div className="max-w-4xl w-full space-y-10">
           <motion.div
-            className="rounded-xl bg-black/55 backdrop-blur-md border border-white/10 p-6"
+            className="rounded-2xl bg-black/65 backdrop-blur-xl border border-white/10 p-6 md:p-7 shadow-xl"
             initial={{ opacity: 0, y: 24, scale: 0.97, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
@@ -192,21 +192,86 @@ const Music = () => {
               music
             </motion.h1>
             <p className="text-muted-foreground lowercase">
-              i like music. alot.
+              i love music, so i made this page to yap about it
             </p>
           </motion.div>
+          <motion.div
+            className="rounded-2xl bg-black/65 backdrop-blur-xl border border-white/10 p-6 md:p-7 shadow-xl"
+            initial={{ opacity: 0, y: 24, scale: 0.97, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+          >
+            <p className="mb-3 text-sm tracking text-white/60">
+              what i listen to
+            </p>
+            <p className="text-sm md:text-base text-white/80 leading-relaxed lowercase">
+              <motion.span
+                className="inline-block font-semibold"
+                initial={{ x: 0, y: 0, rotate: 0, scale: 1 }}
+                animate={{
+                  x: [0, -4, 4, -3, 3, -2, 0],
+                  y: [0, -1, 1, -1, 1, -1, 0],
+                  rotate: [0, -5, 5, -4, 4, -3, 0],
+                  scale: [1, 1.02, 0.99, 1.03, 0.98, 1.01, 1],
+                }}
+                transition={{
+                  duration: 0.18,
+                  ease: [0.36, 0.07, 0.19, 0.97],
+                  repeat: Infinity,
+                  repeatType: "loop",
+                }}
+              >
+                dubstep
+              </motion.span>
+              . literally any subgenre. deathstep, tearout, riddim, brostep, color bass, ANYTHING. i fucking love it.
+            </p>
+            <div className="mt-6 h-px bg-white/10" />
+            <p className="mt-5 mb-3 text-sm tracking text-white/60">
+              how much i listen to
+            </p>
+            <div className="space-y-2 text-sm md:text-base text-white/80 leading-relaxed lowercase">
+              <p>
+                i average like 11+ hours of music a day. and no i don&apos;t fake my stats (like leaving spotify playing on silent), i actually listen to my music unlike some goobers
+              </p>
+              <a
+                href="https://stats.fm/sebashtioon"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1 text-[#1DB954] font-medium underline-offset-4 hover:underline"
+              >
+                go see my degenerate listening stats
+                <span aria-hidden>↗</span>
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-          <div className="bg-background/95 rounded-lg p-6 space-y-6">
-            <iframe
-              className="w-full rounded-md"
-              style={{ aspectRatio: "16 / 8.5" }}
-              src="https://open.spotify.com/embed/playlist/01DOi2E8oKAnsVBZp1OpZ4"
-            />
-            <iframe
-              className="w-full rounded-md"
-              style={{ aspectRatio: "16 / 8.5" }}
-              src="https://open.spotify.com/embed/playlist/5xnxd2mqa5BlpxoX3KWEEM"
-            />
+      {/* PLAYLISTS SECTION (MOVED LOWER) */}
+      <section className="relative z-30 px-4 pb-24">
+        <div className="max-w-5xl mx-auto space-y-6">
+          <div className="flex items-baseline justify-between gap-4 mb-1">
+            <h2 className="text-lg md:text-xl font-semibold tracking-tight lowercase text-white">
+              playlists i actually touch
+            </h2>
+            <span className="hidden md:inline text-xs tracking-[0.2em] text-white/50">
+              spotify sucks
+            </span>
+          </div>
+
+          <div className="rounded-2xl bg-black/55 backdrop-blur-xl border border-white/10 p-5 md:p-6 shadow-xl">
+            <div className="grid gap-4 md:grid-cols-2">
+              <iframe
+                className="w-full rounded-md"
+                style={{ aspectRatio: "16 / 8.5" }}
+                src="https://open.spotify.com/embed/playlist/01DOi2E8oKAnsVBZp1OpZ4"
+              />
+              <iframe
+                className="w-full rounded-md"
+                style={{ aspectRatio: "16 / 8.5" }}
+                src="https://open.spotify.com/embed/playlist/5xnxd2mqa5BlpxoX3KWEEM"
+              />
+            </div>
           </div>
         </div>
       </section>
