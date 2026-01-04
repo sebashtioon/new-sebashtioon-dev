@@ -151,15 +151,25 @@ const Music = () => {
         </div>
       </section>
 
-      {/* NOW PLAYING */}
-      <div className="fixed top-3 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-5xl">
-        <div className="flex items-center gap-3 bg-black/60 border border-[#1DB954] rounded-lg px-3 py-2 backdrop-blur-xl">
+
+      {/* NOW PLAYING - bottom right corner */}
+      <div className="fixed bottom-4 right-4 z-40 max-w-xs w-full">
+        <div className="flex items-center gap-3 bg-black/70 border border-[#1DB954] rounded-lg px-3 py-2 backdrop-blur-xl shadow-lg">
           <img
             src={nowPlaying?.image?.[3]?.["#text"]}
-            className="w-14 h-14 rounded-md object-cover"
+            className="w-14 h-14 rounded-md object-cover flex-shrink-0"
+            alt={nowPlaying?.name || "Now Playing"}
           />
-          <div className="truncate">
-            {nowPlaying?.name || "Now Playing"}
+          <div className="flex flex-col min-w-0">
+            <span className="truncate font-semibold text-white text-base">
+              {nowPlaying?.name || "Now Playing"}
+            </span>
+            <span className="truncate text-sm text-[#1DB954]">
+              {nowPlaying?.artist?.["#text"] || nowPlaying?.artist || "Artist"}
+            </span>
+            <span className="truncate text-xs text-white/70">
+              {nowPlaying?.album?.["#text"] || nowPlaying?.album || "Album"}
+            </span>
           </div>
         </div>
       </div>
