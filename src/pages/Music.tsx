@@ -198,6 +198,14 @@ const Music = () => {
     showLogoBurstAt(logoSrc);
   };
 
+  const getCollageBackgroundPosition = (imgSrc: string) => {
+    if (imgSrc === "/collages/artist14.jpg") {
+      // smaller % = show more of the top, which makes the subject sit lower in the tile
+      return "center 40%";
+    }
+    return "center";
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       <BackgroundGrid />
@@ -274,7 +282,10 @@ const Music = () => {
                     >
                       <div
                         className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: `url(${img})` }}
+                        style={{
+                          backgroundImage: `url(${img})`,
+                          backgroundPosition: getCollageBackgroundPosition(img),
+                        }}
                       />
                       <div className="absolute inset-0 bg-black/35" />
                     </motion.div>
@@ -316,7 +327,10 @@ const Music = () => {
                     >
                       <div
                         className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: `url(${img})` }}
+                        style={{
+                          backgroundImage: `url(${img})`,
+                          backgroundPosition: getCollageBackgroundPosition(img),
+                        }}
                       />
                       <div className="absolute inset-0 bg-black/35" />
                     </motion.div>
@@ -396,7 +410,7 @@ const Music = () => {
               >
                 dubstep
               </motion.span>
-              . literally any subgenre. deathstep, tearout, riddim, brostep, color bass, ANYTHING. i fucking love it.
+              . literally any subgenre. deathstep, metalstep, tearout, riddim, brostep, color bass, ANYTHING. i fucking love it.
             </p>
             <div className="mt-6 h-px bg-white/10" />
             <p className="mt-5 mb-3 text-sm tracking text-white/60">
