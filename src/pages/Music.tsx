@@ -14,23 +14,25 @@ const Music = () => {
   const apiKey = import.meta.env.VITE_LASTFM_API_KEY;
   const lastfmUser = import.meta.env.VITE_LASTFM_USER;
 
-  const collageImages = [
+  // keep the layout stable by using fixed slots.
+  // removed: artist4, artist8, artist12, artist16 (leave their slots as null so nothing shifts)
+  const collageSlots: Array<string | null> = [
     "/collages/artist1.jpg",
     "/collages/artist2.jpg",
     "/collages/artist3.jpg",
-    "/collages/artist4.jpg",
+    null,
     "/collages/artist5.jpg",
     "/collages/artist6.jpg",
     "/collages/artist7.jpg",
-    "/collages/artist8.jpg",
+    null,
     "/collages/artist9.jpg",
     "/collages/artist10.jpg",
     "/collages/artist11.jpg",
-    "/collages/artist12.jpg",
+    null,
     "/collages/artist13.jpg",
     "/collages/artist14.jpg",
     "/collages/artist15.jpg",
-    "/collages/artist16.jpg",
+    null,
   ];
 
   const logoMap: Record<string, string> = {
@@ -49,7 +51,7 @@ const Music = () => {
   const rightSlots = rightColumnRatios.flat().length;
   const totalSlots = leftSlots + rightSlots;
 
-  const uniqueImages = Array.from(new Set(collageImages)).slice(0, totalSlots);
+  const tileImages = collageSlots.slice(0, totalSlots);
 
   /* LAST.FM */
   useEffect(() => {
@@ -283,13 +285,13 @@ const Music = () => {
                     leftColumnRatios
                       .slice(0, colIdx)
                       .reduce((a, b) => a + b.length, 0) + i;
-                  const img = uniqueImages[flatIdx];
+                  const img = tileImages[flatIdx];
 
                   return (
                     <motion.div
                       key={i}
                       className="relative overflow-hidden rounded-md"
-                      data-collage={img}
+                      data-collage={img ?? undefined}
                       style={{ height: `${ratio * 100}vh` }}
                       initial={{ opacity: 0, y: 40, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -302,8 +304,10 @@ const Music = () => {
                       <div
                         className="absolute inset-0 bg-cover bg-center"
                         style={{
-                          backgroundImage: `url(${img})`,
-                          backgroundPosition: getCollageBackgroundPosition(img),
+                          backgroundImage: img ? `url(${img})` : "none",
+                          backgroundPosition: img
+                            ? getCollageBackgroundPosition(img)
+                            : "center",
                         }}
                       />
                       <div className="absolute inset-0 bg-black/35" />
@@ -328,13 +332,13 @@ const Music = () => {
                       .slice(0, colIdx)
                       .reduce((a, b) => a + b.length, 0) +
                     i;
-                  const img = uniqueImages[flatIdx];
+                  const img = tileImages[flatIdx];
 
                   return (
                     <motion.div
                       key={i}
                       className="relative overflow-hidden rounded-md"
-                      data-collage={img}
+                      data-collage={img ?? undefined}
                       style={{ height: `${ratio * 100}vh` }}
                       initial={{ opacity: 0, y: 40, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -347,8 +351,10 @@ const Music = () => {
                       <div
                         className="absolute inset-0 bg-cover bg-center"
                         style={{
-                          backgroundImage: `url(${img})`,
-                          backgroundPosition: getCollageBackgroundPosition(img),
+                          backgroundImage: img ? `url(${img})` : "none",
+                          backgroundPosition: img
+                            ? getCollageBackgroundPosition(img)
+                            : "center",
                         }}
                       />
                       <div className="absolute inset-0 bg-black/35" />
