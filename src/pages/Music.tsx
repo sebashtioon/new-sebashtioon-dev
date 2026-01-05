@@ -85,7 +85,7 @@ const Music = () => {
       src: logoSrc,
       id,
     });
-    
+
 
     // automatically clear after the exit animation so it can fade out
     setTimeout(() => {
@@ -448,6 +448,16 @@ const Music = () => {
                 go see my degenerate listening stats
                 <span aria-hidden>↗</span>
               </a>
+            </div>
+
+            <div className="mt-6 h-px bg-white/10" />
+            <p className="mt-5 mb-3 text-sm tracking text-white/60">
+              how i listen
+            </p>
+            <div className="text-sm md:text-base text-white/80 leading-relaxed lowercase">
+              <p>
+                i listen to a stupid amount of music every day and i almost never shuffle. i usually start by letting whatever&apos;s left in my queue finish. then i run my riot daily essentials playlist (basically riot without the remixes and some of the really old stuff) and i don&apos;t skip anything. while that&apos;s playing, i build out what i&apos;m listening to next by picking albums, chunks of my main playlist, or just whatever i haven&apos;t listened to in a minute. i like doing it this way because if my mood flips i can just add stuff to the spotify queue without wrecking the plan, and the queue can last a few hours or even a few days. also if i find a new song and it&apos;s from an album or ep, i feel obligated to listen to the whole thing through and add the whole project, not just one or two tracks. i don&apos;t really fw spotify daily mixes or generated slop. i want to hear things the full way through and actually get the full lore
+              </p>
             </div>
           </motion.div>
         </div>
