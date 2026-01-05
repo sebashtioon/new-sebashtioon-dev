@@ -214,20 +214,39 @@ const Music = () => {
         {logoBurst && (
           <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center">
             <div className="translate-y-10">
-              <motion.img
+              <motion.div
                 key={logoBurst.id}
-                src={logoBurst.src}
-                alt=""
-                className="object-contain drop-shadow-[0_0_35px_rgba(255,255,255,0.6)]"
-                style={{
-                  width: getLogoSize(),
-                  height: getLogoSize(),
-                }}
-                initial={{ opacity: 0, scale: 0.7 }}
-                animate={{ opacity: 1, scale: 1.15 }}
-                exit={{ opacity: 0, scale: 1.25 }}
+                className="relative"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.03 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              />
+              >
+                {/* soft faded circle shadow for depth */}
+                <div
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 blur-xl"
+                  style={{
+                    width: getLogoSize() * 2.8,
+                    height: getLogoSize() * 2.8,
+                    background:
+                      "radial-gradient(circle, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 38%, rgba(0,0,0,0) 78%)",
+                  }}
+                />
+
+                <motion.img
+                  src={logoBurst.src}
+                  alt=""
+                  className="relative object-contain drop-shadow-[0_0_35px_rgba(255,255,255,0.6)]"
+                  style={{
+                    width: getLogoSize(),
+                    height: getLogoSize(),
+                  }}
+                  initial={{ opacity: 0, scale: 0.7 }}
+                  animate={{ opacity: 1, scale: 1.15 }}
+                  exit={{ opacity: 0, scale: 1.25 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                />
+              </motion.div>
             </div>
           </div>
         )}
