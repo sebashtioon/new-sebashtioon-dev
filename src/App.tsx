@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import LoadingOverlay from "@/components/LoadingOverlay";
 import Home from "./pages/Home";
+import Music from "./pages/Music";
 import Projects from "./pages/Projects";
 import Blog from "./pages/Blog";
 import NotFound from "./pages/NotFound";
@@ -23,6 +24,7 @@ const App = () => (
           <div className="dark min-h-screen">
             <Routes>
               <Route path="/" element={<Home />} />
+                <Route path="/music" element={<Music />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="*" element={<NotFound />} />
