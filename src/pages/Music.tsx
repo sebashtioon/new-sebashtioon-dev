@@ -13,6 +13,8 @@ const Music = () => {
 
   const apiKey = import.meta.env.VITE_LASTFM_API_KEY;
   const lastfmUser = import.meta.env.VITE_LASTFM_USER;
+  const lastfmProxyUrl =
+    import.meta.env.VITE_LASTFM_PROXY_URL || "/lastfm";
 
   // keep the layout stable by using fixed slots.
   // removed: artist4, artist8, artist12, artist16 (leave their slots as null so nothing shifts)
@@ -55,15 +57,31 @@ const Music = () => {
 
   /* LAST.FM */
   useEffect(() => {
-    if (!apiKey || !lastfmUser) return;
+    if (!lastfmUser) return;
 
-    fetch(
-      `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastfmUser}&api_key=${apiKey}&format=json&limit=1`
-    )
+    const directUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(
+      lastfmUser
+    )}&api_key=${encodeURIComponent(apiKey)}&format=json&limit=1`;
+
+    const proxyBase =
+      lastfmProxyUrl.startsWith("http://") ||
+      lastfmProxyUrl.startsWith("https://")
+        ? lastfmProxyUrl
+        : `${window.location.origin}${lastfmProxyUrl.startsWith("/") ? "" : "/"}${lastfmProxyUrl}`;
+    const proxyUrl = `${proxyBase}?user=${encodeURIComponent(lastfmUser)}`;
+
+    const url = apiKey ? directUrl : proxyUrl;
+
+    fetch(url)
       .then((r) => r.json())
-      .then((d) => setNowPlaying(d?.recenttracks?.track?.[0]))
-      .catch(() => {});
-  }, [apiKey, lastfmUser]);
+      .then((d) => setNowPlaying(d?.recenttracks?.track?.[0] ?? null))
+      .catch((err) => {
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.warn("Last.fm now playing failed", err);
+        }
+      });
+  }, [apiKey, lastfmUser, lastfmProxyUrl]);
 
   /* GLOBAL MOUSE TRACKING */
   useEffect(() => {
@@ -288,18 +306,11 @@ const Music = () => {
                   const img = tileImages[flatIdx];
 
                   return (
-                    <motion.div
+                    <div
                       key={i}
                       className="relative overflow-hidden rounded-md"
                       data-collage={img ?? undefined}
                       style={{ height: `${ratio * 100}vh` }}
-                      initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{
-                        duration: 0.7,
-                        ease: [0.22, 1, 0.36, 1],
-                        delay: flatIdx * 0.05,
-                      }}
                     >
                       <div
                         className="absolute inset-0 bg-cover bg-center"
@@ -311,7 +322,7 @@ const Music = () => {
                         }}
                       />
                       <div className="absolute inset-0 bg-black/35" />
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
@@ -335,18 +346,11 @@ const Music = () => {
                   const img = tileImages[flatIdx];
 
                   return (
-                    <motion.div
+                    <div
                       key={i}
                       className="relative overflow-hidden rounded-md"
                       data-collage={img ?? undefined}
                       style={{ height: `${ratio * 100}vh` }}
-                      initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{
-                        duration: 0.7,
-                        ease: [0.22, 1, 0.36, 1],
-                        delay: flatIdx * 0.05,
-                      }}
                     >
                       <div
                         className="absolute inset-0 bg-cover bg-center"
@@ -358,7 +362,7 @@ const Music = () => {
                         }}
                       />
                       <div className="absolute inset-0 bg-black/35" />
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
