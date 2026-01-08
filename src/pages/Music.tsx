@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Music = () => {
   const [nowPlaying, setNowPlaying] = useState<any>(null);
+  const [nowPlayingLoading, setNowPlayingLoading] = useState(true);
   const [cursorPos, setCursorPos] = useState({ x: -1000, y: -1000 });
   const [logoBurst, setLogoBurst] = useState<{
     src: string;
@@ -58,6 +60,7 @@ const Music = () => {
   /* LAST.FM */
   useEffect(() => {
     if (!lastfmUser) return;
+    setNowPlayingLoading(true);
 
     const directUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(
       lastfmUser
@@ -80,7 +83,8 @@ const Music = () => {
           // eslint-disable-next-line no-console
           console.warn("Last.fm now playing failed", err);
         }
-      });
+      })
+      .finally(() => setNowPlayingLoading(false));
   }, [apiKey, lastfmUser, lastfmProxyUrl]);
 
   /* GLOBAL MOUSE TRACKING */
@@ -505,26 +509,40 @@ const Music = () => {
       {/* NOW PLAYING */}
       <div className="fixed bottom-4 right-4 z-40 max-w-xs w-full">
         <div className="flex items-center gap-3 bg-black/70 border border-[#1DB954] rounded-lg px-3 py-2 backdrop-blur-xl shadow-lg">
-          <img
-            src={nowPlaying?.image?.[3]?.["#text"]}
-            className="w-14 h-14 rounded-md object-cover flex-shrink-0"
-            alt={nowPlaying?.name || "Now Playing"}
-          />
-          <div className="flex flex-col min-w-0">
-            <span className="truncate font-semibold text-white text-base">
-              {nowPlaying?.name || "Now Playing"}
-            </span>
-            <span className="truncate text-sm text-[#1DB954]">
-              {nowPlaying?.artist?.["#text"] ||
-                nowPlaying?.artist ||
-                "Artist"}
-            </span>
-            <span className="truncate text-xs text-white/70">
-              {nowPlaying?.album?.["#text"] ||
-                nowPlaying?.album ||
-                "Album"}
-            </span>
-          </div>
+          {nowPlayingLoading ? (
+            <>
+              <Skeleton className="w-14 h-14 rounded-md flex-shrink-0 bg-white/10" />
+              <div className="flex flex-col min-w-0 flex-1 gap-1">
+                <Skeleton className="h-5 w-40 bg-white/10" />
+                <Skeleton className="h-4 w-28 bg-white/10" />
+                <Skeleton className="h-3 w-24 bg-white/10" />
+              </div>
+            </>
+          ) : (
+            <>
+              {nowPlaying?.image?.[3]?.["#text"] ? (
+                <img
+                  src={nowPlaying.image[3]["#text"]}
+                  className="w-14 h-14 rounded-md object-cover flex-shrink-0"
+                  alt={nowPlaying?.name || "Now Playing"}
+                />
+              ) : (
+                <div className="w-14 h-14 rounded-md bg-white/10 flex-shrink-0" />
+              )}
+
+              <div className="flex flex-col min-w-0">
+                <span className="truncate font-semibold text-white text-base">
+                  {nowPlaying?.name || "Not listening"}
+                </span>
+                <span className="truncate text-sm text-[#1DB954]">
+                  {nowPlaying?.artist?.["#text"] || nowPlaying?.artist || ""}
+                </span>
+                <span className="truncate text-xs text-white/70">
+                  {nowPlaying?.album?.["#text"] || nowPlaying?.album || ""}
+                </span>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
