@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
 import { Skeleton } from "@/components/ui/skeleton";
+import { FaSpotify } from "react-icons/fa";
 
 const Music = () => {
   const [nowPlaying, setNowPlaying] = useState<any>(null);
@@ -513,6 +514,10 @@ const Music = () => {
             <>
               <Skeleton className="w-14 h-14 rounded-md flex-shrink-0 bg-white/10" />
               <div className="flex flex-col min-w-0 flex-1 gap-1">
+                <div className="flex items-center gap-2 text-xs text-white/60 lowercase">
+                  <FaSpotify className="text-[#1DB954]" aria-hidden />
+                  <span className="truncate">what i’m listening to rn</span>
+                </div>
                 <Skeleton className="h-5 w-40 bg-white/10" />
                 <Skeleton className="h-4 w-28 bg-white/10" />
                 <Skeleton className="h-3 w-24 bg-white/10" />
@@ -531,6 +536,10 @@ const Music = () => {
               )}
 
               <div className="flex flex-col min-w-0">
+                <div className="flex items-center gap-2 text-xs text-white/60 lowercase">
+                  <FaSpotify className="text-[#1DB954]" aria-hidden />
+                  <span className="truncate">what i’m listening to rn</span>
+                </div>
                 <span className="truncate font-semibold text-white text-base">
                   {nowPlaying?.name || "Not listening"}
                 </span>
