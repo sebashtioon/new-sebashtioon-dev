@@ -434,11 +434,34 @@ const Music = () => {
         <div className="max-w-3xl w-full space-y-6">
           <div className="prose prose-invert max-w-none text-white/80 lowercase space-y-4">
             <h1 className="text-4xl font-bold font-serif tracking-tight">music</h1>
-            <p className="text-muted-foreground">i love music, so i made this page to yap about it</p>
+            <p className="text-muted-foreground mb-8">i love music, so i made this page to yap about it</p>
 
-            <h3 className="mt-4 text-sm text-white/60 tracking">what i listen to</h3>
+            <div className="w-full flex items-center mb-4">
+              <div className="flex-1 h-px bg-white/10" />
+              <div className="w-2" />
+            </div>
+
+            <h3 className="mt-0 text-sm text-white/60 tracking">what i listen to</h3>
             <p className="text-sm md:text-base text-white/80 leading-relaxed">
-              <span className="inline-block font-semibold">dubstep</span>. literally any subgenre. deathstep, metalstep, tearout, riddim, brostep, color bass, ANYTHING. i fucking love it.
+              <motion.span
+              className="inline-block font-semibold"
+              initial={{ x: 0, y: 0, rotate: 0, scale: 1 }}
+              animate={{
+                x: [0, -4, 4, -3, 3, -2, 0],
+                y: [0, -1, 1, -1, 1, -1, 0],
+                rotate: [0, -5, 5, -4, 4, -3, 0],
+                scale: [1, 1.02, 0.99, 1.03, 0.98, 1.01, 1],
+              }}
+              transition={{
+                duration: 0.18,
+                ease: [0.36, 0.07, 0.19, 0.97],
+                repeat: Infinity,
+                repeatType: "loop",
+              }}
+              >
+              dubstep
+              </motion.span>
+              . literally any subgenre. deathstep, metalstep, tearout, riddim, brostep, color bass, <span className="uppercase">ANYTHING</span> (i like my speedcore too)
             </p>
 
             <h4 className="mt-4 text-sm text-white/60 tracking">how much i listen to</h4>
@@ -457,7 +480,7 @@ const Music = () => {
 
             <h4 className="mt-4 text-sm text-white/60 tracking">how i listen</h4>
             <p className="text-sm md:text-base text-white/80 leading-relaxed">
-              i listen to a stupid amount of music every day and i almost never shuffle. i usually start by letting whatever&apos;s left in my queue finish. then i run my riot daily essentials playlist (basically riot without the remixes and some of the really old stuff) and i don&apos;t skip anything. while that&apos;s playing, i build out what i&apos;m listening to next by picking albums, chunks of my main playlist, or just whatever i haven&apos;t listened to in a minute. i like doing it this way because if my mood flips i can just add stuff to the spotify queue without wrecking the plan, and the queue can last a few hours or even a few days. also if i find a new song and it&apos;s from an album or ep, i feel obligated to listen to the whole thing through and add the whole project, not just one or two tracks. i don&apos;t really fw spotify daily mixes or generated slop. i want to hear things the full way through and actually get the full lore
+              i listen to a stupid amount of music every day and i almost never shuffle. i usually start by letting whats left in my queue playlist finish. then i run my riot daily essentials playlist (basically riot without the remixes and some of the really old stuff) and i dont skip anything. while thats playing, i build out what im listening to next by picking albums, chunks of my main playlist, or just whatever i havent listened to in a minute, and adding them to my queue playlist. i like doing it this way because if my mood flips i can just add stuff to the spotify queue without wrecking the plan, and the queue can last a few hours or even a few days. also if i find a new song and its from an album or ep, i feel obligated to listen to the whole thing through and add the whole project, not just one or two tracks. i dont really fw spotify daily mixes or generated slop. i want to hear things the full way through and actually get the full lore yk? in fact i literally have seperate playlists for artists singles and treat them like albums
             </p>
           </div>
 
