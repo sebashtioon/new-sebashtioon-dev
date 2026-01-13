@@ -223,7 +223,7 @@ const Projects = () => {
                 my <span className="text-foreground">projects</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl lowercase leading-relaxed">
-                a collection of projects i've worked on throughout the years.
+                just a collection of projects ive worked on throughout the years
               </p>
             </div>
           </div>

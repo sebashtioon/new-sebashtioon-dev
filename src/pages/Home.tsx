@@ -279,11 +279,11 @@ const Home = () => {
                 </h1>
 
                 <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl lowercase leading-relaxed">
-                  i'm a 15-year-old game dev & sorta 3d artist. i've been making games and small side-projects here and there for over 5 years.
+                  im a 15-year-old game dev & sorta 3d artist. ive been making games and small side-projects here and there for over 5 years
                 </p>
                 
                 <p className="text-sm text-muted-foreground/80 mb-4 max-w-2xl leading-relaxed">
-                  that's basically it. i just like making stuff. i do have an indie game studio,{" "}
+                  thats basically it... i just like making stuff. i do have an indie game studio,{" "}
                   <a
                     href="https://github.com/Xintegrate-Studios"
                     target="_blank"
@@ -293,7 +293,7 @@ const Home = () => {
                     Xintegrate Studios
                     <FiExternalLink className="ml-1" size={16} />
                   </a>
-                  , where i work on my personal projects. i also co-founded another game studio with my friend from school called{" "}
+                  , where i work on my personal projects. also i co-founded another game studio with my friend from school called{" "}
                   <a
                     href="https://noeco.xyz"
                     target="_blank"
