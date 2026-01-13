@@ -218,6 +218,40 @@ const Music = () => {
     }
   };
 
+  // Preload collage and logo images so they appear instantly and logos
+  // are ready when the user clicks a collage tile.
+  useEffect(() => {
+    const collageUrls = collageSlots.filter(Boolean) as string[];
+    const logoUrls = collageUrls.map((u) => getLogoForImage(u));
+    const urls = Array.from(new Set([...collageUrls, ...logoUrls]));
+
+    const links: HTMLLinkElement[] = [];
+    const imgs: HTMLImageElement[] = [];
+
+    urls.forEach((u) => {
+      try {
+        const link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "image";
+        link.href = u;
+        document.head.appendChild(link);
+        links.push(link);
+      } catch (e) {
+        // ignore
+      }
+
+      const img = new Image();
+      img.src = u;
+      imgs.push(img);
+    });
+
+    return () => {
+      links.forEach((l) => l.remove());
+    };
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const triggerLogoBurst = (imgSrc: string) => {
     const logoSrc = getLogoForImage(imgSrc);
     showLogoBurstAt(logoSrc);
@@ -396,85 +430,38 @@ const Music = () => {
       />
 
       {/* MAIN CONTENT */}
-      <section className="min-h-screen flex justify-center px-4 pt-28 pb-16 relative z-30">
-        <div className="max-w-4xl w-full space-y-10">
-          <motion.div
-            className="rounded-2xl bg-black/65 backdrop-blur-xl border border-white/10 p-6 md:p-7 shadow-xl"
-            initial={{ opacity: 0, y: 24, scale: 0.97, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          >
-            <motion.h1
-              className="text-4xl font-bold lowercase font-serif tracking-tight"
-              initial={{ opacity: 0, x: -24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
-            >
-              music
-            </motion.h1>
-            <p className="text-muted-foreground lowercase">
-              i love music, so i made this page to yap about it
-            </p>
-          </motion.div>
-          <motion.div
-            className="rounded-2xl bg-black/65 backdrop-blur-xl border border-white/10 p-6 md:p-7 shadow-xl"
-            initial={{ opacity: 0, y: 24, scale: 0.97, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
-          >
-            <p className="mb-3 text-sm tracking text-white/60">
-              what i listen to
-            </p>
-            <p className="text-sm md:text-base text-white/80 leading-relaxed lowercase">
-              <motion.span
-                className="inline-block font-semibold"
-                initial={{ x: 0, y: 0, rotate: 0, scale: 1 }}
-                animate={{
-                  x: [0, -4, 4, -3, 3, -2, 0],
-                  y: [0, -1, 1, -1, 1, -1, 0],
-                  rotate: [0, -5, 5, -4, 4, -3, 0],
-                  scale: [1, 1.02, 0.99, 1.03, 0.98, 1.01, 1],
-                }}
-                transition={{
-                  duration: 0.18,
-                  ease: [0.36, 0.07, 0.19, 0.97],
-                  repeat: Infinity,
-                  repeatType: "loop",
-                }}
-              >
-                dubstep
-              </motion.span>
-              . literally any subgenre. deathstep, metalstep, tearout, riddim, brostep, color bass, ANYTHING. i fucking love it.
-            </p>
-            <div className="mt-6 h-px bg-white/10" />
-            <p className="mt-5 mb-3 text-sm tracking text-white/60">
-              how much i listen to
-            </p>
-            <div className="space-y-2 text-sm md:text-base text-white/80 leading-relaxed lowercase">
-              <p>
-                i average like 11+ hours of music a day. and no i don&apos;t fake my stats (like leaving spotify playing on silent), i actually listen to my music unlike some goobers
-              </p>
-              <a
-                href="https://stats.fm/sebashtioon"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-[#1DB954] font-medium underline-offset-4 hover:underline"
-              >
-                go see my degenerate listening stats
-                <span aria-hidden>↗</span>
-              </a>
-            </div>
+      <section className="min-h-screen flex justify-center px-6 md:px-8 pt-28 pb-16 relative z-30">
+        <div className="max-w-3xl w-full space-y-6">
+          <div className="prose prose-invert max-w-none text-white/80 lowercase space-y-4">
+            <h1 className="text-4xl font-bold font-serif tracking-tight">music</h1>
+            <p className="text-muted-foreground">i love music, so i made this page to yap about it</p>
 
-            <div className="mt-6 h-px bg-white/10" />
-            <p className="mt-5 mb-3 text-sm tracking text-white/60">
-              how i listen
+            <h3 className="mt-4 text-sm text-white/60 tracking">what i listen to</h3>
+            <p className="text-sm md:text-base text-white/80 leading-relaxed">
+              <span className="inline-block font-semibold">dubstep</span>. literally any subgenre. deathstep, metalstep, tearout, riddim, brostep, color bass, ANYTHING. i fucking love it.
             </p>
-            <div className="text-sm md:text-base text-white/80 leading-relaxed lowercase">
-              <p>
-                i listen to a stupid amount of music every day and i almost never shuffle. i usually start by letting whatever&apos;s left in my queue finish. then i run my riot daily essentials playlist (basically riot without the remixes and some of the really old stuff) and i don&apos;t skip anything. while that&apos;s playing, i build out what i&apos;m listening to next by picking albums, chunks of my main playlist, or just whatever i haven&apos;t listened to in a minute. i like doing it this way because if my mood flips i can just add stuff to the spotify queue without wrecking the plan, and the queue can last a few hours or even a few days. also if i find a new song and it&apos;s from an album or ep, i feel obligated to listen to the whole thing through and add the whole project, not just one or two tracks. i don&apos;t really fw spotify daily mixes or generated slop. i want to hear things the full way through and actually get the full lore
-              </p>
-            </div>
-          </motion.div>
+
+            <h4 className="mt-4 text-sm text-white/60 tracking">how much i listen to</h4>
+            <p className="text-sm md:text-base text-white/80 leading-relaxed">
+              i average like 11+ hours of music a day. and no i don&apos;t fake my stats (like leaving spotify playing on silent), i actually listen to my music unlike some goobers
+            </p>
+            <a
+              href="https://stats.fm/sebashtioon"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-[#1DB954] font-medium underline-offset-4 hover:underline"
+            >
+              go see my degenerate listening stats
+              <span aria-hidden>↗</span>
+            </a>
+
+            <h4 className="mt-4 text-sm text-white/60 tracking">how i listen</h4>
+            <p className="text-sm md:text-base text-white/80 leading-relaxed">
+              i listen to a stupid amount of music every day and i almost never shuffle. i usually start by letting whatever&apos;s left in my queue finish. then i run my riot daily essentials playlist (basically riot without the remixes and some of the really old stuff) and i don&apos;t skip anything. while that&apos;s playing, i build out what i&apos;m listening to next by picking albums, chunks of my main playlist, or just whatever i haven&apos;t listened to in a minute. i like doing it this way because if my mood flips i can just add stuff to the spotify queue without wrecking the plan, and the queue can last a few hours or even a few days. also if i find a new song and it&apos;s from an album or ep, i feel obligated to listen to the whole thing through and add the whole project, not just one or two tracks. i don&apos;t really fw spotify daily mixes or generated slop. i want to hear things the full way through and actually get the full lore
+            </p>
+          </div>
+
+          {/* decorative cards removed per user request */}
         </div>
       </section>
 
