@@ -211,7 +211,7 @@ const Projects = () => {
   return (
     <>
       <PageWrapper>
-        <div className="min-h-screen pt-8 pb-20">
+        <div data-preserve-apostrophes className="min-h-screen pt-8 pb-20">
         <BackgroundGrid />
 
       {/* Header - Minimalist Style */}
