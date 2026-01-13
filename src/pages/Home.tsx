@@ -275,7 +275,7 @@ const Home = () => {
             <div className="text-left animate-fade-in">
               <div className="max-w-3xl">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif">
-                  yo, i'm <span className="text-foreground">sebashtioon</span>
+                  yo, im <span className="text-foreground">sebashtioon</span>
                 </h1>
 
                 <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl lowercase leading-relaxed">
