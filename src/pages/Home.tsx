@@ -279,7 +279,7 @@ const Home = () => {
                 </h1>
 
                 <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl lowercase leading-relaxed">
-                  im a 15-year-old game dev & sorta 3d artist. ive been making games and small side-projects here and there for over 5 years
+                  im a 15 year old game dev & sorta 3d artist. ive been making games and small side-projects here and there for over 5 years
                 </p>
                 
                 <p className="text-sm text-muted-foreground/80 mb-4 max-w-2xl leading-relaxed">
