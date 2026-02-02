@@ -1,29 +1,52 @@
-import BackgroundGrid from "@/components/BackgroundGrid";
-import BottomNav from "@/components/BottomNav";
+import ProsePage from "@/components/ProsePage";
+import { blogPosts } from "@/content/blogPosts";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   return (
-    <div className="h-screen overflow-hidden">
-      <BackgroundGrid />
-      
-      <section className="h-screen flex items-center justify-center px-4 relative">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-left animate-fade-in">
-            <div className="max-w-3xl">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif">
-                <span className="text-foreground">blog</span>
-              </h1>
-              
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl lowercase leading-relaxed">
-                this page is in the works
+    <ProsePage
+      title="blog"
+      subtitle={
+        <span className="lowercase">
+          short notes, devlogs, and whatever else survives long enough to get posted.
+        </span>
+      }
+    >
+      <section className="space-y-3">
+        <h2 className="text-xl font-bold font-serif lowercase">posts</h2>
+        <div className="space-y-4">
+          {blogPosts.map((p) => (
+            <div key={p.slug} className="border-b border-border/30 pb-4">
+              <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground lowercase">
+                <span>{p.date}</span>
+                <span className="text-muted-foreground/60">•</span>
+                <span>{p.slug}</span>
+              </div>
+
+              <Link
+                to={`/blog/${p.slug}`}
+                className="inline-block mt-1 text-lg font-bold lowercase hover:underline"
+              >
+                {p.title}
+              </Link>
+
+              <p className="mt-2 text-muted-foreground lowercase leading-relaxed">
+                {p.summary}
               </p>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      <BottomNav />
-    </div>
+      <section className="space-y-3">
+        <h2 className="text-xl font-bold font-serif lowercase">house style</h2>
+        <ul className="list-disc pl-6 lowercase text-foreground/90">
+          <li>i prefer blunt writing over vibes.</li>
+          <li>if something is unfinished, i will say so.</li>
+          <li>if a post is wrong later, ill update it.</li>
+        </ul>
+      </section>
+    </ProsePage>
   );
 };
 

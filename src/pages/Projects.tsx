@@ -9,6 +9,7 @@ import SmartImage from "@/components/SmartImage";
 import PageWrapper from "@/components/PageWrapper";
 import { useSmartLoading, useImageLoadingDetector } from "@/hooks/useSmartLoading";
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Projects = () => {
   const projects = [
@@ -32,6 +33,7 @@ const Projects = () => {
       image: "/projects/placeholder.webp",
       tags: ["godot", "psx", "3D"],
       status: "in development",
+      internalPath: "/projects/cant-wake-up",
       links: {}
     },
     {
@@ -384,6 +386,11 @@ const Projects = () => {
 
                     {/* Links */}
                     <div className="flex flex-wrap gap-3 mt-4">
+                      {project.internalPath && (
+                        <Link to={project.internalPath} className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                          read
+                        </Link>
+                      )}
                       {project.links.github && (
                         <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
                           src
