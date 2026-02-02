@@ -17,6 +17,16 @@ const Home = () => {
       <section className="h-screen flex items-center justify-center px-4 relative">
         <div className="w-full mx-auto" style={{ maxWidth: `${HOME_MAX_WIDTH_REM}rem` }}>
           <div className="text-left animate-fade-in">
+            <img
+              src="/pfp.png"
+              alt="sebashtioon profile picture"
+              width={88}
+              height={88}
+              loading="lazy"
+              decoding="async"
+              className="mb-6 h-20 w-20 rounded-full border border-white/25 shadow-md ring-1 ring-white/10"
+            />
+
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif">
               yo, im <span className="text-foreground">sebashtioon</span>
             </h1>

@@ -8,12 +8,12 @@ const Blog = () => {
       title="blog"
       subtitle={
         <span className="lowercase">
-          short notes, devlogs, and whatever else survives long enough to get posted.
+          short notes. mostly about what im making.
         </span>
       }
     >
       <section className="space-y-3">
-        <h2 className="text-xl font-bold font-serif lowercase">posts</h2>
+        <h2 className="text-2xl font-bold font-serif lowercase">posts</h2>
         <div className="space-y-4">
           {blogPosts.map((p) => (
             <div key={p.slug} className="border-b border-border/30 pb-4">
