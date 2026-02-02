@@ -23,7 +23,7 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <p className="lowercase">
-          the goal isnt to be anti-design. its to make the design shut up when its not needed yk?
+          the goal isnt to be anti-design, just... design isn't really needed or the point
         </p>
 
         <div className="border-t border-border/30 my-5" />
