@@ -40,7 +40,7 @@ export const blogPosts: BlogPost[] = [
 
         <h2 className="text-xl font-bold font-serif lowercase">note</h2>
         <p className="lowercase">
-          some pages can still be flashy. but anything with words should be calm.
+          some pages can still be flashy. but anything with words should be calm
         </p>
       </>
     ),
