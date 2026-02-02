@@ -2,7 +2,7 @@ import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
 import PageWrapper from "@/components/PageWrapper";
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 type ProsePageProps = {
   title: string;
@@ -12,6 +12,9 @@ type ProsePageProps = {
 };
 
 const ProsePage = ({ title, subtitle, breadcrumb, children }: ProsePageProps) => {
+  const location = useLocation();
+  const isBlogRoute = location.pathname === "/blog" || location.pathname.startsWith("/blog/");
+
   return (
     <>
       <PageWrapper>
@@ -44,31 +47,25 @@ const ProsePage = ({ title, subtitle, breadcrumb, children }: ProsePageProps) =>
               {children}
             </article>
 
-            <footer className="mt-12 pt-8 border-t border-border/30 text-sm text-muted-foreground lowercase flex flex-wrap gap-3">
-              <Link to="/" className="hover:text-foreground transition-colors">
-                home
-              </Link>
-              <span>•</span>
-              <Link to="/projects" className="hover:text-foreground transition-colors">
-                projects
-              </Link>
-              <span>•</span>
-              <Link to="/blog" className="hover:text-foreground transition-colors">
-                blog
-              </Link>
-              <span>•</span>
-              <Link to="/now" className="hover:text-foreground transition-colors">
-                now
-              </Link>
-              <span>•</span>
-              <Link to="/about" className="hover:text-foreground transition-colors">
-                about
-              </Link>
-              <span>•</span>
-              <Link to="/contact" className="hover:text-foreground transition-colors">
-                contact
-              </Link>
-            </footer>
+            {!isBlogRoute && (
+              <footer className="mt-12 pt-8 border-t border-border/30 text-sm text-muted-foreground lowercase flex flex-wrap gap-3">
+                <Link to="/" className="hover:text-foreground transition-colors">
+                  home
+                </Link>
+                <span>•</span>
+                <Link to="/projects" className="hover:text-foreground transition-colors">
+                  projects
+                </Link>
+                <span>•</span>
+                <Link to="/blog" className="hover:text-foreground transition-colors">
+                  blog
+                </Link>
+                <span>•</span>
+                <Link to="/contact" className="hover:text-foreground transition-colors">
+                  contact
+                </Link>
+              </footer>
+            )}
           </main>
         </div>
       </PageWrapper>

@@ -10,9 +10,7 @@ import Music from "./pages/Music";
 import Projects from "./pages/Projects";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
-import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Now from "./pages/Now";
 import CantWakeUp from "./pages/projects/CantWakeUp";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
@@ -80,9 +78,7 @@ const App = () => {
             <div className="dark min-h-screen">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/now" element={<Now />} />
                 <Route path="/music" element={<Music />} />
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/projects/cant-wake-up" element={<CantWakeUp />} />

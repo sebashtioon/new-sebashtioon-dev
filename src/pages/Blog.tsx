@@ -37,15 +37,6 @@ const Blog = () => {
           ))}
         </div>
       </section>
-
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold font-serif lowercase">house style</h2>
-        <ul className="list-disc pl-6 lowercase text-foreground/90">
-          <li>i prefer blunt writing over vibes.</li>
-          <li>if something is unfinished, i will say so.</li>
-          <li>if a post is wrong later, ill update it.</li>
-        </ul>
-      </section>
     </ProsePage>
   );
 };
