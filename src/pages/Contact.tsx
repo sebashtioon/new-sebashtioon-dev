@@ -17,9 +17,6 @@ const Contact = () => {
         <li>best: add a link (video, log, screenshot)</li>
         <li>worst: "hey" and nothing else</li>
       </ul>
-      <p className="lowercase text-muted-foreground">
-        TODO: add email / discord / socials.
-      </p>
     </ProsePage>
   );
 };

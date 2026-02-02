@@ -15,69 +15,38 @@ const CantWakeUp = () => {
         </>
       }
       subtitle={
-        <span className="lowercase">
-          welcome to sleep paralysis. psx-ish horror. in development.
-        </span>
+        <span className="lowercase">a small first-person horror game about chores, paranoia, and sleep paralysis.</span>
       }
     >
       <section className="space-y-3">
-        <h2 className="text-xl font-bold font-serif lowercase">elevator pitch</h2>
+        <h2 className="text-xl font-bold font-serif lowercase">what youre playing</h2>
         <p className="lowercase">
-          you are awake. your body is not. something is in the room.
+          youre a kid (like 9-10). you just moved into a new house. your parents are out most nights. you do normal stuff alone and pretend the place feels normal back.
         </p>
+        <p className="lowercase">each night splits into two vibes: <span className="font-bold">normal life</span> and <span className="font-bold">oh no</span>.</p>
+
+        <div className="border-t border-border/30 my-5" />
+
+        <h3 className="text-lg font-bold font-serif lowercase">normal life</h3>
+        <p className="lowercase">
+          you're doing small chores around the house: unpacking boxes, folding clothes, making dinner, brushing your teeth, turning off lights. the longer you go, the more the house starts doing subtle weird things while you're trying to stay calm.
+        </p>
+        <ul className="list-disc pl-6 lowercase text-foreground/90">
+          <li>tasks undo themselves</li>
+          <li>creepy anomalies (blood on clothes, handprints on mirrors)</li>
+          <li>the tv glitches, objects feel "wrong"</li>
+        </ul>
+
+        <h3 className="text-lg font-bold font-serif lowercase">oh no (sleep paralysis)</h3>
+        <p className="lowercase">
+          then you go to bed and it turns into survival: sleep paralysis episodes where you're stuck in bed, barely able to look around. something is in the room. you survive by timing your breathing and blinking / holding your eyes shut at the right moments.
+        </p>
+        <p className="lowercase">
+          sometimes you "wake up" but it's not real (false wake-up, dream-in-a-dream). you have to figure it out fast before the monster does.
+        </p>
+
         <p className="lowercase text-muted-foreground">
-          this page is where i will yap. its intentionally text-first.
-        </p>
-      </section>
-
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold font-serif lowercase">status</h2>
-        <ul className="list-disc pl-6 lowercase text-foreground/90">
-          <li>engine: godot</li>
-          <li>platforms: TBD</li>
-          <li>release: when it stops fighting me</li>
-        </ul>
-      </section>
-
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold font-serif lowercase">features (draft)</h2>
-        <ul className="list-disc pl-6 lowercase text-foreground/90">
-          <li>short sessions. high tension. minimal filler.</li>
-          <li>psx era visuals (low poly, jitter, crunchy lighting).</li>
-          <li>diegetic ui where possible.</li>
-          <li>sound design does most of the horror work.</li>
-          <li>replay value via small variations.</li>
-        </ul>
-      </section>
-
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold font-serif lowercase">design notes</h2>
-        <ul className="list-disc pl-6 lowercase text-foreground/90">
-          <li>the player should feel trapped even in a small space.</li>
-          <li>cheap jumpscares are optional. dread is mandatory.</li>
-          <li>controls should be simple enough to play half-asleep.</li>
-        </ul>
-      </section>
-
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold font-serif lowercase">devlog (placeholder)</h2>
-        <ul className="list-disc pl-6 lowercase text-foreground/90">
-          <li>2026-02-02: created this page so i cant hide anymore.</li>
-          <li>TODO: add real entries (build notes, screenshots, links).</li>
-        </ul>
-      </section>
-
-      <section className="space-y-3">
-        <h2 className="text-xl font-bold font-serif lowercase">faq</h2>
-        <p className="lowercase">
-          <span className="font-bold">q:</span> is there a demo?
-          <br />
-          <span className="font-bold">a:</span> not public yet.
-        </p>
-        <p className="lowercase">
-          <span className="font-bold">q:</span> can i playtest?
-          <br />
-          <span className="font-bold">a:</span> yes, eventually. bring useful feedback.
+          scope: ten nights. chores turn into paranoia, then paralysis turns into survival. everything escalates until the final night.
         </p>
       </section>
     </ProsePage>
