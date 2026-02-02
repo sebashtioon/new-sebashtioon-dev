@@ -13,7 +13,6 @@ import BlogPost from "./pages/BlogPost";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Now from "./pages/Now";
-import Uses from "./pages/Uses";
 import CantWakeUp from "./pages/projects/CantWakeUp";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
@@ -84,7 +83,6 @@ const App = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/now" element={<Now />} />
-                <Route path="/uses" element={<Uses />} />
                 <Route path="/music" element={<Music />} />
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/projects/cant-wake-up" element={<CantWakeUp />} />

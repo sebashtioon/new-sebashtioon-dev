@@ -8,14 +8,20 @@ const BottomNav = () => {
     { name: "projects", path: "/projects" },
     { name: "music", path: "/music" },
     { name: "blog", path: "/blog" },
+    { name: "contact", path: "/contact" },
   ];
+
+  const isBlogRoute = location.pathname === "/blog" || location.pathname.startsWith("/blog/");
+  const visibleNavItems = isBlogRoute
+    ? navItems.filter((i) => i.path !== "/blog")
+    : navItems;
 
   const isActive = (path: string) => location.pathname === path;
 
   return (
     <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-[100]">
       <div className="flex items-center gap-6 px-4 py-2 bg-black/40 backdrop-blur-md rounded-full border border-white/20 shadow-lg">
-        {navItems.map((item) => (
+        {visibleNavItems.map((item) => (
           <Link
             key={item.name}
             to={item.path}

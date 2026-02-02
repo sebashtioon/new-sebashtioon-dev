@@ -61,10 +61,6 @@ const ProsePage = ({ title, subtitle, breadcrumb, children }: ProsePageProps) =>
                 now
               </Link>
               <span>•</span>
-              <Link to="/uses" className="hover:text-foreground transition-colors">
-                uses
-              </Link>
-              <span>•</span>
               <Link to="/about" className="hover:text-foreground transition-colors">
                 about
               </Link>

@@ -44,38 +44,4 @@ export const blogPosts: BlogPost[] = [
       </>
     ),
   },
-  {
-    slug: "dont-ask-to-ask-but-for-devlogs",
-    title: "dont ask to ask (but for devlogs)",
-    date: "2026-02-02",
-    summary: "how i like questions, feedback, and bug reports.",
-    content: (
-      <>
-        <p className="lowercase">
-          if you want to ask something, ask it. do not preface it with "can i
-          ask" or "is anyone here".
-        </p>
-
-        <h2 className="text-xl font-bold font-serif lowercase">good</h2>
-        <ul className="list-disc pl-6 lowercase text-foreground/90">
-          <li>"the build crashes when i open the settings menu. logs: ..."</li>
-          <li>"is the psx look using vertex snapping or post processing?"</li>
-          <li>"feature idea: add x. reason: y. tradeoff: z."</li>
-        </ul>
-
-        <h2 className="text-xl font-bold font-serif lowercase">bad</h2>
-        <ul className="list-disc pl-6 lowercase text-foreground/90">
-          <li>"anyone free?"</li>
-          <li>"can i ask a question"</li>
-          <li>"it doesnt work"</li>
-        </ul>
-
-        <h2 className="text-xl font-bold font-serif lowercase">why</h2>
-        <p className="lowercase">
-          the pre-question adds latency and removes context. the actual question
-          is what matters.
-        </p>
-      </>
-    ),
-  },
 ];
