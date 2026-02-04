@@ -18,8 +18,7 @@ export const blogPosts: BlogPost[] = [
       <>
         <h2 className="text-xl font-bold font-serif lowercase">the point</h2>
         <p className="lowercase">
-          i want this site to feel like something you find at 2am and actually read. calm pages. clear links. no
-          weird friction. no "look how modern i am" animations
+          i want this site to feel like something you find at 2am and actually read. no "look how modern i am" animations
         </p>
 
         <p className="lowercase">
