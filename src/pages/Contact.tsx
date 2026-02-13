@@ -1,6 +1,6 @@
 import * as React from "react";
 import ProsePage from "@/components/ProsePage";
-import SocialLinks from "@/components/SocialLinks";
+import SocialLinksToggle from "@/components/SocialLinksToggle";
 
 const EMAIL = "sebastiansuciu607@gmail.com";
 const CANBERRA_TZ = "Australia/Sydney";
@@ -82,7 +82,9 @@ const Contact = () => {
         you can literally email me about anything (i dont really care lol)
       </p>
 
-      <SocialLinks className="lowercase text-muted-foreground space-y-1" />
+      <div className="w-full flex justify-end">
+        <SocialLinksToggle />
+      </div>
 
       <p className="lowercase">
         timezone: canberra (australia) {canberraTime} ({relative})

@@ -1,5 +1,5 @@
 import BottomNav from "@/components/BottomNav";
-import SocialLinks from "@/components/SocialLinks";
+import SocialLinksToggle from "@/components/SocialLinksToggle";
 
 // change this number to control how narrow/wide the home text is
 const HOME_MAX_WIDTH_REM = 32;
@@ -13,16 +13,21 @@ const Home = () => {
 
       <section className="h-screen flex items-center justify-center px-4 relative">
         <div className="w-full mx-auto" style={{ maxWidth: `${HOME_MAX_WIDTH_REM}rem` }}>
-          <div className="text-left animate-fade-in">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif">
-              yo, im <span className="text-foreground">sebashtioon</span>
-            </h1>
+          <div className="animate-fade-in relative top-6">
+            <div className="flex flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-left gap-6">
+              <div>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif whitespace-nowrap">
+                  yo, im{"\u00A0"}
+                  <span className="text-foreground whitespace-nowrap">sebashtioon</span>
+                </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground mb-4 lowercase leading-relaxed">
-              this is my personal website ig
-            </p>
+                <p className="text-lg md:text-xl text-muted-foreground lowercase leading-relaxed">
+                  this is my personal website ig
+                </p>
+              </div>
 
-            <SocialLinks className="mt-6 text-sm text-muted-foreground lowercase space-y-1" />
+              <SocialLinksToggle className="w-full md:w-auto flex justify-center md:justify-end" />
+            </div>
           </div>
         </div>
       </section>
