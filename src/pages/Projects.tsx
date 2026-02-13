@@ -389,32 +389,32 @@ const Projects = () => {
                     {/* Links */}
                     <div className="flex flex-wrap gap-3 mt-4">
                       {project.internalPath && (
-                        <Link to={project.internalPath} className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                        <Link to={project.internalPath} className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
                           read
                         </Link>
                       )}
                       {project.links.github && (
-                        <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                        <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
                           src
                         </a>
                       )}
                       {project.links.demo && (
-                        <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                        <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
                           view
                         </a>
                       )}
                       {project.links.play_itch && (
-                        <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                        <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
                           play on itch
                         </a>
                       )}
                       {project.links.download && (
-                        <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                        <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
                           download
                         </a>
                       )}
                       {project.links.blender_download && (
-                        <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                        <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
                           download project
                         </a>
                       )}

@@ -48,7 +48,7 @@ const BottomNav = () => {
       {/* More menu */}
       {isMoreOpen && (
         <div className="absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+10px)]">
-          <div className="flex items-center gap-4 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/20 shadow-lg">
+          <div className="flex items-center gap-4 px-4 py-2 bg-card border border-border shadow-lg">
             {moreNavItems.map((item) => (
               <Link
                 key={item.name}
@@ -65,7 +65,7 @@ const BottomNav = () => {
       )}
 
       {/* Primary bar */}
-      <div className="flex items-center gap-6 px-4 py-2 bg-black/40 backdrop-blur-md rounded-full border border-white/20 shadow-lg">
+      <div className="flex items-center gap-6 px-4 py-2 bg-card border border-border shadow-lg">
         {primaryNavItems.map((item) => (
           <Link
             key={item.name}
