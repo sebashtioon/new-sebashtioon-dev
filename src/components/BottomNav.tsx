@@ -35,10 +35,10 @@ const BottomNav = () => {
       const node = moreRef.current;
       if (!node) return;
       if (e.target instanceof Node && !node.contains(e.target)) {
-        setIsMoreOpen(false);
+                  className={`text-sm lowercase transition-all duration-200 hover:text-foreground ${
       }
-    };
-
+                      ? "text-foreground font-medium"
+                      : "text-muted-foreground"
     document.addEventListener("mousedown", onMouseDown);
     return () => document.removeEventListener("mousedown", onMouseDown);
   }, [isMoreOpen]);
@@ -49,15 +49,15 @@ const BottomNav = () => {
       {isMoreOpen && (
         <div className="absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+10px)]">
           <div className="flex items-center gap-4 px-4 py-2 bg-card border border-border shadow-lg">
-            {moreNavItems.map((item) => (
+        <div className="flex items-center gap-6 px-4 py-2 bg-card/80 backdrop-blur-md rounded-full border border-border/50 shadow-lg">
               <Link
                 key={item.name}
                 to={item.path}
                 className={`text-sm lowercase transition-all duration-200 hover:text-white ${
-                  isActive(item.path) ? "text-white font-medium" : "text-white/60"
+              className={`text-sm lowercase transition-all duration-200 hover:text-foreground ${
                 }`}
-              >
-                {item.name}
+                  ? "text-foreground font-medium"
+                  : "text-muted-foreground"
               </Link>
             ))}
           </div>
