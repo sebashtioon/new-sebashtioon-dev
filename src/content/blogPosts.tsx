@@ -36,11 +36,6 @@ export const blogPosts: BlogPost[] = [
           <li>the page should load on bad wifi</li>
           <li>no mandatory accounts, popups, or dark pattern nonsense</li>
         </ul>
-
-        <h2 className="text-xl font-bold font-serif lowercase">note</h2>
-        <p className="lowercase">
-          some pages can still be flashy. but anything with words should be calm
-        </p>
       </>
     ),
   },

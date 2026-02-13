@@ -8,7 +8,7 @@ const Blog = () => {
       title="blog"
       subtitle={
         <span className="lowercase">
-          short notes. mostly about what im making.
+          short notes. mostly about what im making or thinking abt
         </span>
       }
     >
