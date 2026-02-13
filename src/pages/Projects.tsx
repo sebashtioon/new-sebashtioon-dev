@@ -225,7 +225,11 @@ const Projects = () => {
                 my <span className="text-foreground">projects</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl lowercase leading-relaxed">
-                just a collection of projects ive worked on throughout the years
+                just down there <span className="inline-block w-8" />
+                <span className="inline-flex flex-col items-center leading-[0.7] align-middle">
+                  <span>|</span>
+                  <span className="-mt-1">v</span>
+                </span>
               </p>
             </div>
           </div>
