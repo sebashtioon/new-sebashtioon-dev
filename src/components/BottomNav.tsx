@@ -82,8 +82,8 @@ const BottomNav = () => {
           type="button"
           onClick={() => setIsMoreOpen((v) => !v)}
           aria-label="more"
-          className={`text-sm lowercase transition-all duration-200 hover:text-white ${
-            isMoreOpen ? "text-white" : "text-white/60"
+          className={`text-sm lowercase transition-all duration-200 hover:text-foreground ${
+            isMoreOpen ? "text-foreground" : "text-muted-foreground"
           }`}
         >
           {isMoreOpen ? "<" : ">"}
