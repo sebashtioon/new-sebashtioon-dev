@@ -43,7 +43,7 @@
     --ring: 0 0% 80%;
 
     /* Design tokens */
-    --radius: 0.75rem;
+    --radius: 0rem;
 
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
@@ -56,14 +56,22 @@
     --shadow-accent: 0 0 20px hsl(var(--accent-glow)/0.4);
 
     /* Animations */
-    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-subtle: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-smooth: all 0s linear;
+    --transition-subtle: all 0s linear;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+  }
+
+  *,
+  *::before,
+  *::after {
+    border-radius: 0 !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
   }
 
   html {
