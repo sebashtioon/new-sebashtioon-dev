@@ -16,6 +16,7 @@ import CantWakeUp from "./pages/projects/CantWakeUp";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 import ScrollToTop from "@/components/ScrollToTop";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const queryClient = new QueryClient();
 
@@ -71,29 +72,31 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LoadingProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <LoadingOverlay />
-          <BrowserRouter>
-            <ScrollToTop />
-            <div className="dark min-h-screen">
-              <BackgroundGrid />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/music" element={<Music />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/projects/cant-wake-up" element={<CantWakeUp />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:slug" element={<BlogPost />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </div>
-          </BrowserRouter>
-        </TooltipProvider>
-      </LoadingProvider>
+      <ThemeProvider>
+        <LoadingProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <LoadingOverlay />
+            <BrowserRouter>
+              <ScrollToTop />
+              <div className="min-h-screen">
+                <BackgroundGrid />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/music" element={<Music />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/projects/cant-wake-up" element={<CantWakeUp />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </div>
+            </BrowserRouter>
+          </TooltipProvider>
+        </LoadingProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };

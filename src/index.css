@@ -2,31 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Dark Portfolio Design System - Black & Grey Theme */
+/* Portfolio Design System - Light + Dark */
 
 @layer base {
+  /* Light theme (default variables). */
   :root {
-    /* Dark theme base colors */
-    --background: 0 0% 0%;       /* pure black */
-    --foreground: 0 0% 95%;      /* near white */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 8%;
 
-    /* Surface colors */
-    --card: 0 0% 12%;            /* dark grey */
+    --card: 0 0% 96%;
+    --card-foreground: 0 0% 8%;
+    --card-hover: 0 0% 92%;
+
+    --popover: 0 0% 96%;
+    --popover-foreground: 0 0% 8%;
+
+    --primary: 0 0% 8%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 0 0% 30%;
+
+    --secondary: 0 0% 92%;
+    --secondary-foreground: 0 0% 10%;
+
+    --accent: 0 0% 90%;
+    --accent-foreground: 0 0% 10%;
+    --accent-glow: 0 0% 35%;
+
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 40%;
+
+    --destructive: 0 80% 55%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 85%;
+    --input: 0 0% 96%;
+    --ring: 0 0% 30%;
+
+    --radius: 0rem;
+
+    --checker-opacity: 0.06;
+    --checker-size: 48px;
+    --checker-drift-x: 10000px;
+    --checker-drift-y: 10000px;
+    --checker-drift-duration: 420s;
+
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
+    --gradient-dark: linear-gradient(180deg, hsl(var(--background)), hsl(var(--card)));
+
+    --shadow-glow: 0 0 30px hsl(var(--primary-glow)/0.15);
+    --shadow-card: 0 8px 32px hsl(0 0% 0%/0.08);
+    --shadow-accent: 0 0 20px hsl(var(--accent-glow)/0.18);
+
+    --transition-smooth: all 0s linear;
+    --transition-subtle: all 0s linear;
+  }
+
+  /* Dark theme overrides (previous :root values). */
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 12%;
     --card-foreground: 0 0% 95%;
     --card-hover: 0 0% 18%;
 
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 95%;
 
-    /* Brand colors */
-    --primary: 0 0% 100%;         /* white */
-    --primary-foreground: 0 0% 8%; 
-    --primary-glow: 0 0% 100%;    /* soft white glow */
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 8%;
+    --primary-glow: 0 0% 100%;
 
     --secondary: 0 0% 18%;
     --secondary-foreground: 0 0% 95%;
 
-    /* Accent & highlight */
     --accent: 0 0% 25%;
     --accent-foreground: 0 0% 95%;
     --accent-glow: 0 0% 60%;
@@ -34,37 +84,18 @@
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
 
-    /* Interactive states */
-    --destructive: 0 80% 60%;    /* keep red for destructive */
+    --destructive: 0 80% 60%;
     --destructive-foreground: 0 0% 95%;
 
     --border: 0 0% 20%;
     --input: 0 0% 12%;
     --ring: 0 0% 80%;
 
-    /* Design tokens */
-    --radius: 0rem;
-
-    /* Checkerboard background */
     --checker-opacity: 0.05;
-    --checker-size: 48px;
-    --checker-drift-x: 10000px;
-    --checker-drift-y: 10000px;
-    --checker-drift-duration: 420s;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
-    --gradient-dark: linear-gradient(180deg, hsl(var(--background)), hsl(var(--card)));
-
-    /* Shadows & glows */
     --shadow-glow: 0 0 30px hsl(var(--primary-glow)/0.3);
     --shadow-card: 0 8px 32px hsl(0 0% 0%/0.3);
     --shadow-accent: 0 0 20px hsl(var(--accent-glow)/0.4);
-
-    /* Animations */
-    --transition-smooth: all 0s linear;
-    --transition-subtle: all 0s linear;
   }
 }
 
