@@ -8,11 +8,22 @@ export function useIsMobile() {
   React.useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
     const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+      setIsMobile(mql.matches)
     }
-    mql.addEventListener("change", onChange)
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    return () => mql.removeEventListener("change", onChange)
+
+    // set initial value
+    setIsMobile(mql.matches)
+
+    // Safari/older browsers: MediaQueryList may not support addEventListener
+    if (typeof mql.addEventListener === "function") {
+      mql.addEventListener("change", onChange)
+      return () => mql.removeEventListener("change", onChange)
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(mql as any).addListener(onChange)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return () => (mql as any).removeListener(onChange)
   }, [])
 
   return !!isMobile

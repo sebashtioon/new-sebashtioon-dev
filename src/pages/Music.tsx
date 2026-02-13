@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { FaSpotify } from "react-icons/fa";
 
 const Music = () => {
+  const isMobile = useIsMobile();
+
   const [nowPlaying, setNowPlaying] = useState<any>(null);
   const [nowPlayingLoading, setNowPlayingLoading] = useState(true);
   const [cursorPos, setCursorPos] = useState({ x: -1000, y: -1000 });
@@ -90,6 +92,8 @@ const Music = () => {
 
   /* GLOBAL MOUSE TRACKING */
   useEffect(() => {
+    if (isMobile) return;
+
     const handleMove = (e: MouseEvent) => {
       setCursorPos({
         x: e.clientX,
@@ -99,7 +103,7 @@ const Music = () => {
 
     window.addEventListener("mousemove", handleMove);
     return () => window.removeEventListener("mousemove", handleMove);
-  }, []);
+  }, [isMobile]);
 
   const holeSize = 900;
 
@@ -142,6 +146,11 @@ const Music = () => {
   >([]);
 
   useEffect(() => {
+    if (isMobile) {
+      setCollageHotspots([]);
+      return;
+    }
+
     let rafId = 0;
     let startupRafId = 0;
 
@@ -202,7 +211,7 @@ const Music = () => {
       window.removeEventListener("resize", scheduleUpdate);
       window.removeEventListener("scroll", scheduleUpdate);
     };
-  }, []);
+  }, [isMobile]);
 
   const getLogoForImage = (imgSrc: string) => {
     if (logoMap[imgSrc]) {
@@ -221,6 +230,8 @@ const Music = () => {
   // Preload collage and logo images so they appear instantly and logos
   // are ready when the user clicks a collage tile.
   useEffect(() => {
+    if (isMobile) return;
+
     const collageUrls = collageSlots.filter(Boolean) as string[];
     const logoUrls = collageUrls.map((u) => getLogoForImage(u));
     const urls = Array.from(new Set([...collageUrls, ...logoUrls]));
@@ -248,9 +259,8 @@ const Music = () => {
     return () => {
       links.forEach((l) => l.remove());
     };
-    // run once on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isMobile]);
 
   const triggerLogoBurst = (imgSrc: string) => {
     const logoSrc = getLogoForImage(imgSrc);
@@ -267,8 +277,6 @@ const Music = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <BackgroundGrid />
-
       <AnimatePresence>
         {logoBurst && (
           <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center">
@@ -311,108 +319,113 @@ const Music = () => {
         )}
       </AnimatePresence>
 
-      {collageHotspots.map((spot) => (
-        <button
-          key={spot.imgSrc}
-          type="button"
-          aria-label={`Show ${getBaseNameFromImage(spot.imgSrc)} logo`}
-          className="fixed z-40 cursor-pointer"
-          style={{
-            left: spot.left,
-            top: spot.top,
-            width: spot.width,
-            height: spot.height,
-            background: "transparent",
-            border: "none",
-            padding: 0,
-          }}
-          onClick={() => triggerLogoBurst(spot.imgSrc)}
-        />
-      ))}
+      {!isMobile &&
+        collageHotspots.map((spot) => (
+          <button
+            key={spot.imgSrc}
+            type="button"
+            aria-label={`Show ${getBaseNameFromImage(spot.imgSrc)} logo`}
+            className="hidden md:block fixed z-40 cursor-pointer"
+            style={{
+              left: spot.left,
+              top: spot.top,
+              width: spot.width,
+              height: spot.height,
+              background: "transparent",
+              border: "none",
+              padding: 0,
+            }}
+            onClick={() => triggerLogoBurst(spot.imgSrc)}
+          />
+        ))}
 
-      {/* COLLAGE - TOP BAND ONLY */}
-      <div className="absolute top-0 left-0 right-0 h-[40vh] -z-10">
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,48rem)_minmax(0,1fr)] h-full gap-8 px-6">
-          {/* LEFT */}
-          <div className="flex gap-2 p-2">
-            {leftColumnRatios.map((column, colIdx) => (
-              <div key={colIdx} className="flex flex-col gap-2 w-1/2">
-                {column.map((ratio, i) => {
-                  const flatIdx =
-                    leftColumnRatios
-                      .slice(0, colIdx)
-                      .reduce((a, b) => a + b.length, 0) + i;
-                  const img = tileImages[flatIdx];
+      {!isMobile && (
+        <>
+          {/* COLLAGE - TOP BAND ONLY */}
+          <div className="absolute top-0 left-0 right-0 h-[40vh] -z-10">
+            <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,48rem)_minmax(0,1fr)] h-full gap-8 px-6">
+              {/* LEFT */}
+              <div className="flex gap-2 p-2">
+                {leftColumnRatios.map((column, colIdx) => (
+                  <div key={colIdx} className="flex flex-col gap-2 w-1/2">
+                    {column.map((ratio, i) => {
+                      const flatIdx =
+                        leftColumnRatios
+                          .slice(0, colIdx)
+                          .reduce((a, b) => a + b.length, 0) + i;
+                      const img = tileImages[flatIdx];
 
-                  return (
-                    <div
-                      key={i}
-                      className="relative overflow-hidden rounded-md"
-                      data-collage={img ?? undefined}
-                      style={{ height: `${ratio * 100}vh` }}
-                    >
-                      <div
-                        className="absolute inset-0 bg-cover bg-center"
-                        style={{
-                          backgroundImage: img ? `url(${img})` : "none",
-                          backgroundPosition: img
-                            ? getCollageBackgroundPosition(img)
-                            : "center",
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-black/35" />
-                    </div>
-                  );
-                })}
+                      return (
+                        <div
+                          key={i}
+                          className="relative overflow-hidden rounded-md"
+                          data-collage={img ?? undefined}
+                          style={{ height: `${ratio * 100}vh` }}
+                        >
+                          <div
+                            className="absolute inset-0 bg-cover bg-center"
+                            style={{
+                              backgroundImage: img ? `url(${img})` : "none",
+                              backgroundPosition: img
+                                ? getCollageBackgroundPosition(img)
+                                : "center",
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-black/35" />
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          {/* CENTER */}
-          <div />
+              {/* CENTER */}
+              <div />
 
-          {/* RIGHT */}
-          <div className="flex gap-2 p-2">
-            {rightColumnRatios.map((column, colIdx) => (
-              <div key={colIdx} className="flex flex-col gap-2 w-1/2">
-                {column.map((ratio, i) => {
-                  const flatIdx =
-                    leftSlots +
-                    rightColumnRatios
-                      .slice(0, colIdx)
-                      .reduce((a, b) => a + b.length, 0) +
-                    i;
-                  const img = tileImages[flatIdx];
+              {/* RIGHT */}
+              <div className="flex gap-2 p-2">
+                {rightColumnRatios.map((column, colIdx) => (
+                  <div key={colIdx} className="flex flex-col gap-2 w-1/2">
+                    {column.map((ratio, i) => {
+                      const flatIdx =
+                        leftSlots +
+                        rightColumnRatios
+                          .slice(0, colIdx)
+                          .reduce((a, b) => a + b.length, 0) +
+                        i;
+                      const img = tileImages[flatIdx];
 
-                  return (
-                    <div
-                      key={i}
-                      className="relative overflow-hidden rounded-md"
-                      data-collage={img ?? undefined}
-                      style={{ height: `${ratio * 100}vh` }}
-                    >
-                      <div
-                        className="absolute inset-0 bg-cover bg-center"
-                        style={{
-                          backgroundImage: img ? `url(${img})` : "none",
-                          backgroundPosition: img
-                            ? getCollageBackgroundPosition(img)
-                            : "center",
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-black/35" />
-                    </div>
-                  );
-                })}
+                      return (
+                        <div
+                          key={i}
+                          className="relative overflow-hidden rounded-md"
+                          data-collage={img ?? undefined}
+                          style={{ height: `${ratio * 100}vh` }}
+                        >
+                          <div
+                            className="absolute inset-0 bg-cover bg-center"
+                            style={{
+                              backgroundImage: img ? `url(${img})` : "none",
+                              backgroundPosition: img
+                                ? getCollageBackgroundPosition(img)
+                                : "center",
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-black/35" />
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
 
-      {/* 🔥 INVERTED BLUR OVERLAY */}
+      {/* 🔥 INVERTED BLUR OVERLAY (desktop only) */}
       <div
-        className="pointer-events-none fixed inset-0 z-20 backdrop-blur transition-[mask-position] duration-100"
+        className="hidden md:block pointer-events-none fixed inset-0 z-20 backdrop-blur transition-[mask-position] duration-100"
         style={{
           WebkitMaskImage: `radial-gradient(
             circle ${holeSize / 2}px at ${cursorPos.x}px ${cursorPos.y}px,
@@ -475,7 +488,7 @@ const Music = () => {
               className="inline-flex items-center gap-1 text-[#1DB954] font-medium underline-offset-4 hover:underline"
             >
               go see my degenerate listening stats
-              <span aria-hidden>↗</span>
+              <span aria-hidden></span>
             </a>
 
             <h4 className="mt-4 text-sm text-white/60 tracking">how i listen</h4>

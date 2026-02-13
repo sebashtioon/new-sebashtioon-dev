@@ -9,6 +9,7 @@ import SmartImage from "@/components/SmartImage";
 import PageWrapper from "@/components/PageWrapper";
 import { useSmartLoading, useImageLoadingDetector } from "@/hooks/useSmartLoading";
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Projects = () => {
   const projects = [
@@ -32,6 +33,7 @@ const Projects = () => {
       image: "/projects/placeholder.webp",
       tags: ["godot", "psx", "3D"],
       status: "in development",
+      internalPath: "/projects/cant-wake-up",
       links: {}
     },
     {
@@ -212,8 +214,6 @@ const Projects = () => {
     <>
       <PageWrapper>
         <div data-preserve-apostrophes className="min-h-screen pt-8 pb-20">
-        <BackgroundGrid />
-
       {/* Header - Minimalist Style */}
       <section className="h-screen flex items-center justify-center px-4 relative">
         <div className="max-w-4xl mx-auto">
@@ -223,7 +223,11 @@ const Projects = () => {
                 my <span className="text-foreground">projects</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl lowercase leading-relaxed">
-                just a collection of projects ive worked on throughout the years
+                just down there <span className="inline-block w-8" />
+                <span className="inline-flex flex-col items-center leading-[0.7] align-middle">
+                  <span>|</span>
+                  <span className="-mt-1">v</span>
+                </span>
               </p>
             </div>
           </div>
@@ -384,28 +388,33 @@ const Projects = () => {
 
                     {/* Links */}
                     <div className="flex flex-wrap gap-3 mt-4">
+                      {project.internalPath && (
+                        <Link to={project.internalPath} className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
+                          read
+                        </Link>
+                      )}
                       {project.links.github && (
-                        <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                        <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
                           src
                         </a>
                       )}
                       {project.links.demo && (
-                        <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                        <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
                           view
                         </a>
                       )}
                       {project.links.play_itch && (
-                        <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                        <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
                           play on itch
                         </a>
                       )}
                       {project.links.download && (
-                        <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                        <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
                           download
                         </a>
                       )}
                       {project.links.blender_download && (
-                        <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg transition-colors text-sm lowercase">
+                        <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
                           download project
                         </a>
                       )}

@@ -5,12 +5,17 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import LoadingOverlay from "@/components/LoadingOverlay";
+import BackgroundGrid from "@/components/BackgroundGrid";
 import Home from "./pages/Home";
 import Music from "./pages/Music";
 import Projects from "./pages/Projects";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
+import Contact from "./pages/Contact";
+import CantWakeUp from "./pages/projects/CantWakeUp";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -72,12 +77,17 @@ const App = () => {
           <Sonner />
           <LoadingOverlay />
           <BrowserRouter>
+            <ScrollToTop />
             <div className="dark min-h-screen">
+              <BackgroundGrid />
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route path="/music" element={<Music />} />
                 <Route path="/projects" element={<Projects />} />
+                <Route path="/projects/cant-wake-up" element={<CantWakeUp />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
