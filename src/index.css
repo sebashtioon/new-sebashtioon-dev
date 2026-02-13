@@ -45,6 +45,13 @@
     /* Design tokens */
     --radius: 0rem;
 
+    /* Checkerboard background */
+    --checker-opacity: 0.05;
+    --checker-size: 48px;
+    --checker-drift-x: 10000px;
+    --checker-drift-y: 10000px;
+    --checker-drift-duration: 420s;
+
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
     --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
@@ -58,6 +65,15 @@
     /* Animations */
     --transition-smooth: all 0s linear;
     --transition-subtle: all 0s linear;
+  }
+}
+
+@keyframes checkerboard-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: var(--checker-drift-x) var(--checker-drift-y);
   }
 }
 
@@ -80,6 +96,17 @@
 
   body {
     @apply bg-background text-foreground font-serif;
+    background-image: conic-gradient(
+      from 90deg,
+      hsl(var(--foreground) / var(--checker-opacity)) 0 25%,
+      transparent 0 50%,
+      hsl(var(--foreground) / var(--checker-opacity)) 0 75%,
+      transparent 0
+    );
+    background-size: var(--checker-size) var(--checker-size);
+    background-position: 0 0;
+    animation: checkerboard-drift var(--checker-drift-duration) linear infinite;
+    will-change: background-position;
   }
 
   .font-mono {
@@ -99,6 +126,22 @@
 
   .glow-accent {
     box-shadow: var(--shadow-accent);
+  }
+}
+
+@layer utilities {
+  .checkerboard-bg {
+    background-image: conic-gradient(
+      from 90deg,
+      hsl(var(--foreground) / var(--checker-opacity)) 0 25%,
+      transparent 0 50%,
+      hsl(var(--foreground) / var(--checker-opacity)) 0 75%,
+      transparent 0
+    );
+    background-size: var(--checker-size) var(--checker-size);
+    background-position: 0 0;
+    animation: checkerboard-drift var(--checker-drift-duration) linear infinite;
+    will-change: background-position;
   }
 }
 
