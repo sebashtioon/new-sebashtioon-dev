@@ -362,16 +362,18 @@ const Music = () => {
                           data-collage={img ?? undefined}
                           style={{ height: `${ratio * 100}vh` }}
                         >
-                          <div
-                            className="absolute inset-0 bg-cover bg-center"
-                            style={{
-                              backgroundImage: img ? `url(${img})` : "none",
-                              backgroundPosition: img
-                                ? getCollageBackgroundPosition(img)
-                                : "center",
-                            }}
-                          />
-                          <div className="absolute inset-0 bg-black/35" />
+                          {img && (
+                            <>
+                              <div
+                                className="absolute inset-0 bg-cover bg-center"
+                                style={{
+                                  backgroundImage: `url(${img})`,
+                                  backgroundPosition: getCollageBackgroundPosition(img),
+                                }}
+                              />
+                              <div className="absolute inset-0 bg-black/35" />
+                            </>
+                          )}
                         </div>
                       );
                     })}
@@ -402,16 +404,18 @@ const Music = () => {
                           data-collage={img ?? undefined}
                           style={{ height: `${ratio * 100}vh` }}
                         >
-                          <div
-                            className="absolute inset-0 bg-cover bg-center"
-                            style={{
-                              backgroundImage: img ? `url(${img})` : "none",
-                              backgroundPosition: img
-                                ? getCollageBackgroundPosition(img)
-                                : "center",
-                            }}
-                          />
-                          <div className="absolute inset-0 bg-black/35" />
+                          {img && (
+                            <>
+                              <div
+                                className="absolute inset-0 bg-cover bg-center"
+                                style={{
+                                  backgroundImage: `url(${img})`,
+                                  backgroundPosition: getCollageBackgroundPosition(img),
+                                }}
+                              />
+                              <div className="absolute inset-0 bg-black/35" />
+                            </>
+                          )}
                         </div>
                       );
                     })}
@@ -445,17 +449,17 @@ const Music = () => {
       {/* MAIN CONTENT */}
       <section className="min-h-screen flex justify-center px-6 md:px-8 pt-28 pb-16 relative z-30">
         <div className="max-w-3xl w-full space-y-6">
-          <div className="prose prose-invert max-w-none text-white/80 lowercase space-y-4">
+          <div className="prose max-w-none lowercase space-y-4 text-foreground dark:prose-invert">
             <h1 className="text-4xl font-bold font-serif tracking-tight">music</h1>
             <p className="text-muted-foreground mb-8">i love music, so i made this page to yap about it</p>
 
             <div className="w-full flex items-center mb-4">
-              <div className="flex-1 h-px bg-white/10" />
+              <div className="flex-1 h-px bg-border/60" />
               <div className="w-2" />
             </div>
 
-            <h3 className="mt-0 text-sm text-white/60 tracking">what i listen to</h3>
-            <p className="text-sm md:text-base text-white/80 leading-relaxed">
+            <h3 className="mt-0 text-sm text-muted-foreground tracking">what i listen to</h3>
+            <p className="text-sm md:text-base text-foreground/90 dark:text-white/80 leading-relaxed">
               <motion.span
               className="inline-block font-semibold"
               initial={{ x: 0, y: 0, rotate: 0, scale: 1 }}
@@ -477,8 +481,8 @@ const Music = () => {
               . literally any subgenre. deathstep, metalstep, tearout, riddim, brostep, color bass, <span className="uppercase">ANYTHING</span> (i like my speedcore too)
             </p>
 
-            <h4 className="mt-4 text-sm text-white/60 tracking">how much i listen to</h4>
-            <p className="text-sm md:text-base text-white/80 leading-relaxed">
+            <h4 className="mt-4 text-sm text-muted-foreground tracking">how much i listen to</h4>
+            <p className="text-sm md:text-base text-foreground/90 dark:text-white/80 leading-relaxed">
               i average like 11+ hours of music a day. and no i don&apos;t fake my stats (like leaving spotify playing on silent), i actually listen to my music unlike some goobers
             </p>
             <a
@@ -491,8 +495,8 @@ const Music = () => {
               <span aria-hidden></span>
             </a>
 
-            <h4 className="mt-4 text-sm text-white/60 tracking">how i listen</h4>
-            <p className="text-sm md:text-base text-white/80 leading-relaxed">
+            <h4 className="mt-4 text-sm text-muted-foreground tracking">how i listen</h4>
+            <p className="text-sm md:text-base text-foreground/90 dark:text-white/80 leading-relaxed">
               i listen to a stupid amount of music every day and i almost never shuffle. i usually start by letting whats left in my queue playlist finish. then i run my riot daily essentials playlist (basically riot without the remixes and some of the really old stuff) and i dont skip anything. while thats playing, i build out what im listening to next by picking albums, chunks of my main playlist, or just whatever i havent listened to in a minute, and adding them to my queue playlist. i like doing it this way because if my mood flips i can just add stuff to the spotify queue without wrecking the plan, and the queue can last a few hours or even a few days. also if i find a new song and its from an album or ep, i feel obligated to listen to the whole thing through and add the whole project, not just one or two tracks. i dont really fw spotify daily mixes or generated slop. i want to hear things the full way through and actually get the full lore yk? in fact i literally have seperate playlists for artists singles and treat them like albums
             </p>
           </div>
@@ -505,15 +509,15 @@ const Music = () => {
       <section className="relative z-30 px-4 pb-24">
         <div className="max-w-5xl mx-auto space-y-6">
           <div className="flex items-baseline justify-between gap-4 mb-1">
-            <h2 className="text-lg md:text-xl font-semibold tracking-tight lowercase text-white">
+            <h2 className="text-lg md:text-xl font-semibold tracking-tight lowercase text-foreground">
               playlists i actually touch
             </h2>
-            <span className="hidden md:inline text-xs tracking-[0.2em] text-white/50">
+            <span className="hidden md:inline text-xs tracking-[0.2em] text-muted-foreground">
               spotify sucks
             </span>
           </div>
 
-          <div className="rounded-2xl bg-black/55 backdrop-blur-xl border border-white/10 p-5 md:p-6 shadow-xl">
+          <div className="rounded-2xl bg-card/80 dark:bg-black/55 backdrop-blur-xl border border-border/50 p-5 md:p-6 shadow-xl">
             <div className="grid gap-4 md:grid-cols-2">
               <iframe
                 className="w-full rounded-md"
@@ -532,18 +536,18 @@ const Music = () => {
 
       {/* NOW PLAYING */}
       <div className="fixed bottom-4 right-4 z-40 max-w-xs w-full">
-        <div className="flex items-center gap-3 bg-black/70 border border-[#1DB954] rounded-lg px-3 py-2 backdrop-blur-xl shadow-lg">
+        <div className="flex items-center gap-3 bg-card/80 dark:bg-black/70 border border-[#1DB954] rounded-lg px-3 py-2 backdrop-blur-xl shadow-lg">
           {nowPlayingLoading ? (
             <>
-              <Skeleton className="w-14 h-14 rounded-md flex-shrink-0 bg-white/10" />
+              <Skeleton className="w-14 h-14 rounded-md flex-shrink-0 bg-muted/60 dark:bg-white/10" />
               <div className="flex flex-col min-w-0 flex-1 gap-1">
-                <div className="flex items-center gap-2 text-xs text-white/60 lowercase">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground lowercase">
                   <FaSpotify className="text-[#1DB954]" aria-hidden />
                   <span className="truncate">what i’m listening to rn</span>
                 </div>
-                <Skeleton className="h-5 w-40 bg-white/10" />
-                <Skeleton className="h-4 w-28 bg-white/10" />
-                <Skeleton className="h-3 w-24 bg-white/10" />
+                <Skeleton className="h-5 w-40 bg-muted/60 dark:bg-white/10" />
+                <Skeleton className="h-4 w-28 bg-muted/60 dark:bg-white/10" />
+                <Skeleton className="h-3 w-24 bg-muted/60 dark:bg-white/10" />
               </div>
             </>
           ) : (
@@ -555,21 +559,21 @@ const Music = () => {
                   alt={nowPlaying?.name || "Now Playing"}
                 />
               ) : (
-                <div className="w-14 h-14 rounded-md bg-white/10 flex-shrink-0" />
+                <div className="w-14 h-14 rounded-md bg-muted/60 dark:bg-white/10 flex-shrink-0" />
               )}
 
               <div className="flex flex-col min-w-0">
-                <div className="flex items-center gap-2 text-xs text-white/60 lowercase">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground lowercase">
                   <FaSpotify className="text-[#1DB954]" aria-hidden />
                   <span className="truncate">what i’m listening to rn</span>
                 </div>
-                <span className="truncate font-semibold text-white text-base">
+                <span className="truncate font-semibold text-foreground text-base">
                   {nowPlaying?.name || "Not listening"}
                 </span>
                 <span className="truncate text-sm text-[#1DB954]">
                   {nowPlaying?.artist?.["#text"] || nowPlaying?.artist || ""}
                 </span>
-                <span className="truncate text-xs text-white/70">
+                <span className="truncate text-xs text-muted-foreground">
                   {nowPlaying?.album?.["#text"] || nowPlaying?.album || ""}
                 </span>
               </div>
