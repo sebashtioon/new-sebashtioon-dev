@@ -1,4 +1,5 @@
 import BottomNav from "@/components/BottomNav";
+import SocialLinks from "@/components/SocialLinks";
 
 // change this number to control how narrow/wide the home text is
 const HOME_MAX_WIDTH_REM = 32;
@@ -20,6 +21,8 @@ const Home = () => {
             <p className="text-lg md:text-xl text-muted-foreground mb-4 lowercase leading-relaxed">
               this is my personal website ig
             </p>
+
+            <SocialLinks className="mt-6 text-sm text-muted-foreground lowercase space-y-1" />
           </div>
         </div>
       </section>
