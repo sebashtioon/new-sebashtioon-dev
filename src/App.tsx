@@ -15,6 +15,7 @@ import Contact from "./pages/Contact";
 import CantWakeUp from "./pages/projects/CantWakeUp";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +77,7 @@ const App = () => {
           <Sonner />
           <LoadingOverlay />
           <BrowserRouter>
+            <ScrollToTop />
             <div className="dark min-h-screen">
               <BackgroundGrid />
               <Routes>
