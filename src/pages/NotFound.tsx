@@ -1,6 +1,5 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
-import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
 
 const NotFound = () => {
@@ -15,8 +14,6 @@ const NotFound = () => {
 
   return (
     <div className="h-screen overflow-hidden">
-      <BackgroundGrid />
-      
       <section className="h-screen flex items-center justify-center px-4 relative">
         <div className="max-w-4xl mx-auto">
           <div className="text-left animate-fade-in">

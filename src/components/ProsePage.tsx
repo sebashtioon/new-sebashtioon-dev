@@ -1,4 +1,3 @@
-import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
 import PageWrapper from "@/components/PageWrapper";
 import { ReactNode } from "react";
@@ -22,8 +21,6 @@ const ProsePage = ({ title, subtitle, breadcrumb, children }: ProsePageProps) =>
           data-preserve-apostrophes
           className="min-h-screen pt-8 pb-24 px-4 relative"
         >
-          <BackgroundGrid />
-
           <main className="max-w-3xl mx-auto">
             <header className="pt-10 pb-8">
               {breadcrumb && (

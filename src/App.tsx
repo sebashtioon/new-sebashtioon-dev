@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import LoadingOverlay from "@/components/LoadingOverlay";
+import BackgroundGrid from "@/components/BackgroundGrid";
 import Home from "./pages/Home";
 import Music from "./pages/Music";
 import Projects from "./pages/Projects";
@@ -76,6 +77,7 @@ const App = () => {
           <LoadingOverlay />
           <BrowserRouter>
             <div className="dark min-h-screen">
+              <BackgroundGrid />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/contact" element={<Contact />} />

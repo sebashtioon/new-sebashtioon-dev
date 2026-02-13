@@ -214,8 +214,6 @@ const Projects = () => {
     <>
       <PageWrapper>
         <div data-preserve-apostrophes className="min-h-screen pt-8 pb-20">
-        <BackgroundGrid />
-
       {/* Header - Minimalist Style */}
       <section className="h-screen flex items-center justify-center px-4 relative">
         <div className="max-w-4xl mx-auto">

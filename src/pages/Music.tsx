@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import BackgroundGrid from "@/components/BackgroundGrid";
 import BottomNav from "@/components/BottomNav";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FaSpotify } from "react-icons/fa";
@@ -267,8 +266,6 @@ const Music = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <BackgroundGrid />
-
       <AnimatePresence>
         {logoBurst && (
           <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center">

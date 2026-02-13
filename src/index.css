@@ -96,17 +96,6 @@
 
   body {
     @apply bg-background text-foreground font-serif;
-    background-image: conic-gradient(
-      from 90deg,
-      hsl(var(--foreground) / var(--checker-opacity)) 0 25%,
-      transparent 0 50%,
-      hsl(var(--foreground) / var(--checker-opacity)) 0 75%,
-      transparent 0
-    );
-    background-size: var(--checker-size) var(--checker-size);
-    background-position: 0 0;
-    animation: checkerboard-drift var(--checker-drift-duration) linear infinite;
-    will-change: background-position;
   }
 
   .font-mono {
