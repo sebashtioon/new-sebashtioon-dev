@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -11,10 +11,6 @@ const Music = () => {
   const [nowPlaying, setNowPlaying] = useState<any>(null);
   const [nowPlayingLoading, setNowPlayingLoading] = useState(true);
   const [cursorPos, setCursorPos] = useState({ x: -1000, y: -1000 });
-  const [logoBurst, setLogoBurst] = useState<{
-    src: string;
-    id: number;
-  } | null>(null);
 
   const apiKey = import.meta.env.VITE_LASTFM_API_KEY;
   const lastfmUser = import.meta.env.VITE_LASTFM_USER;
@@ -41,11 +37,6 @@ const Music = () => {
     "/collages/artist15.jpg",
     null,
   ];
-
-  const logoMap: Record<string, string> = {
-    "/collages/artist1.jpg": "/logos/artist1.png",
-    "/collages/artist5.jpg": "/logos/artist5.png",
-  };
 
   const leftColumnRatios = [
     [0.32, 0.18, 0.25, 0.25],
@@ -107,134 +98,12 @@ const Music = () => {
 
   const holeSize = 900;
 
-  const showLogoBurstAt = (logoSrc: string) => {
-    const id = Date.now();
-
-    setLogoBurst({
-      src: logoSrc,
-      id,
-    });
-
-
-    // automatically clear after the exit animation so it can fade out
-    setTimeout(() => {
-      setLogoBurst((current) => (current && current.id === id ? null : current));
-    }, 600);
-  };
-
-  const getLogoSize = () => 200; // fixed size is fine when not tied to a tile
-
-  const getBaseNameFromImage = (imgSrc: string) => {
-    try {
-      const parts = imgSrc.split("/");
-      const file = parts[parts.length - 1];
-      return file.split(".")[0];
-    } catch {
-      return "artist";
-    }
-  };
-
-  // measure all collage tiles so we can place invisible click hotspots over them
-  const [collageHotspots, setCollageHotspots] = useState<
-    Array<{
-      imgSrc: string;
-      left: number;
-      top: number;
-      width: number;
-      height: number;
-    }>
-  >([]);
-
-  useEffect(() => {
-    if (isMobile) {
-      setCollageHotspots([]);
-      return;
-    }
-
-    let rafId = 0;
-    let startupRafId = 0;
-
-    const updateNow = () => {
-      const nodes = Array.from(
-        document.querySelectorAll<HTMLElement>("[data-collage]")
-      );
-
-      const next = nodes
-        .map((el) => {
-          const imgSrc = el.dataset.collage || "";
-          if (!imgSrc) return null;
-
-          const rect = el.getBoundingClientRect();
-          return {
-            imgSrc,
-            left: rect.left,
-            top: rect.top,
-            width: rect.width,
-            height: rect.height,
-          };
-        })
-        .filter(Boolean) as Array<{
-        imgSrc: string;
-        left: number;
-        top: number;
-        width: number;
-        height: number;
-      }>;
-
-      setCollageHotspots(next);
-    };
-
-    const scheduleUpdate = () => {
-      if (rafId) return;
-      rafId = window.requestAnimationFrame(() => {
-        rafId = 0;
-        updateNow();
-      });
-    };
-
-    // keep hotspots aligned during the collage entrance animation
-    const startTime = performance.now();
-    const startupLoop = (t: number) => {
-      updateNow();
-      if (t - startTime < 1000) {
-        startupRafId = window.requestAnimationFrame(startupLoop);
-      }
-    };
-
-    startupRafId = window.requestAnimationFrame(startupLoop);
-
-    window.addEventListener("resize", scheduleUpdate);
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    return () => {
-      if (rafId) window.cancelAnimationFrame(rafId);
-      if (startupRafId) window.cancelAnimationFrame(startupRafId);
-      window.removeEventListener("resize", scheduleUpdate);
-      window.removeEventListener("scroll", scheduleUpdate);
-    };
-  }, [isMobile]);
-
-  const getLogoForImage = (imgSrc: string) => {
-    if (logoMap[imgSrc]) {
-      return logoMap[imgSrc];
-    }
-    try {
-      const parts = imgSrc.split("/");
-      const file = parts[parts.length - 1]; // e.g. artist1.jpg
-      const base = file.split(".")[0];
-      return `/logos/${base}.png`;
-    } catch {
-      return imgSrc;
-    }
-  };
-
-  // Preload collage and logo images so they appear instantly and logos
-  // are ready when the user clicks a collage tile.
+  // Preload collage images so they appear instantly.
   useEffect(() => {
     if (isMobile) return;
 
     const collageUrls = collageSlots.filter(Boolean) as string[];
-    const logoUrls = collageUrls.map((u) => getLogoForImage(u));
-    const urls = Array.from(new Set([...collageUrls, ...logoUrls]));
+    const urls = Array.from(new Set([...collageUrls]));
 
     const links: HTMLLinkElement[] = [];
     const imgs: HTMLImageElement[] = [];
@@ -262,11 +131,6 @@ const Music = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
 
-  const triggerLogoBurst = (imgSrc: string) => {
-    const logoSrc = getLogoForImage(imgSrc);
-    showLogoBurstAt(logoSrc);
-  };
-
   const getCollageBackgroundPosition = (imgSrc: string) => {
     if (imgSrc === "/collages/artist14.jpg") {
       // smaller % = show more of the top, which makes the subject sit lower in the tile
@@ -277,68 +141,6 @@ const Music = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <AnimatePresence>
-        {logoBurst && (
-          <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center">
-            <div className="translate-y-10">
-              <motion.div
-                key={logoBurst.id}
-                className="relative"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.03 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {/* soft faded circle shadow for depth */}
-                <div
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 blur-xl"
-                  style={{
-                    width: getLogoSize() * 2.8,
-                    height: getLogoSize() * 2.8,
-                    background:
-                      "radial-gradient(circle, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 38%, rgba(0,0,0,0) 78%)",
-                  }}
-                />
-
-                <motion.img
-                  src={logoBurst.src}
-                  alt=""
-                  className="relative object-contain drop-shadow-[0_0_35px_rgba(255,255,255,0.6)]"
-                  style={{
-                    width: getLogoSize(),
-                    height: getLogoSize(),
-                  }}
-                  initial={{ opacity: 0, scale: 0.7 }}
-                  animate={{ opacity: 1, scale: 1.15 }}
-                  exit={{ opacity: 0, scale: 1.25 }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                />
-              </motion.div>
-            </div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      {!isMobile &&
-        collageHotspots.map((spot) => (
-          <button
-            key={spot.imgSrc}
-            type="button"
-            aria-label={`Show ${getBaseNameFromImage(spot.imgSrc)} logo`}
-            className="hidden md:block fixed z-40 cursor-pointer"
-            style={{
-              left: spot.left,
-              top: spot.top,
-              width: spot.width,
-              height: spot.height,
-              background: "transparent",
-              border: "none",
-              padding: 0,
-            }}
-            onClick={() => triggerLogoBurst(spot.imgSrc)}
-          />
-        ))}
-
       {!isMobile && (
         <>
           {/* COLLAGE - TOP BAND ONLY */}

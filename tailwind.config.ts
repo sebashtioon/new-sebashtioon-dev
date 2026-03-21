@@ -99,26 +99,21 @@ export default {
 				},
 				'fade-in': {
 					'0%': {
-						opacity: '0',
-						transform: 'translateY(10px)'
+						opacity: '0'
 					},
 					'100%': {
-						opacity: '1',
-						transform: 'translateY(0)'
+						opacity: '1'
 					}
 				},
 				'fade-in-delay': {
 					'0%': {
-						opacity: '0',
-						transform: 'translateY(10px)'
+						opacity: '0'
 					},
 					'60%': {
-						opacity: '0',
-						transform: 'translateY(10px)'
+						opacity: '0'
 					},
 					'100%': {
-						opacity: '1',
-						transform: 'translateY(0)'
+						opacity: '1'
 					}
 				},
 				'slide-in': {

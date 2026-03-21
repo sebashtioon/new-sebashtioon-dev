@@ -217,13 +217,13 @@ const Projects = () => {
       {/* Header - Minimalist Style */}
       <section className="h-screen flex items-center justify-center px-4 relative">
         <div className="max-w-4xl mx-auto">
-          <div className="text-left animate-fade-in">
+          <div className="text-left">
             <div className="max-w-3xl">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif">
                 my <span className="text-foreground">projects</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl lowercase leading-relaxed">
-                just down there <span className="inline-block w-8" />
+                scroll <span className="inline-block w-8" />
                 <span className="inline-flex flex-col items-center leading-[0.7] align-middle">
                   <span>|</span>
                   <span className="-mt-1">v</span>

@@ -16,7 +16,7 @@ const NotFound = () => {
     <div className="h-screen overflow-hidden">
       <section className="h-screen flex items-center justify-center px-4 relative">
         <div className="max-w-4xl mx-auto">
-          <div className="text-left animate-fade-in">
+          <div className="text-left">
             <div className="max-w-3xl">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif">
                 <span className="text-foreground">404</span>

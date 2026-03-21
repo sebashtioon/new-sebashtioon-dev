@@ -15,7 +15,7 @@ const Home = () => {
 
       <section className="h-screen flex items-center justify-center px-4 relative">
         <div className="w-full mx-auto" style={{ maxWidth: `${HOME_MAX_WIDTH_REM}rem` }}>
-          <div className="animate-fade-in relative top-6">
+          <div className="relative top-6">
             <div className="flex flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-left gap-6">
               <div>
                 <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lowercase leading-tight font-serif whitespace-nowrap">
@@ -24,7 +24,7 @@ const Home = () => {
                 </h1>
 
                 <p className="text-lg md:text-xl text-muted-foreground lowercase leading-relaxed">
-                  this is my personal website ig
+                  this is my super awesome site
                 </p>
               </div>
 
