@@ -20,8 +20,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ["Arial", "Helvetica", ...defaultTheme.fontFamily.sans],
-				serif: ["Arial", "Helvetica", ...defaultTheme.fontFamily.sans],
+				sans: ['"Tiro Devanagari Hindi"', ...defaultTheme.fontFamily.sans],
+				serif: ['"Tiro Devanagari Hindi"', ...defaultTheme.fontFamily.serif],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
