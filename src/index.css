@@ -7,36 +7,39 @@
 @layer base {
   /* Light theme (default variables). */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 8%;
+    /* Single color control: change this one hue (0-360) to retheme the site. */
+    --theme-hue: 210;
 
-    --card: 0 0% 96%;
-    --card-foreground: 0 0% 8%;
-    --card-hover: 0 0% 92%;
+    --background: var(--theme-hue) 40% 95%;
+    --foreground: calc(var(--theme-hue) + 14) 35% 22%;
 
-    --popover: 0 0% 96%;
-    --popover-foreground: 0 0% 8%;
+    --card: calc(var(--theme-hue) + 2) 45% 90%;
+    --card-foreground: calc(var(--theme-hue) + 14) 35% 22%;
+    --card-hover: calc(var(--theme-hue) + 2) 48% 84%;
 
-    --primary: 0 0% 8%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 0 0% 30%;
+    --popover: calc(var(--theme-hue) + 2) 45% 90%;
+    --popover-foreground: calc(var(--theme-hue) + 14) 35% 22%;
 
-    --secondary: 0 0% 92%;
-    --secondary-foreground: 0 0% 10%;
+    --primary: var(--theme-hue) 90% 56%;
+    --primary-foreground: var(--theme-hue) 40% 95%;
+    --primary-glow: calc(var(--theme-hue) - 23) 80% 46%;
 
-    --accent: 0 0% 90%;
-    --accent-foreground: 0 0% 10%;
-    --accent-glow: 0 0% 35%;
+    --secondary: calc(var(--theme-hue) + 5) 40% 86%;
+    --secondary-foreground: calc(var(--theme-hue) + 14) 35% 22%;
 
-    --muted: 0 0% 94%;
-    --muted-foreground: 0 0% 40%;
+    --accent: calc(var(--theme-hue) - 21) 70% 42%;
+    --accent-foreground: var(--theme-hue) 40% 95%;
+    --accent-glow: calc(var(--theme-hue) + 8) 88% 62%;
 
-    --destructive: 0 80% 55%;
-    --destructive-foreground: 0 0% 98%;
+    --muted: calc(var(--theme-hue) + 4) 35% 88%;
+    --muted-foreground: calc(var(--theme-hue) + 11) 18% 44%;
 
-    --border: 0 0% 85%;
-    --input: 0 0% 96%;
-    --ring: 0 0% 30%;
+    --destructive: 347 87% 44%;
+    --destructive-foreground: var(--theme-hue) 40% 95%;
+
+    --border: calc(var(--theme-hue) + 3) 30% 76%;
+    --input: calc(var(--theme-hue) + 2) 45% 90%;
+    --ring: var(--theme-hue) 90% 56%;
 
     --radius: 0rem;
 
@@ -60,36 +63,36 @@
 
   /* Dark theme overrides (previous :root values). */
   .dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 95%;
+    --background: calc(var(--theme-hue) + 12) 36% 11%;
+    --foreground: calc(var(--theme-hue) - 4) 42% 86%;
 
-    --card: 0 0% 12%;
-    --card-foreground: 0 0% 95%;
-    --card-hover: 0 0% 18%;
+    --card: calc(var(--theme-hue) + 11) 32% 16%;
+    --card-foreground: calc(var(--theme-hue) - 4) 42% 86%;
+    --card-hover: calc(var(--theme-hue) + 9) 30% 22%;
 
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 95%;
+    --popover: calc(var(--theme-hue) + 11) 32% 16%;
+    --popover-foreground: calc(var(--theme-hue) - 4) 42% 86%;
 
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 8%;
-    --primary-glow: 0 0% 100%;
+    --primary: var(--theme-hue) 90% 64%;
+    --primary-foreground: calc(var(--theme-hue) + 12) 36% 11%;
+    --primary-glow: calc(var(--theme-hue) - 23) 72% 58%;
 
-    --secondary: 0 0% 18%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: calc(var(--theme-hue) + 7) 28% 24%;
+    --secondary-foreground: calc(var(--theme-hue) - 4) 42% 86%;
 
-    --accent: 0 0% 25%;
-    --accent-foreground: 0 0% 95%;
-    --accent-glow: 0 0% 60%;
+    --accent: calc(var(--theme-hue) - 21) 64% 52%;
+    --accent-foreground: calc(var(--theme-hue) + 12) 36% 11%;
+    --accent-glow: calc(var(--theme-hue) + 8) 88% 70%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%;
+    --muted: calc(var(--theme-hue) + 10) 23% 28%;
+    --muted-foreground: calc(var(--theme-hue) + 7) 20% 66%;
 
-    --destructive: 0 80% 60%;
-    --destructive-foreground: 0 0% 95%;
+    --destructive: 343 81% 75%;
+    --destructive-foreground: calc(var(--theme-hue) + 12) 36% 11%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 12%;
-    --ring: 0 0% 80%;
+    --border: calc(var(--theme-hue) + 8) 25% 30%;
+    --input: calc(var(--theme-hue) + 11) 32% 16%;
+    --ring: var(--theme-hue) 90% 64%;
 
     --checker-opacity: 0.05;
 
