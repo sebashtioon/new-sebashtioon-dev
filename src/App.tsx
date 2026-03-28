@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import ScrollToTop from "@/components/ScrollToTop";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AnimatePresence, motion } from "framer-motion";
+import BottomNav from "@/components/BottomNav";
 
 const queryClient = new QueryClient();
 
@@ -111,6 +112,7 @@ const App = () => {
               <div className="min-h-screen">
                 <BackgroundGrid />
                 <AnimatedRoutes />
+                <BottomNav />
               </div>
             </BrowserRouter>
           </TooltipProvider>

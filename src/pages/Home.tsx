@@ -1,4 +1,3 @@
-import BottomNav from "@/components/BottomNav";
 import SocialLinksToggle from "@/components/SocialLinksToggle";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -33,8 +32,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      <BottomNav />
     </div>
   );
 };

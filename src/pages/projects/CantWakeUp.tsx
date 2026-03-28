@@ -15,7 +15,7 @@ const CantWakeUp = () => {
         </>
       }
       subtitle={
-        <span className="lowercase">a small first-person horror game about chores, paranoia, and sleep paralysis.</span>
+        <span className="lowercase">a small first-person horror game about chores, paranoia, and sleep paralysis</span>
       }
     >
       <section className="space-y-3">
