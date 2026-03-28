@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import BottomNav from "@/components/BottomNav";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { FaSpotify } from "react-icons/fa";
@@ -383,8 +382,6 @@ const Music = () => {
           )}
         </div>
       </div>
-
-      <BottomNav />
     </div>
   );
 };

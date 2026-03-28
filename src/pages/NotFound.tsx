@@ -1,6 +1,5 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
-import BottomNav from "@/components/BottomNav";
 
 const NotFound = () => {
   const location = useLocation();
@@ -47,8 +46,6 @@ const NotFound = () => {
           </div>
         </div>
       </section>
-
-      <BottomNav />
     </div>
   );
 };

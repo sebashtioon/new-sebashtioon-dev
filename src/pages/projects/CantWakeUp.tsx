@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 const CantWakeUp = () => {
   return (
     <ProsePage
-      title="cant wake up"
+      title={<span className="normal-case">CANTWAKEUP</span>}
       breadcrumb={
         <>
           <Link to="/projects" className="hover:text-foreground transition-colors">
             projects
           </Link>
           <span className="mx-2">/</span>
-          <span className="text-muted-foreground">cant-wake-up</span>
+          <span className="text-muted-foreground normal-case">CANTWAKEUP</span>
         </>
       }
       subtitle={
-        <span className="lowercase">a small first-person horror game about chores, paranoia, and sleep paralysis.</span>
+        <span className="lowercase">a small first-person horror game about chores, paranoia, and sleep paralysis</span>
       }
     >
       <section className="space-y-3">

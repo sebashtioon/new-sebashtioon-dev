@@ -8,38 +8,40 @@
   /* Light theme (default variables). */
   :root {
     /* Single color control: change this one hue (0-360) to retheme the site. */
-    --theme-hue: 210;
+    --theme-hue: 220;
+    /* Universal lightness offset for all theme colors. Example: 6% or -6%. */
+    --theme-brightness: -7%;
 
-    --background: var(--theme-hue) 40% 95%;
-    --foreground: calc(var(--theme-hue) + 14) 35% 22%;
+    --background: var(--theme-hue) 40% clamp(0%, calc(95% + var(--theme-brightness)), 100%);
+    --foreground: calc(var(--theme-hue) + 14) 35% clamp(0%, calc(22% + var(--theme-brightness)), 100%);
 
-    --card: calc(var(--theme-hue) + 2) 45% 90%;
-    --card-foreground: calc(var(--theme-hue) + 14) 35% 22%;
-    --card-hover: calc(var(--theme-hue) + 2) 48% 84%;
+    --card: calc(var(--theme-hue) + 2) 45% clamp(0%, calc(90% + var(--theme-brightness)), 100%);
+    --card-foreground: calc(var(--theme-hue) + 14) 35% clamp(0%, calc(22% + var(--theme-brightness)), 100%);
+    --card-hover: calc(var(--theme-hue) + 2) 48% clamp(0%, calc(84% + var(--theme-brightness)), 100%);
 
-    --popover: calc(var(--theme-hue) + 2) 45% 90%;
-    --popover-foreground: calc(var(--theme-hue) + 14) 35% 22%;
+    --popover: calc(var(--theme-hue) + 2) 45% clamp(0%, calc(90% + var(--theme-brightness)), 100%);
+    --popover-foreground: calc(var(--theme-hue) + 14) 35% clamp(0%, calc(22% + var(--theme-brightness)), 100%);
 
-    --primary: var(--theme-hue) 90% 56%;
-    --primary-foreground: var(--theme-hue) 40% 95%;
-    --primary-glow: calc(var(--theme-hue) - 23) 80% 46%;
+    --primary: var(--theme-hue) 90% clamp(0%, calc(56% + var(--theme-brightness)), 100%);
+    --primary-foreground: var(--theme-hue) 40% clamp(0%, calc(95% + var(--theme-brightness)), 100%);
+    --primary-glow: calc(var(--theme-hue) - 23) 80% clamp(0%, calc(46% + var(--theme-brightness)), 100%);
 
-    --secondary: calc(var(--theme-hue) + 5) 40% 86%;
-    --secondary-foreground: calc(var(--theme-hue) + 14) 35% 22%;
+    --secondary: calc(var(--theme-hue) + 5) 40% clamp(0%, calc(86% + var(--theme-brightness)), 100%);
+    --secondary-foreground: calc(var(--theme-hue) + 14) 35% clamp(0%, calc(22% + var(--theme-brightness)), 100%);
 
-    --accent: calc(var(--theme-hue) - 21) 70% 42%;
-    --accent-foreground: var(--theme-hue) 40% 95%;
-    --accent-glow: calc(var(--theme-hue) + 8) 88% 62%;
+    --accent: calc(var(--theme-hue) - 21) 70% clamp(0%, calc(42% + var(--theme-brightness)), 100%);
+    --accent-foreground: var(--theme-hue) 40% clamp(0%, calc(95% + var(--theme-brightness)), 100%);
+    --accent-glow: calc(var(--theme-hue) + 8) 88% clamp(0%, calc(62% + var(--theme-brightness)), 100%);
 
-    --muted: calc(var(--theme-hue) + 4) 35% 88%;
-    --muted-foreground: calc(var(--theme-hue) + 11) 18% 44%;
+    --muted: calc(var(--theme-hue) + 4) 35% clamp(0%, calc(88% + var(--theme-brightness)), 100%);
+    --muted-foreground: calc(var(--theme-hue) + 11) 18% clamp(0%, calc(44% + var(--theme-brightness)), 100%);
 
-    --destructive: 347 87% 44%;
-    --destructive-foreground: var(--theme-hue) 40% 95%;
+    --destructive: 347 87% clamp(0%, calc(44% + var(--theme-brightness)), 100%);
+    --destructive-foreground: var(--theme-hue) 40% clamp(0%, calc(95% + var(--theme-brightness)), 100%);
 
-    --border: calc(var(--theme-hue) + 3) 30% 76%;
-    --input: calc(var(--theme-hue) + 2) 45% 90%;
-    --ring: var(--theme-hue) 90% 56%;
+    --border: calc(var(--theme-hue) + 3) 30% clamp(0%, calc(76% + var(--theme-brightness)), 100%);
+    --input: calc(var(--theme-hue) + 2) 45% clamp(0%, calc(90% + var(--theme-brightness)), 100%);
+    --ring: var(--theme-hue) 90% clamp(0%, calc(56% + var(--theme-brightness)), 100%);
 
     --radius: 0rem;
 
@@ -63,36 +65,36 @@
 
   /* Dark theme overrides (previous :root values). */
   .dark {
-    --background: calc(var(--theme-hue) + 12) 36% 11%;
-    --foreground: calc(var(--theme-hue) - 4) 42% 86%;
+    --background: calc(var(--theme-hue) + 12) 36% clamp(0%, calc(11% + var(--theme-brightness)), 100%);
+    --foreground: calc(var(--theme-hue) - 4) 42% clamp(0%, calc(86% + var(--theme-brightness)), 100%);
 
-    --card: calc(var(--theme-hue) + 11) 32% 16%;
-    --card-foreground: calc(var(--theme-hue) - 4) 42% 86%;
-    --card-hover: calc(var(--theme-hue) + 9) 30% 22%;
+    --card: calc(var(--theme-hue) + 11) 32% clamp(0%, calc(16% + var(--theme-brightness)), 100%);
+    --card-foreground: calc(var(--theme-hue) - 4) 42% clamp(0%, calc(86% + var(--theme-brightness)), 100%);
+    --card-hover: calc(var(--theme-hue) + 9) 30% clamp(0%, calc(22% + var(--theme-brightness)), 100%);
 
-    --popover: calc(var(--theme-hue) + 11) 32% 16%;
-    --popover-foreground: calc(var(--theme-hue) - 4) 42% 86%;
+    --popover: calc(var(--theme-hue) + 11) 32% clamp(0%, calc(16% + var(--theme-brightness)), 100%);
+    --popover-foreground: calc(var(--theme-hue) - 4) 42% clamp(0%, calc(86% + var(--theme-brightness)), 100%);
 
-    --primary: var(--theme-hue) 90% 64%;
-    --primary-foreground: calc(var(--theme-hue) + 12) 36% 11%;
-    --primary-glow: calc(var(--theme-hue) - 23) 72% 58%;
+    --primary: var(--theme-hue) 90% clamp(0%, calc(64% + var(--theme-brightness)), 100%);
+    --primary-foreground: calc(var(--theme-hue) + 12) 36% clamp(0%, calc(11% + var(--theme-brightness)), 100%);
+    --primary-glow: calc(var(--theme-hue) - 23) 72% clamp(0%, calc(58% + var(--theme-brightness)), 100%);
 
-    --secondary: calc(var(--theme-hue) + 7) 28% 24%;
-    --secondary-foreground: calc(var(--theme-hue) - 4) 42% 86%;
+    --secondary: calc(var(--theme-hue) + 7) 28% clamp(0%, calc(24% + var(--theme-brightness)), 100%);
+    --secondary-foreground: calc(var(--theme-hue) - 4) 42% clamp(0%, calc(86% + var(--theme-brightness)), 100%);
 
-    --accent: calc(var(--theme-hue) - 21) 64% 52%;
-    --accent-foreground: calc(var(--theme-hue) + 12) 36% 11%;
-    --accent-glow: calc(var(--theme-hue) + 8) 88% 70%;
+    --accent: calc(var(--theme-hue) - 21) 64% clamp(0%, calc(52% + var(--theme-brightness)), 100%);
+    --accent-foreground: calc(var(--theme-hue) + 12) 36% clamp(0%, calc(11% + var(--theme-brightness)), 100%);
+    --accent-glow: calc(var(--theme-hue) + 8) 88% clamp(0%, calc(70% + var(--theme-brightness)), 100%);
 
-    --muted: calc(var(--theme-hue) + 10) 23% 28%;
-    --muted-foreground: calc(var(--theme-hue) + 7) 20% 66%;
+    --muted: calc(var(--theme-hue) + 10) 23% clamp(0%, calc(28% + var(--theme-brightness)), 100%);
+    --muted-foreground: calc(var(--theme-hue) + 7) 20% clamp(0%, calc(66% + var(--theme-brightness)), 100%);
 
-    --destructive: 343 81% 75%;
-    --destructive-foreground: calc(var(--theme-hue) + 12) 36% 11%;
+    --destructive: 343 81% clamp(0%, calc(75% + var(--theme-brightness)), 100%);
+    --destructive-foreground: calc(var(--theme-hue) + 12) 36% clamp(0%, calc(11% + var(--theme-brightness)), 100%);
 
-    --border: calc(var(--theme-hue) + 8) 25% 30%;
-    --input: calc(var(--theme-hue) + 11) 32% 16%;
-    --ring: var(--theme-hue) 90% 64%;
+    --border: calc(var(--theme-hue) + 8) 25% clamp(0%, calc(30% + var(--theme-brightness)), 100%);
+    --input: calc(var(--theme-hue) + 11) 32% clamp(0%, calc(16% + var(--theme-brightness)), 100%);
+    --ring: var(--theme-hue) 90% clamp(0%, calc(64% + var(--theme-brightness)), 100%);
 
     --checker-opacity: 0.05;
 

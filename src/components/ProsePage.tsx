@@ -1,10 +1,9 @@
-import BottomNav from "@/components/BottomNav";
 import PageWrapper from "@/components/PageWrapper";
 import { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 
 type ProsePageProps = {
-  title: string;
+  title: ReactNode;
   subtitle?: ReactNode;
   breadcrumb?: ReactNode;
   children: ReactNode;
@@ -15,8 +14,7 @@ const ProsePage = ({ title, subtitle, breadcrumb, children }: ProsePageProps) =>
   const isBlogRoute = location.pathname === "/blog" || location.pathname.startsWith("/blog/");
 
   return (
-    <>
-      <PageWrapper>
+    <PageWrapper>
         <div
           data-preserve-apostrophes
           className="min-h-screen pt-8 pb-24 px-4 relative"
@@ -46,8 +44,6 @@ const ProsePage = ({ title, subtitle, breadcrumb, children }: ProsePageProps) =>
           </main>
         </div>
       </PageWrapper>
-      <BottomNav />
-    </>
   );
 };
 
