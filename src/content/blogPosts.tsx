@@ -16,7 +16,7 @@ export const blogPosts: BlogPost[] = [
     summary: "an endless yap about my latest game",
     content: (
       <>
-        <p className="lowercase">okay so... what actually is this game???</p>
+        <p className="lowercase">okay so... what actually <em>is</em> this game???</p>
 
         <p className="lowercase">
           one day a few years ago i was scrolling yt shorts (
@@ -48,7 +48,14 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <p className="lowercase">
-          okay okay well if you dont know what sleep paralysis is, its pretty much your mind being awake but your body sound asleep. and if you ask me this is quite fucking stupid like why has evolution not solved this problem gng :skulk: and for some reason, your eyes arent paralyzed like the rest of your body is so you know what that means{" "}
+          okay okay well if you dont know what sleep paralysis is, its pretty much your mind being awake but your body sound asleep. and if you ask me this is quite fucking stupid like why has evolution not solved this problem gng{" "}
+          <img
+            src="/emojis/skulk.png"
+            alt="skulk"
+            className="inline-block h-5 w-5 align-text-bottom"
+            loading="lazy"
+          />{" "}
+          and for some reason, your eyes arent paralyzed like the rest of your body is so you know what that means{" "}
           <img
             src="/emojis/thumbup.jpg"
             alt="thumbup"
@@ -58,11 +65,11 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <p className="lowercase">
-          YOU OPEN THEM!!! oh, but because youre also "dreaming" at the same time as being paralyzed that means your brain goes haywire and creates things that arent real (i.e. hallucinations) these feel ultra real because your brain is mixing dream shit with actual reality (e.g. backrooms entity looking ahh and your bedroom). on top of that, your brain is so evolved that you can actually FEEL things that happen in this dream/reality hybrid. so that means, if the demon or figure (whatever fuckery your noodle is brewing up this week) is on your bed with you, you can feel it.
+          YOU OPEN THEM!!! oh, but because youre also "dreaming" at the same time as being paralyzed that means your brain goes haywire and creates things that arent real (i.e. hallucinations) these feel ultra real because your brain is mixing dream shit with actual reality (e.g. <strong>backrooms entity looking ahh</strong> and <strong>your bedroom</strong>). on top of that, your brain is so evolved that you can actually <em>FEEL</em> things that happen in this dream/reality hybrid. so that means, if the demon or figure (whatever fuckery your noodle is brewing up this week) is on your bed with you, you can <strong><em>feel</em></strong> it.
         </p>
 
         <p className="lowercase">
-          this might be a weight on your chest or breathing in your face. but dont worry, these demons or dream things happening in your room arent actually real. well, thats not quite the case for this game (mostly).
+          this might be a weight on your chest or breathing in your face. but dont worry, these demons or dream things happening in your room <em>arent actually real.</em> well, thats not quite the case for this game (mostly).
         </p>
 
         <p className="lowercase">
@@ -77,11 +84,17 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <p className="lowercase">
-          i was planning this game to be playable at the same length that would go in a markiplier video or playthrough (your typical psx/ps1 style short horror game thats around 30min long). this was only thought up relatively recently, but the backstory of the game is, youre a kid (probably like 9-10 years old, so quite young) and you just moved into a new house. and guess what? you have severe sleep paralysis episodes !! :yayayayayay:
+          i was planning this game to be playable at the same length that would go in a markiplier video or playthrough (your typical psx/ps1 style short horror game thats around 30min long). this was only thought up relatively recently, but the backstory of the game is, youre a kid (probably like 9-10 years old, so quite young) and you just moved into a new house. and guess what? you have severe sleep paralysis episodes !!{" "}
+          <img
+            src="/emojis/yayayayayay.gif"
+            alt="yayayayayay"
+            className="inline-block h-5 w-5 align-text-bottom"
+            loading="lazy"
+          />
         </p>
 
         <p className="lowercase">
-          your parents are out at work while youre left to suffer alone at home. they leave you tasks/chores to do on a peice of paper on the kitchen table everyday, and you need to complete them or your sleep paralysis episodes get worse. i mean regardless of whether you complete them or not youre gonna have something that night but it wont be as harsh as it would be if you didnt do any of the tasks.
+          your parents are out at work while youre left to suffer alone at home. they leave you tasks/chores to do on a peice of paper on the kitchen table everyday, and you need to complete them or your sleep paralysis episodes get worse. i mean regardless of whether you complete them or not youre gonna have <em>something</em> that night but it wont be as harsh as it would be if you didnt do any of the tasks.
         </p>
 
         <p className="lowercase">
