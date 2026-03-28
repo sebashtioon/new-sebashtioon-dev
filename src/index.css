@@ -10,7 +10,7 @@
     /* Single color control: change this one hue (0-360) to retheme the site. */
     --theme-hue: 220;
     /* Universal lightness offset for all theme colors. Example: 6% or -6%. */
-    --theme-brightness: 0%;
+    --theme-brightness: -7%;
 
     --background: var(--theme-hue) 40% clamp(0%, calc(95% + var(--theme-brightness)), 100%);
     --foreground: calc(var(--theme-hue) + 14) 35% clamp(0%, calc(22% + var(--theme-brightness)), 100%);
