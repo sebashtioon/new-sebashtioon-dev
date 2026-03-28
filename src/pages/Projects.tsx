@@ -32,7 +32,7 @@ const Projects = () => {
       image: "/projects/cantwakeup.webp",
       tags: ["godot", "psx", "3D"],
       status: "in development",
-      internalPath: "/projects/cant-wake-up",
+      internalPath: "/blog/cantwakeup-ted-talk",
       links: {}
     },
     {
