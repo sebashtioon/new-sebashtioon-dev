@@ -4,7 +4,6 @@ import { FaPlayCircle, FaItchIo, FaSteam } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
 import BackgroundGrid from "@/components/BackgroundGrid";
-import BottomNav from "@/components/BottomNav";
 import SmartImage from "@/components/SmartImage";
 import PageWrapper from "@/components/PageWrapper";
 import { useSmartLoading, useImageLoadingDetector } from "@/hooks/useSmartLoading";
@@ -429,7 +428,6 @@ const Projects = () => {
 
       </div>
       </PageWrapper>
-      <BottomNav />
     </>
   );
 };
