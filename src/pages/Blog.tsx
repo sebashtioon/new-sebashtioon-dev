@@ -46,7 +46,7 @@ const Blog = () => {
                   to={`/blog/${p.slug}`}
                   className="inline-flex items-center px-3 py-1.5 border border-border text-sm lowercase hover:bg-card"
                 >
-                  read post
+                  read
                 </Link>
               </div>
             </article>

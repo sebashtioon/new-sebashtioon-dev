@@ -13,7 +13,7 @@ export const blogPosts: BlogPost[] = [
     slug: "cantwakeup-ted-talk",
     title: "CANTWAKEUP ted talk",
     date: "2026-03-28",
-    summary: "what this game is, where it came from, and where its going",
+    summary: "an endless yap about my latest game",
     content: (
       <>
         <p className="lowercase">
