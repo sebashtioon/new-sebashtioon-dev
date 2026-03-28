@@ -27,10 +27,10 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: "CAN'T WAKE UP",
+      title: "CANTWAKEUP",
       category: "games",
       description: "Welcome to sleep paralysis.",
-      image: "/projects/placeholder.webp",
+      image: "/projects/cantwakeup.webp",
       tags: ["godot", "psx", "3D"],
       status: "in development",
       internalPath: "/projects/cant-wake-up",

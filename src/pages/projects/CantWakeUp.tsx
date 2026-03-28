@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 const CantWakeUp = () => {
   return (
     <ProsePage
-      title="cant wake up"
+      title="CANTWAKEUP"
       breadcrumb={
         <>
           <Link to="/projects" className="hover:text-foreground transition-colors">
             projects
           </Link>
           <span className="mx-2">/</span>
-          <span className="text-muted-foreground">cant-wake-up</span>
+          <span className="text-muted-foreground">CANTWAKEUP</span>
         </>
       }
       subtitle={
