@@ -323,101 +323,99 @@ const Projects = () => {
 
       {/* Projects Grid - Minimalist Style */}
       <section className="px-4 pb-16">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid gap-8">
-            {filteredProjects.map((project, index) => (
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {filteredProjects.map((project) => (
               <div 
                 key={project.id} 
-                className="border-b border-border/30 pb-8 last:border-b-0"
+                className="bg-card/40 border border-border/40 rounded-xl overflow-hidden flex flex-col"
               >
-                <div className="grid md:grid-cols-3 gap-6 items-start">
-                  {/* Project Image */}
-                  <div className="md:col-span-1">
-                    <SmartImage
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-48 rounded-lg"
-                      onLoadStart={onImageLoadStart}
-                      onLoadComplete={onImageLoadComplete}
-                    />
+                {/* Project Image */}
+                <div>
+                  <SmartImage
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-52"
+                    onLoadStart={onImageLoadStart}
+                    onLoadComplete={onImageLoadComplete}
+                  />
+                </div>
+
+                {/* Project Info */}
+                <div className="p-4 md:p-5 flex-1 flex flex-col gap-4">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground mb-2 lowercase">
+                      <span>{project.category}</span>
+                      <span>•</span>
+                      <button
+                        onClick={() => handleTagClick(project.status)}
+                        className={`hover:text-foreground transition-colors lowercase ${
+                          selectedTags.includes(project.status) ? 'text-foreground' : ''
+                        }`}
+                      >
+                        {project.status}
+                      </button>
+                      {project.status === "completed" && project.completedDate && (
+                        <>
+                          <span>•</span>
+                          <span>{formatDate(project.completedDate)}</span>
+                        </>
+                      )}
+                    </div>
+
+                    <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+                    <p className="text-muted-foreground lowercase leading-relaxed">{project.description}</p>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap items-center gap-3 text-muted-foreground text-sm mt-3 lowercase">
+                      {project.tags.map((tag, tagIndex) => (
+                        <span key={tag}>
+                          <button
+                            onClick={() => handleTagClick(tag)}
+                            className={`hover:text-foreground transition-colors lowercase ${
+                              selectedTags.includes(tag) ? 'text-foreground' : ''
+                            }`}
+                          >
+                            {tag}
+                          </button>
+                          {tagIndex < project.tags.length - 1 && <span className="ml-3">•</span>}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Project Info */}
-                  <div className="md:col-span-2 space-y-3">
-                    <div>
-                      <div className="flex items-center gap-3 text-sm text-muted-foreground mb-2 lowercase">
-                        <span>{project.category}</span>
-                        <span>•</span>
-                        <button
-                          onClick={() => handleTagClick(project.status)}
-                          className={`hover:text-foreground transition-colors lowercase ${
-                            selectedTags.includes(project.status) ? 'text-foreground' : ''
-                          }`}
-                        >
-                          {project.status}
-                        </button>
-                        {project.status === "completed" && project.completedDate && (
-                          <>
-                            <span>•</span>
-                            <span>{formatDate(project.completedDate)}</span>
-                          </>
-                        )}
-                      </div>
-                      
-                      <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                      <p className="text-muted-foreground lowercase leading-relaxed">{project.description}</p>
-                      
-                      {/* Tags */}
-                      <div className="flex flex-wrap items-center gap-3 text-muted-foreground text-sm mt-3 lowercase">
-                        {project.tags.map((tag, tagIndex) => (
-                          <span key={tag}>
-                            <button
-                              onClick={() => handleTagClick(tag)}
-                              className={`hover:text-foreground transition-colors lowercase ${
-                                selectedTags.includes(tag) ? 'text-foreground' : ''
-                              }`}
-                            >
-                              {tag}
-                            </button>
-                            {tagIndex < project.tags.length - 1 && <span className="ml-3">•</span>}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Links */}
-                    <div className="flex flex-wrap gap-3 mt-4">
-                      {project.internalPath && (
-                        <Link to={project.internalPath} className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
-                          read
-                        </Link>
-                      )}
-                      {project.links.github && (
-                        <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
-                          src
-                        </a>
-                      )}
-                      {project.links.demo && (
-                        <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
-                          view
-                        </a>
-                      )}
-                      {project.links.play_itch && (
-                        <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
-                          play on itch
-                        </a>
-                      )}
-                      {project.links.download && (
-                        <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
-                          download
-                        </a>
-                      )}
-                      {project.links.blender_download && (
-                        <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
-                          download project
-                        </a>
-                      )}
-                    </div>
+                  {/* Links */}
+                  <div className="flex flex-wrap gap-2 mt-auto pt-1">
+                    {project.internalPath && (
+                      <Link to={project.internalPath} className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
+                        read
+                      </Link>
+                    )}
+                    {project.links.github && (
+                      <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
+                        src
+                      </a>
+                    )}
+                    {project.links.demo && (
+                      <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
+                        view
+                      </a>
+                    )}
+                    {project.links.play_itch && (
+                      <a href={project.links.play_itch} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
+                        play on itch
+                      </a>
+                    )}
+                    {project.links.download && (
+                      <a href={project.links.download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
+                        download
+                      </a>
+                    )}
+                    {project.links.blender_download && (
+                      <a href={project.links.blender_download} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-card hover:bg-card-hover text-foreground border border-border rounded-lg transition-colors text-sm lowercase">
+                        download project
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

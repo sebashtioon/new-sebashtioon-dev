@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { useCachedImage } from '@/utils/imageCache';
 
 interface SmartImageProps {
@@ -57,7 +56,7 @@ const SmartImage = ({ src, alt, className = "", placeholder, onLoadStart, onLoad
       )}
       
       {/* Actual image */}
-      <motion.img
+      <img
         src={cachedUrl}
         alt={alt}
         className={`w-full h-full object-cover transition-opacity duration-300 ${
@@ -67,9 +66,6 @@ const SmartImage = ({ src, alt, className = "", placeholder, onLoadStart, onLoad
         decoding="async"
         onLoad={handleLoad}
         onError={handleError}
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.3 }}
       />
     </div>
   );
