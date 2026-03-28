@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 
 type ProsePageProps = {
-  title: string;
+  title: ReactNode;
   subtitle?: ReactNode;
   breadcrumb?: ReactNode;
   children: ReactNode;
