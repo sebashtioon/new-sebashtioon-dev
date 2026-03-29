@@ -90,6 +90,20 @@ const Projects = () => {
         download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/BH-1737/BH-1737.Art.zip",
         blender_download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/BH-1737/BH-1737.Project.zip",
       }
+    },
+    {
+      id: 7,
+      title: "Fire on the Mountain",
+      category: "games",
+      description: "Survive a savage island, balancing alliances and chaos in a Lord of the Flies-inspired struggle. For a school assignment.",
+      image: "/projects/fire-on-the-mountain.webp",
+      tags: ["3D", "low-poly", "survival", "school-assignment"],
+      status: "completed",
+      completedDate: "2025-09-20",
+      links: {
+        play_itch: "https://xintegrate-studios.itch.io/fire-on-the-mountain",
+        github: "https://github.com/xintegrate-studios/Fire-on-the-Mountain",
+      }
     }
   ];
 
@@ -325,7 +339,19 @@ const Projects = () => {
       <section className="px-4 pb-16">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredProjects.map((project) => (
+            {[...filteredProjects]
+              .sort((a, b) => {
+                // Always put CANTWAKEUP first
+                if (a.title === 'CANTWAKEUP') return -1;
+                if (b.title === 'CANTWAKEUP') return 1;
+                if (a.status === 'completed' && b.status === 'completed') {
+                  return new Date(b.completedDate) - new Date(a.completedDate);
+                }
+                if (a.status === 'completed') return -1;
+                if (b.status === 'completed') return 1;
+                return 0;
+              })
+              .map((project) => (
               <div 
                 key={project.id} 
                 className="bg-card/40 border border-border/40 rounded-xl overflow-hidden flex flex-col"
