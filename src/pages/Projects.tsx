@@ -81,7 +81,7 @@ const Projects = () => {
       id: 6,
       title: "BH-1737",
       category: "3d stuff",
-      description: "endless darkness framed by a ring of golden light.",
+      description: "endless darkness",
       image: "/projects/bh-1737.webp",
       tags: ["3D", "blender"],
       status: "completed",
