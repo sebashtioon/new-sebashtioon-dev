@@ -345,7 +345,7 @@ const Projects = () => {
                 if (a.title === 'CANTWAKEUP') return -1;
                 if (b.title === 'CANTWAKEUP') return 1;
                 if (a.status === 'completed' && b.status === 'completed') {
-                  return new Date(b.completedDate) - new Date(a.completedDate);
+                  return new Date(b.completedDate).getTime() - new Date(a.completedDate).getTime();
                 }
                 if (a.status === 'completed') return -1;
                 if (b.status === 'completed') return 1;
@@ -371,22 +371,34 @@ const Projects = () => {
                 <div className="p-4 md:p-5 flex-1 flex flex-col gap-4">
                   <div>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground mb-2 lowercase">
-                      <span>{project.category}</span>
-                      <span>•</span>
-                      <button
-                        onClick={() => handleTagClick(project.status)}
-                        className={`hover:text-foreground transition-colors lowercase ${
-                          selectedTags.includes(project.status) ? 'text-foreground' : ''
-                        }`}
-                      >
-                        {project.status}
-                      </button>
-                      {project.status === "completed" && project.completedDate && (
-                        <>
-                          <span>•</span>
-                          <span>{formatDate(project.completedDate)}</span>
-                        </>
-                      )}
+                      {[
+                        <button
+                          key="category"
+                          onClick={() => handleCategoryClick(project.category)}
+                          className={`hover:text-foreground transition-colors lowercase ${
+                            selectedCategory === project.category ? 'text-foreground' : ''
+                          }`}
+                        >
+                          {project.category}
+                        </button>,
+                        <button
+                          key="status"
+                          onClick={() => handleTagClick(project.status)}
+                          className={`hover:text-foreground transition-colors lowercase ${
+                            selectedTags.includes(project.status) ? 'text-foreground' : ''
+                          }`}
+                        >
+                          {project.status}
+                        </button>,
+                        ...(project.status === "completed" && project.completedDate
+                          ? [<span key="date">{formatDate(project.completedDate)}</span>]
+                          : [])
+                      ].map((el, idx, arr) => (
+                        <span key={idx} style={{display: 'inline'}}>
+                          {el}
+                          {idx < arr.length - 1 ? ', ' : ''}
+                        </span>
+                      ))}
                     </div>
 
                     <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
@@ -404,7 +416,7 @@ const Projects = () => {
                           >
                             {tag}
                           </button>
-                          {tagIndex < project.tags.length - 1 && <span className="ml-3">•</span>}
+                          {tagIndex < project.tags.length - 1 && <span>, </span>}
                         </span>
                       ))}
                     </div>
