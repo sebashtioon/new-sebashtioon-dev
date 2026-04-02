@@ -107,30 +107,12 @@ export const useCachedImage = (url: string) => {
   const [cachedUrl, setCachedUrl] = useState<string>(url);
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadImage = useCallback(async () => {
-    // Check cache first
-    const cached = imageCache.getCachedImage(url);
-    if (cached) {
-      setCachedUrl(cached);
-      return;
-    }
-
-    // Load and cache
-    setIsLoading(true);
-    try {
-      const newCachedUrl = await imageCache.cacheImage(url);
-      setCachedUrl(newCachedUrl);
-    } catch (error) {
-      console.warn('Failed to load cached image:', error);
-      setCachedUrl(url); // Fallback
-    } finally {
-      setIsLoading(false);
-    }
-  }, [url]);
-
   useEffect(() => {
-    loadImage();
-  }, [loadImage]);
+    // Use direct URL - blob URLs don't persist across page context
+    // This prevents stale blob URL references and ensures reliability
+    setCachedUrl(url);
+    setIsLoading(false);
+  }, [url]);
 
   return { cachedUrl, isLoading };
 };

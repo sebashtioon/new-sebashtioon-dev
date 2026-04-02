@@ -7,6 +7,7 @@ import BackgroundGrid from "@/components/BackgroundGrid";
 import SmartImage from "@/components/SmartImage";
 import PageWrapper from "@/components/PageWrapper";
 import { useSmartLoading, useImageLoadingDetector } from "@/hooks/useSmartLoading";
+import { useLoading } from "@/contexts/LoadingContext";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -226,16 +227,36 @@ const Projects = () => {
     return categoryMatch && tagMatch && searchMatch && dateMatch;
   });
 
-  // Smart loading detection
-  useSmartLoading(filteredProjects.length, {
-    threshold: 8, // Show loading if 8+ projects
-    delay: 800, // Keep loading for 800ms minimum
-    loadingMessage: `loading ${filteredProjects.length} projects...`
-  });
-
   // Image loading detection
   const imageUrls = filteredProjects.map(project => project.image);
-  const { onImageLoadStart, onImageLoadComplete } = useImageLoadingDetector(imageUrls);
+  const { onImageLoadStart, onImageLoadComplete, loadingCount } = useImageLoadingDetector(imageUrls);
+
+  // Use the useLoading hook to get setLoading
+  const { setLoading } = useLoading();
+  const [hasShownLoading, setHasShownLoading] = useState(false);
+
+  // Show loading overlay only once, hide after all images loaded
+  useEffect(() => {
+    if (filteredProjects.length >= 8 && !hasShownLoading) {
+      setLoading(true, `loading ${filteredProjects.length} projects...`);
+      setHasShownLoading(true);
+    }
+  }, [filteredProjects.length, hasShownLoading, setLoading]);
+
+  useEffect(() => {
+    if (hasShownLoading && loadingCount === 0) {
+      // All images loaded, hide loading overlay
+      setTimeout(() => setLoading(false), 300);
+    }
+  }, [hasShownLoading, loadingCount, setLoading]);
+
+  // Reset hasShownLoading if project count drops below threshold
+  useEffect(() => {
+    if (filteredProjects.length < 8 && hasShownLoading) {
+      setHasShownLoading(false);
+      setLoading(false);
+    }
+  }, [filteredProjects.length, hasShownLoading, setLoading]);
 
   return (
     <>

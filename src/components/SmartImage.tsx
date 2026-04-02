@@ -32,7 +32,19 @@ const SmartImage = ({ src, alt, className = "", placeholder, onLoadStart, onLoad
   const handleError = () => {
     setIsImageLoading(false);
     setHasError(true);
+    console.error(`Failed to load image: ${src}`);
   };
+
+  // Timeout fallback: if image doesn't load within 10 seconds, mark as loaded anyway
+  useEffect(() => {
+    if (isImageLoading && !hasError) {
+      const timer = setTimeout(() => {
+        console.warn(`Image loading timeout for ${src} - forcing completion`);
+        setIsImageLoading(false);
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [isImageLoading, hasError, src]);
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
