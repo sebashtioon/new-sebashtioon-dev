@@ -109,7 +109,7 @@ const Projects = () => {
     ,
     {
       id: 8,
-      title: "Nature Thing",
+      title: "nature thing",
       category: "3d stuff",
       description: "A 3D Blender project inspired by nature.",
       image: "/projects/nature-thing.webp",
