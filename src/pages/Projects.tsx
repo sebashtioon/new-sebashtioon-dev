@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import SmartImage from "@/components/SmartImage";
 import PageWrapper from "@/components/PageWrapper";
-import { useSmartLoading, useImageLoadingDetector } from "@/hooks/useSmartLoading";
-import { useLoading } from "@/contexts/LoadingContext";
+import { useImageLoadingDetector } from "@/hooks/useSmartLoading";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -130,6 +129,7 @@ const Projects = () => {
   const [filterMode, setFilterMode] = useState("any"); // "any" (OR) or "all" (AND)
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [displayCount, setDisplayCount] = useState(6); // Start with 6 projects
   
   // Scroll position preservation
   const scrollPositionRef = useRef(0);
@@ -237,36 +237,13 @@ const Projects = () => {
     return categoryMatch && tagMatch && searchMatch && dateMatch;
   });
 
+  // Track displayed projects
+  const displayedProjects = filteredProjects.slice(0, displayCount);
+  const hasMore = displayedProjects.length < filteredProjects.length;
+
   // Image loading detection
-  const imageUrls = filteredProjects.map(project => project.image);
-  const { onImageLoadStart, onImageLoadComplete, loadingCount } = useImageLoadingDetector(imageUrls);
-
-  // Use the useLoading hook to get setLoading
-  const { setLoading } = useLoading();
-  const [hasShownLoading, setHasShownLoading] = useState(false);
-
-  // Show loading overlay only once, hide after all images loaded
-  useEffect(() => {
-    if (filteredProjects.length >= 8 && !hasShownLoading) {
-      setLoading(true, `loading ${filteredProjects.length} projects...`);
-      setHasShownLoading(true);
-    }
-  }, [filteredProjects.length, hasShownLoading, setLoading]);
-
-  useEffect(() => {
-    if (hasShownLoading && loadingCount === 0) {
-      // All images loaded, hide loading overlay
-      setTimeout(() => setLoading(false), 300);
-    }
-  }, [hasShownLoading, loadingCount, setLoading]);
-
-  // Reset hasShownLoading if project count drops below threshold
-  useEffect(() => {
-    if (filteredProjects.length < 8 && hasShownLoading) {
-      setHasShownLoading(false);
-      setLoading(false);
-    }
-  }, [filteredProjects.length, hasShownLoading, setLoading]);
+  const imageUrls = displayedProjects.map(project => project.image);
+  const { onImageLoadStart, onImageLoadComplete } = useImageLoadingDetector(imageUrls);
 
   return (
     <>
@@ -384,7 +361,7 @@ const Projects = () => {
       <section className="px-4 pb-16">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {[...filteredProjects]
+            {[...displayedProjects]
               .sort((a, b) => {
                 // Always put CANTWAKEUP first
                 if (a.title === 'CANTWAKEUP') return -1;
@@ -504,6 +481,25 @@ const Projects = () => {
               </div>
             ))}
           </div>
+
+          {/* Load More Button */}
+          {hasMore && (
+            <div className="flex justify-center mt-12">
+              <button
+                onClick={() => setDisplayCount(prev => prev + 6)}
+                className="px-6 py-2 bg-foreground text-background border border-foreground rounded-lg hover:bg-background hover:text-foreground transition-colors text-sm lowercase font-medium"
+              >
+                load more
+              </button>
+            </div>
+          )}
+
+          {/* No Results Message */}
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground lowercase">no projects found</p>
+            </div>
+          )}
         </div>
       </section>
 
