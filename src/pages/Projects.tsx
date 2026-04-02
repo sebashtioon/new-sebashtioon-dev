@@ -117,7 +117,8 @@ const Projects = () => {
       status: "completed",
       completedDate: "2026-04-02",
       links: {
-        // Add download or blender_download links here if available
+        download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/nature-thing/nature.thing.Art.zip",
+        blender_download: "https://github.com/sebashtioon/sebashtioon-dev-download-archive/releases/download/nature-thing/nature.thing.Project.zip",
       }
     }
   ];
@@ -135,7 +136,16 @@ const Projects = () => {
   const preserveScrollRef = useRef(false);
 
   // Extract all unique tags from projects
-  const allTags = [...new Set(projects.flatMap(project => project.tags))].sort();
+  const allTags = [...new Set(projects.flatMap(project => project.tags))].sort((a, b) => {
+    const priorityOrder = ["godot", "blender", "concept-art"];
+    const aIndex = priorityOrder.indexOf(a);
+    const bIndex = priorityOrder.indexOf(b);
+    
+    if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
+    if (aIndex !== -1) return -1;
+    if (bIndex !== -1) return 1;
+    return a.localeCompare(b);
+  });
   
   // Extract all unique statuses from projects
   const allStatuses = [...new Set(projects.map(project => project.status))].sort();
