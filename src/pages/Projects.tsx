@@ -137,7 +137,7 @@ const Projects = () => {
 
   // Extract all unique tags from projects
   const allTags = [...new Set(projects.flatMap(project => project.tags))].sort((a, b) => {
-    const priorityOrder = ["godot", "blender", "concept-art"];
+    const priorityOrder = ["godot", "blender", "3D", "concept-art"];
     const aIndex = priorityOrder.indexOf(a);
     const bIndex = priorityOrder.indexOf(b);
     
