@@ -10,6 +10,11 @@ import { useImageLoadingDetector } from "@/hooks/useSmartLoading";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const PROJECTS_INITIAL_DISPLAY_COUNT = 6;
+const PROJECTS_DISPLAY_COUNT_CACHE_KEY = "projects-display-count";
+
+let projectsDisplayCountMemoryCache = PROJECTS_INITIAL_DISPLAY_COUNT;
+
 const Projects = () => {
   const projects = [
     {
@@ -129,7 +134,19 @@ const Projects = () => {
   const [filterMode, setFilterMode] = useState("any"); // "any" (OR) or "all" (AND)
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [displayCount, setDisplayCount] = useState(6); // Start with 6 projects
+  const [displayCount, setDisplayCount] = useState(() => {
+    if (typeof window === "undefined") {
+      return PROJECTS_INITIAL_DISPLAY_COUNT;
+    }
+
+    const cachedCount = Number(sessionStorage.getItem(PROJECTS_DISPLAY_COUNT_CACHE_KEY));
+    if (Number.isFinite(cachedCount) && cachedCount >= PROJECTS_INITIAL_DISPLAY_COUNT) {
+      projectsDisplayCountMemoryCache = cachedCount;
+      return cachedCount;
+    }
+
+    return projectsDisplayCountMemoryCache;
+  });
   
   // Scroll position preservation
   const scrollPositionRef = useRef(0);
@@ -198,6 +215,12 @@ const Projects = () => {
     }
   }, [selectedTags, selectedCategory]);
 
+  useEffect(() => {
+    const nextCount = Math.max(PROJECTS_INITIAL_DISPLAY_COUNT, displayCount);
+    projectsDisplayCountMemoryCache = nextCount;
+    sessionStorage.setItem(PROJECTS_DISPLAY_COUNT_CACHE_KEY, String(nextCount));
+  }, [displayCount]);
+
   const filteredProjects = projects.filter(project => {
     const categoryMatch = selectedCategory === "all" || project.category === selectedCategory;
     
@@ -240,6 +263,14 @@ const Projects = () => {
   // Track displayed projects
   const displayedProjects = filteredProjects.slice(0, displayCount);
   const hasMore = displayedProjects.length < filteredProjects.length;
+
+  const handleLoadMore = () => {
+    setDisplayCount((prev) => Math.min(prev + PROJECTS_INITIAL_DISPLAY_COUNT, projects.length));
+  };
+
+  const handleLoadAll = () => {
+    setDisplayCount(projects.length);
+  };
 
   // Image loading detection
   const imageUrls = displayedProjects.map(project => project.image);
@@ -484,9 +515,15 @@ const Projects = () => {
 
           {/* Load More Button */}
           {hasMore && (
-            <div className="flex justify-center mt-12">
+            <div className="flex flex-wrap justify-center items-center gap-3 mt-12">
               <button
-                onClick={() => setDisplayCount(prev => prev + 6)}
+                onClick={handleLoadAll}
+                className="px-6 py-2 bg-card text-foreground border border-border rounded-lg hover:bg-card-hover transition-colors text-sm lowercase font-medium"
+              >
+                load all
+              </button>
+              <button
+                onClick={handleLoadMore}
                 className="px-6 py-2 bg-foreground text-background border border-foreground rounded-lg hover:bg-background hover:text-foreground transition-colors text-sm lowercase font-medium"
               >
                 load more
