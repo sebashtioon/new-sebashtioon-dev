@@ -105,6 +105,20 @@ const Projects = () => {
         github: "https://github.com/xintegrate-studios/Fire-on-the-Mountain",
       }
     }
+    ,
+    {
+      id: 8,
+      title: "Nature Thing",
+      category: "3d stuff",
+      description: "A 3D Blender project inspired by nature.",
+      image: "/projects/nature thing.webp",
+      tags: ["blender", "3D", "nature"],
+      status: "completed",
+      completedDate: "2026-04-02",
+      links: {
+        // Add download or blender_download links here if available
+      }
+    }
   ];
 
   const categories = ["all", "games", "3d stuff"];
