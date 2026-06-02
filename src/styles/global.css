@@ -1,12 +1,15 @@
 @import "tailwindcss";
 @import "@catppuccin/tailwindcss/mocha.css";
 
+@theme inline {
+  --font-inter: var(--font-inter), sans-serif;
+}
+
 main {
-    @apply max-w-6xl mx-auto p-4;
+  @apply max-w-6xl mx-auto p-4;
 }
 
 body {
-    @apply bg-ctp-crust text-ctp-text;
-    font-family: var(--font-arial), sans-serif;
-
+  @apply bg-ctp-crust text-ctp-text;
+  font-family: var(--font-arial), sans-serif;
 }
