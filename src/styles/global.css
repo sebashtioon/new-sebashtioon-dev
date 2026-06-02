@@ -2,13 +2,15 @@
 @import "@catppuccin/tailwindcss/mocha.css";
 
 h1 {
-    @apply text-6xl font-bold mb-4;
+    @apply max-w-50 text-4xl font-bold mb-4;
 }
 
 main {
-    @apply max-w-4xl mx-auto p-4;
+    @apply max-w-6xl mx-auto p-4;
 }
 
 body {
-    @apply bg-ctp-base text-ctp-text;
+    @apply bg-ctp-crust text-ctp-text;
+    font-family: var(--font-arial), sans-serif;
+
 }
