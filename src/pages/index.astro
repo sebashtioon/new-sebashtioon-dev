@@ -3,14 +3,21 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-  <h1 class="text-shadow-ctp-surface0 max-w-50 text-4xl font-bold mb-2 font-inter">
-    hi, im seb
-  </h1>
+  <header class="flex flex-row w-full">
+    <div>
+      <h1
+        class="text-shadow-ctp-surface0 max-w-50 text-4xl font-bold mb-2 font-inter"
+      >
+        hi, im seb
+      </h1>
 
-  <p class="mb-3">i like making cool stuff on the internet</p>
+      <p class="mb-3">i like making cool stuff on the internet</p>
+    </div>
+    <div class="flex flex-row ml-auto">
+      <button class="bg-ctp-surface0 px-4 py-2" onclick="alert()">text</button>
+    </div>
+  </header>
   <hr />
   <p class="mt-5">sorry for the crappy website i dont know web dev that well</p>
   <p class="mt-3">sorry for the crappy website i dont know web dev that well</p>
-
-  <button class="bg-ctp-surface0 px-4 py-2 m-50" onclick="alert()">text</button>
 </Layout>
