@@ -5,7 +5,8 @@
   --font-inter: var(--font-inter), sans-serif;
 }
 
-main {
+main,
+header {
   @apply max-w-6xl mx-auto p-4;
 }
 
