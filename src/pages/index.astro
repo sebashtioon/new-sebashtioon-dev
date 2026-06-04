@@ -13,16 +13,10 @@ import Layout from "../layouts/Layout.astro";
 
       <p class="mb-3">i like making cool stuff on the internet</p>
     </div>
-    <div class="flex flex-row ml-auto gap-2">
-      <button class="bg-ctp-surface0 px-4 py-2" onclick="alert()">
-        projects
-      </button>
-      <button class="bg-ctp-surface0 px-4 py-2" onclick="alert()">
-        blog
-      </button>
-      <button class="bg-ctp-surface0 px-4 py-2" onclick="alert()">
-        contact
-      </button>
+    <div class="flex flex-row ml-auto gap-2 items-start">
+      <a class="bg-ctp-surface0 px-4 py-2" href="/projects">projects</a>
+      <a class="bg-ctp-surface0 px-4 py-2" href="/blog">blog</a>
+      <a class="bg-ctp-surface0 px-4 py-2" href="/contact">contact</a>
     </div>
   </header>
   <hr />
