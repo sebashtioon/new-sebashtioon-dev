@@ -12,7 +12,6 @@ const vaultage = defineCollection({
     rating: z.number().min(0).max(10),
     cover: z.string().optional(),
     genres: z.array(z.string()).default([]),
-    mood: z.string().optional(),
     favoriteTracks: z.array(z.string()).default([]),
     status: z.enum(["published", "draft"]).default("draft"),
     description: z.string(),

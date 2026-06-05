@@ -3,14 +3,13 @@ title: "F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3"
 artist: "Skrillex"
 album: "F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3"
 released: 2025
-listenedOn: 2026-06-05
+listenedOn: 2025-10-12
 rating: 10.0
 cover: "/covers/fus.jpeg"
-genres: ["dubstep", "hybrid trap", "electronic", "future bass"]
-mood: "staring at the ceiling like it owes me money"
-favoriteTracks: ["Nights", "Self Control", "White Ferrari"]
+genres: ["dubstep", "hybrid trap", "electronic", "future bass", "dnb"]
+favoriteTracks: ["ANDY", "WHILE YOU WERE SLEEPING VIP", "REDLINE DASH"]
 status: "published"
-description: "the kind of album that sounds simple until it ruins your entire afternoon."
+description: "whos this guy called 'skrillex' who thinks he's andy warhol smh"
 ---
 
 ## first reaction

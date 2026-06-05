@@ -22,7 +22,7 @@ const averageRating = albums.length
     <p><span class="text-ctp-text">{averageRating.toFixed(1)}</span> average rating</p>
   </aside>
 
-  <section class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+  <section class="mt-4 flex flex-wrap gap-3">
     {albums.map((entry) => <AlbumCard entry={entry} />)}
   </section>
 </Layout>

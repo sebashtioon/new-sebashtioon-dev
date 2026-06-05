@@ -10,17 +10,23 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { data } = entry;
+
+const listenedDate = data.listenedOn.toLocaleDateString("en", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 ---
 
 <Layout
   title={`${data.album} - the vaultage`}
   headerTitle="the vaultage"
-  headerDescription="album rankings, rambling, and whatever sounds got stuck in my head"
+  headerDescription=""
 >
-  <article class="mx-auto max-w-4xl py-6">
+  <article class="mx-auto max-w-5xl py-6">
     <a href="/vaultage" class="text-ctp-mauve hover:underline">back to the vaultage</a>
 
-    <header class="mt-6 grid gap-6 md:grid-cols-[14rem_1fr]">
+    <header class="mt-6 grid gap-8 lg:grid-cols-[22rem_1fr] lg:items-start">
       <div class="aspect-square bg-ctp-crust text-ctp-subtext0">
         {
           data.cover ? (
@@ -31,13 +37,23 @@ const { data } = entry;
         }
       </div>
 
-      <div>
-        <p class="text-ctp-subtext0">{data.artist}{data.released ? `, ${data.released}` : ""}</p>
-        <h1 class="font-inter text-5xl font-black leading-none sm:text-6xl">{data.album}</h1>
-        <p class="mt-4 inline-block bg-ctp-mauve px-4 py-2 font-inter text-2xl font-bold text-ctp-crust">
-          {data.rating}/10
+      <div class="min-w-0">
+        <p class="text-lg text-ctp-subtext0">{data.artist}</p>
+        <h1 class="mt-1 text-balance font-inter text-4xl font-black leading-none sm:text-6xl">
+          {data.album}
+        </h1>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3 text-sm text-ctp-subtext0">
+          <p class="bg-ctp-mauve px-4 py-2 font-inter text-2xl font-bold text-ctp-crust">
+            {data.rating}/10
+          </p>
+          {data.released && <p>released {data.released}</p>}
+          <p>first listened {listenedDate}</p>
+        </div>
+
+        <p class="mt-5 max-w-2xl text-pretty text-lg text-ctp-subtext1">
+          {data.description}
         </p>
-        {data.mood && <p class="mt-4 text-ctp-subtext1">{data.mood}</p>}
       </div>
     </header>
 
