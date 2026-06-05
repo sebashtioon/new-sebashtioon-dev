@@ -1,10 +1,10 @@
 ---
-title: "blonde: beautiful damage report"
-artist: "Frank Ocean"
-album: "Blonde"
-released: 2016
+title: "F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3"
+artist: "Skrillex"
+album: "F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3"
+released: 2025
 listenedOn: 2026-06-05
-rating: 9.6
+rating: 10.0
 cover: ""
 genres: ["alt r&b", "soul", "sad guy classics"]
 mood: "staring at the ceiling like it owes me money"
