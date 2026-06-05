@@ -28,7 +28,7 @@ const averageRating = albums.length
     </div>
   </aside>
 
-  <section class="mt-4 grid gap-3">
+  <section class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
     {albums.map((entry) => <AlbumCard entry={entry} />)}
   </section>
 </Layout>

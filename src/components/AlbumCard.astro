@@ -12,7 +12,7 @@ const { data } = entry;
 <article
   class="group border border-ctp-surface0 bg-ctp-base/60 p-3 transition-colors hover:border-ctp-surface2 hover:bg-ctp-surface0/60"
 >
-  <a href={`/vaultage/${entry.id}/`} class="grid gap-3 sm:grid-cols-[6rem_1fr]">
+  <a href={`/vaultage/${entry.id}/`} class="grid gap-3">
     <div
       class="aspect-square border border-ctp-surface1 bg-ctp-crust p-3 text-sm text-ctp-subtext0"
     >
@@ -31,21 +31,21 @@ const { data } = entry;
     </div>
 
     <div class="flex flex-col gap-2">
-      <div class="flex flex-wrap items-start justify-between gap-3">
+      <div class="flex items-start justify-between gap-3">
         <div>
           <p class="text-sm text-ctp-subtext0">{data.artist}</p>
           <h2 class="font-inter text-xl font-bold leading-tight text-ctp-text">
             {data.album}
           </h2>
         </div>
-        <p class="bg-ctp-mauve px-3 py-1 font-inter font-bold text-ctp-crust">
+        <p class="shrink-0 bg-ctp-mauve px-2 py-1 font-inter text-sm font-bold text-ctp-crust">
           {data.rating}/10
         </p>
       </div>
 
       <p class="text-pretty text-sm text-ctp-subtext1">{data.description}</p>
 
-      <div class="mt-auto flex flex-wrap gap-2 text-sm text-ctp-subtext0">
+      <div class="mt-auto flex flex-wrap gap-1.5 text-xs text-ctp-subtext0">
         {data.genres.map((genre) => <span class="bg-ctp-surface0 px-2 py-1">{genre}</span>)}
       </div>
     </div>
