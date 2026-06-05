@@ -1,16 +1,18 @@
-<header class="flex flex-row w-full border-b">
-  <div>
+<header
+  class="flex w-full flex-col gap-4 border-b px-4 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-6"
+>
+  <div class="max-w-xl">
     <h1
-      class="text-shadow-ctp-surface0 max-w-50 text-4xl font-bold mb-2 font-inter"
+      class="mb-2 font-inter text-4xl font-bold leading-none text-shadow-ctp-surface0 sm:text-5xl"
     >
       hi, im seb
     </h1>
 
-    <p class="mb-3">i like making cool stuff on the internet</p>
+    <p class="text-balance">i like making cool stuff on the internet</p>
   </div>
-  <div class="flex flex-row ml-auto gap-2 items-start">
+  <nav class="flex flex-wrap gap-2 sm:justify-end" aria-label="Primary navigation">
     <a class="bg-ctp-surface0 px-4 py-2" href="/projects">projects</a>
     <a class="bg-ctp-surface0 px-4 py-2" href="/blog">blog</a>
     <a class="bg-ctp-surface0 px-4 py-2" href="/contact">contact</a>
-  </div>
+  </nav>
 </header>
