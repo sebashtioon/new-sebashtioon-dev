@@ -5,9 +5,15 @@ import Navbar from "../components/Navbar.astro";
 
 interface Props {
   title?: string;
+  headerTitle?: string;
+  headerDescription?: string;
 }
 
-const { title = "cheese" } = Astro.props;
+const {
+  title = "cheese",
+  headerTitle,
+  headerDescription,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -23,7 +29,7 @@ const { title = "cheese" } = Astro.props;
     <Font cssVariable="--font-inter" />
   </head>
   <body>
-    <Navbar />
+    <Navbar title={headerTitle} description={headerDescription} />
     <main>
       <slot />
     </main>

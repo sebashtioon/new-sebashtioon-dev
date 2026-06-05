@@ -12,7 +12,11 @@ const { Content } = await render(entry);
 const { data } = entry;
 ---
 
-<Layout title={`${data.album} - the vaultage`}>
+<Layout
+  title={`${data.album} - the vaultage`}
+  headerTitle="the vaultage"
+  headerDescription="album rankings, rambling, and whatever sounds got stuck in my head"
+>
   <article class="mx-auto max-w-4xl py-6">
     <a href="/vaultage" class="text-ctp-mauve hover:underline">back to the vaultage</a>
 
