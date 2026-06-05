@@ -2,6 +2,12 @@
 import "../styles/global.css";
 import { Font } from "astro:assets";
 import Navbar from "../components/Navbar.astro";
+
+interface Props {
+  title?: string;
+}
+
+const { title = "cheese" } = Astro.props;
 ---
 
 <!doctype html>
@@ -12,7 +18,7 @@ import Navbar from "../components/Navbar.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>cheese</title>
+    <title>{title}</title>
     <Font cssVariable="--font-arial" />
     <Font cssVariable="--font-inter" />
   </head>

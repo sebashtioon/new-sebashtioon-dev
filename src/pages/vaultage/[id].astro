@@ -1,0 +1,55 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("vaultage", ({ data }) => data.status === "published");
+  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+---
+
+<Layout title={`${data.album} - the vaultage`}>
+  <article class="mx-auto max-w-4xl py-6">
+    <a href="/vaultage" class="text-ctp-mauve hover:underline">back to the vaultage</a>
+
+    <header class="mt-6 grid gap-6 md:grid-cols-[14rem_1fr]">
+      <div class="aspect-square border border-ctp-surface1 bg-ctp-crust p-4 text-ctp-subtext0">
+        {
+          data.cover ? (
+            <img src={data.cover} alt={`${data.album} album cover`} class="h-full w-full object-cover" />
+          ) : (
+            <div class="flex h-full items-end">cover goes here</div>
+          )
+        }
+      </div>
+
+      <div>
+        <p class="text-ctp-subtext0">{data.artist}{data.released ? `, ${data.released}` : ""}</p>
+        <h1 class="font-inter text-5xl font-black leading-none sm:text-6xl">{data.album}</h1>
+        <p class="mt-4 inline-block bg-ctp-mauve px-4 py-2 font-inter text-2xl font-bold text-ctp-crust">
+          {data.rating}/10
+        </p>
+        {data.mood && <p class="mt-4 text-ctp-subtext1">vibe: {data.mood}</p>}
+      </div>
+    </header>
+
+    <section class="mt-8 grid gap-4 border-y border-ctp-surface0 py-5 sm:grid-cols-2">
+      <div>
+        <p class="text-sm text-ctp-subtext0">genres</p>
+        <p>{data.genres.join(" / ") || "unfiled"}</p>
+      </div>
+      <div>
+        <p class="text-sm text-ctp-subtext0">favorite tracks</p>
+        <p>{data.favoriteTracks.join(" / ") || "still deciding"}</p>
+      </div>
+    </section>
+
+    <div class="vaultage-prose mt-8">
+      <Content />
+    </div>
+  </article>
+</Layout>

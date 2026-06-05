@@ -1,0 +1,53 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  entry: CollectionEntry<"vaultage">;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+---
+
+<article
+  class="group border border-ctp-surface0 bg-ctp-base/60 p-4 transition hover:-translate-y-1 hover:border-ctp-mauve hover:bg-ctp-surface0/60"
+>
+  <a href={`/vaultage/${entry.id}/`} class="grid gap-4 sm:grid-cols-[8rem_1fr]">
+    <div
+      class="aspect-square border border-ctp-surface1 bg-ctp-crust p-3 text-sm text-ctp-subtext0"
+    >
+      {
+        data.cover ? (
+          <img
+            src={data.cover}
+            alt={`${data.album} album cover`}
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <div class="flex h-full items-end">cover goes here</div>
+        )
+      }
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p class="text-sm text-ctp-subtext0">{data.artist}</p>
+          <h2 class="font-inter text-2xl font-bold leading-tight text-ctp-text">
+            {data.album}
+          </h2>
+        </div>
+        <p class="bg-ctp-mauve px-3 py-1 font-inter font-bold text-ctp-crust">
+          {data.rating}/10
+        </p>
+      </div>
+
+      <p class="text-pretty text-ctp-subtext1">{data.description}</p>
+
+      <div class="mt-auto flex flex-wrap gap-2 text-sm text-ctp-subtext0">
+        {data.genres.map((genre) => <span class="bg-ctp-surface0 px-2 py-1">{genre}</span>)}
+      </div>
+    </div>
+  </a>
+</article>

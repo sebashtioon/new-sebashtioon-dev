@@ -14,3 +14,29 @@ body {
   @apply bg-ctp-crust text-ctp-text;
   font-family: var(--font-arial), sans-serif;
 }
+
+.vaultage-prose {
+  @apply text-lg leading-8 text-ctp-text;
+}
+
+.vaultage-prose h2,
+.vaultage-prose h3 {
+  @apply mt-10 mb-3 font-inter font-bold text-ctp-mauve;
+}
+
+.vaultage-prose h2 {
+  @apply text-3xl;
+}
+
+.vaultage-prose h3 {
+  @apply text-2xl;
+}
+
+.vaultage-prose p,
+.vaultage-prose ul {
+  @apply my-5;
+}
+
+.vaultage-prose ul {
+  @apply list-disc pl-6;
+}
