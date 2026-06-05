@@ -13,9 +13,7 @@ const { data } = entry;
   class="group border border-ctp-surface0 bg-ctp-base/60 p-3 transition-colors hover:border-ctp-surface2 hover:bg-ctp-surface0/60"
 >
   <a href={`/vaultage/${entry.id}/`} class="grid gap-3">
-    <div
-      class="aspect-square border border-ctp-surface1 bg-ctp-crust p-3 text-sm text-ctp-subtext0"
-    >
+    <div class="aspect-square bg-ctp-crust text-sm text-ctp-subtext0">
       {
         data.cover ? (
           <img
@@ -25,7 +23,7 @@ const { data } = entry;
             loading="lazy"
           />
         ) : (
-          <div class="flex h-full items-end">cover goes here</div>
+          <div class="flex h-full items-end bg-ctp-surface0 p-3">cover goes here</div>
         )
       }
     </div>

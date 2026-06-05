@@ -5,8 +5,8 @@ album: "F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3"
 released: 2025
 listenedOn: 2026-06-05
 rating: 10.0
-cover: ""
-genres: ["alt r&b", "soul", "sad guy classics"]
+cover: "/covers/fus.jpeg"
+genres: ["dubstep", "hybrid trap", "electronic", "future bass"]
 mood: "staring at the ceiling like it owes me money"
 favoriteTracks: ["Nights", "Self Control", "White Ferrari"]
 status: "published"

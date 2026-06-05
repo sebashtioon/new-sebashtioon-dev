@@ -21,12 +21,12 @@ const { data } = entry;
     <a href="/vaultage" class="text-ctp-mauve hover:underline">back to the vaultage</a>
 
     <header class="mt-6 grid gap-6 md:grid-cols-[14rem_1fr]">
-      <div class="aspect-square border border-ctp-surface1 bg-ctp-crust p-4 text-ctp-subtext0">
+      <div class="aspect-square bg-ctp-crust text-ctp-subtext0">
         {
           data.cover ? (
             <img src={data.cover} alt={`${data.album} album cover`} class="h-full w-full object-cover" />
           ) : (
-            <div class="flex h-full items-end">cover goes here</div>
+            <div class="flex h-full items-end bg-ctp-surface0 p-4">cover goes here</div>
           )
         }
       </div>
