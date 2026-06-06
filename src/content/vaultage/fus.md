@@ -84,7 +84,8 @@ first, lets start with the tracklist. [source](https://www.youtube.com/watch?v=X
 32. SAN DIEGO VIP
 33. VOLTAGE
 34. Skrillex & swedm® - AZASU
-the album 
+
+
 
 ## sound design and elements
 
