@@ -10,6 +10,9 @@ const albums = (await getCollection("vaultage"))
 const averageRating = albums.length
   ? albums.reduce((total, album) => total + album.data.rating, 0) / albums.length
   : 0;
+
+const albumCount = albums.filter((entry) => entry.data.releaseType === "album").length;
+const epCount = albums.filter((entry) => entry.data.releaseType === "ep").length;
 ---
 
 <Layout
@@ -22,7 +25,41 @@ const averageRating = albums.length
     <p><span class="text-ctp-text">{averageRating.toFixed(1)}</span> average rating</p>
   </aside>
 
-  <section class="mt-4 flex flex-wrap gap-3">
-    {albums.map((entry) => <AlbumCard entry={entry} />)}
+  <div class="mt-4 flex flex-wrap gap-2" aria-label="Filter releases">
+    <button class="bg-ctp-surface0 px-4 py-2" type="button" data-release-filter="album">
+      albums ({albumCount})
+    </button>
+    <button class="bg-ctp-surface0 px-4 py-2" type="button" data-release-filter="ep">
+      eps ({epCount})
+    </button>
+  </div>
+
+  <section class="mt-4 flex flex-wrap gap-3" data-release-list>
+    {
+      albums.map((entry) => (
+        <div data-release-type={entry.data.releaseType}>
+          <AlbumCard entry={entry} />
+        </div>
+      ))
+    }
   </section>
+
+  <script>
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>("[data-release-filter]");
+    const releaseItems = document.querySelectorAll<HTMLElement>("[data-release-type]");
+
+    const showReleaseType = (releaseType: string) => {
+      releaseItems.forEach((item) => {
+        item.hidden = item.dataset.releaseType !== releaseType;
+      });
+    };
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        showReleaseType(button.dataset.releaseFilter ?? "album");
+      });
+    });
+
+    showReleaseType("album");
+  </script>
 </Layout>

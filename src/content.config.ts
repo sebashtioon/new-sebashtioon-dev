@@ -7,6 +7,7 @@ const vaultage = defineCollection({
     title: z.string(),
     artist: z.string(),
     album: z.string(),
+    releaseType: z.enum(["album", "ep"]),
     released: z.number().int().optional(),
     listenedOn: z.date(),
     rating: z.number().min(0).max(10),

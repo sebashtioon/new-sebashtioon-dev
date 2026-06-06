@@ -2,6 +2,7 @@
 title: "Quest For Fire"
 artist: "Skrillex"
 album: "Quest For Fire"
+releaseType: "album"
 released: 2023
 listenedOn: 2025-11-22
 rating: 9.8

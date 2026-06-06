@@ -2,6 +2,7 @@
 title: "Voyd Vol. II"
 artist: "SVDDEN DEATH"
 album: "Voyd Vol. II"
+releaseType: "album"
 released: 2022
 listenedOn: 2025-12-19
 rating: 8.5

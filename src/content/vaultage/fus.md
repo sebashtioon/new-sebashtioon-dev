@@ -2,6 +2,7 @@
 title: "F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3"
 artist: "Skrillex"
 album: "F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3"
+releaseType: "album"
 released: 2025
 listenedOn: 2025-10-12
 rating: 10.0

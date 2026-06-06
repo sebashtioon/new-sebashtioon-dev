@@ -2,6 +2,7 @@
 title: "Head To Head Vol. 1"
 artist: "Skrillex"
 album: "Head To Head Vol. 1"
+releaseType: "ep"
 released: 2020
 listenedOn: 2025-09-13
 rating: 8.5

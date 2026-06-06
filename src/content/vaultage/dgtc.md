@@ -2,6 +2,7 @@
 title: "Don't Get Too Close"
 artist: "Skrillex"
 album: "Don't Get Too Close"
+releaseType: "album"
 released: 2023
 listenedOn: 2025-12-07
 rating: 7

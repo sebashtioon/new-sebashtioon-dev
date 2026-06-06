@@ -2,6 +2,7 @@
 title: "Recess"
 artist: "Skrillex"
 album: "Recess"
+releaseType: "album"
 released: 2014
 listenedOn: 2026-01-27
 rating: 9

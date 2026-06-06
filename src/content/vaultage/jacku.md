@@ -2,6 +2,7 @@
 title: "Skrillex and Diplo Present Jack Ü"
 artist: "Jack Ü"
 album: "Skrillex and Diplo Present Jack Ü"
+releaseType: "album"
 released: 2015
 listenedOn: 2025-12-20
 rating: 8
