@@ -7,7 +7,7 @@ released: 2013
 listenedOn: 2026-04-24
 rating: 7.7
 cover: "/covers/tgym.jpg"
-genres: ["dubstep", "midtempo"]
+genres: ["dubstep", "melodic dubstep", "electro house", "glitch hop"]
 favoriteTracks: ["Mind Reader"]
 status: "published"
 description: "what a throwback huh"

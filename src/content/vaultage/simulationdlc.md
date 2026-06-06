@@ -3,12 +3,16 @@ title: "Simulation - The DLC"
 artist: "Virtual Riot"
 album: "Simulation - The DLC"
 releaseType: "album"
-released: 2022
-listenedOn: 2025-11-20
+released: 2024
+listenedOn: 2026-01-13
 rating: 7
 cover: "/covers/simulationdlc.jpg"
 genres: ["dubstep", "riddim", "color bass"]
-favoriteTracks: ["REDLINE", "So Sorry", "Bossfight Afterparty"]
+favoriteTracks: ["We're Not Alone - VIP", "Touhou Riddim - Subtronics Remix", "Simulation - VIP"]
 status: "published"
-description: "i actually feel like im in a simulation full of rainbows and color listening to this"
+description: "'welcome back' i guess"
 ---
+
+cool remixe album
+
+TODO
