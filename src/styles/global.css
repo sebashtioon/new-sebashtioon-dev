@@ -54,3 +54,8 @@ body {
 .vaultage-prose a {
   @apply text-ctp-mauve underline decoration-ctp-mauve/60 underline-offset-4 hover:text-ctp-pink hover:decoration-ctp-pink;
 }
+
+
+header-spacing h1 {
+  line-height: 3.0;
+}
