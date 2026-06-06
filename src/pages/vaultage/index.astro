@@ -5,11 +5,7 @@ import Layout from "../../layouts/Layout.astro";
 
 const albums = (await getCollection("vaultage"))
   .filter((entry) => entry.data.status === "published")
-  .sort((a, b) => {
-    if (a.id === "fus") return -1;
-    if (b.id === "fus") return 1;
-    return b.data.listenedOn.valueOf() - a.data.listenedOn.valueOf();
-  });
+  .sort((a, b) => b.data.rating - a.data.rating);
 
 const averageRating = albums.length
   ? albums.reduce((total, album) => total + album.data.rating, 0) / albums.length
