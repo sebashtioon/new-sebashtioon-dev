@@ -16,6 +16,7 @@ const listenedDate = data.listenedOn.toLocaleDateString("en", {
   month: "long",
   day: "numeric",
 });
+const favoriteTracksLabel = data.releaseType === "ep" ? "favorite track" : "favorite tracks";
 ---
 
 <Layout
@@ -63,7 +64,7 @@ const listenedDate = data.listenedOn.toLocaleDateString("en", {
         <p>{data.genres.join(" / ") || "unfiled"}</p>
       </div>
       <div>
-        <p class="text-sm text-ctp-subtext0">favorite tracks</p>
+        <p class="text-sm text-ctp-subtext0">{favoriteTracksLabel}</p>
         <p>{data.favoriteTracks.join(" / ") || "still deciding"}</p>
       </div>
     </section>
