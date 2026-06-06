@@ -12,7 +12,7 @@ const { data } = entry;
 <article
   class="group h-[15.5rem] w-40 border border-ctp-surface0 bg-ctp-base/60 p-2 transition-colors hover:border-ctp-surface2 hover:bg-ctp-surface0/60"
 >
-  <a href={`/vaultage/${entry.id}/`} class="grid gap-2">
+  <a href={`/vaultage/${entry.id}/`} class="flex h-full flex-col gap-2">
     <div class="aspect-square bg-ctp-crust text-sm text-ctp-subtext0">
       {
         data.cover ? (
@@ -28,18 +28,16 @@ const { data } = entry;
       }
     </div>
 
-    <div class="flex flex-col gap-2">
-      <div class="grid gap-1">
-        <div class="min-w-0">
-          <p class="truncate text-xs text-ctp-subtext0">{data.artist}</p>
-          <h2 class="line-clamp-2 font-inter text-sm font-bold leading-tight text-ctp-text">
-            {data.album}
-          </h2>
-        </div>
-        <p class="w-fit bg-ctp-mauve px-2 py-1 font-inter text-xs font-bold text-ctp-crust">
-          {data.rating}/10
-        </p>
+    <div class="flex min-h-0 flex-1 flex-col gap-2">
+      <div class="min-w-0">
+        <p class="truncate text-xs text-ctp-subtext0">{data.artist}</p>
+        <h2 class="line-clamp-2 font-inter text-sm font-bold leading-tight text-ctp-text">
+          {data.album}
+        </h2>
       </div>
+      <p class="mt-auto w-fit bg-ctp-mauve px-2 py-1 font-inter text-xs font-bold text-ctp-crust">
+        {data.rating}/10
+      </p>
     </div>
   </a>
 </article>
