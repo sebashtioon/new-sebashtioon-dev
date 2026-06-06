@@ -10,7 +10,7 @@ const { data } = entry;
 ---
 
 <article
-  class="group h-[15.5rem] w-40 border border-ctp-surface0 bg-ctp-base/60 p-2"
+  class="group relative h-[15.5rem] w-40 border border-ctp-surface0 bg-ctp-base/60 p-2"
 >
   <a href={`/vaultage/${entry.id}/`} class="flex h-full flex-col gap-2">
     <div class="aspect-square bg-ctp-crust text-sm text-ctp-subtext0">
@@ -28,14 +28,14 @@ const { data } = entry;
       }
     </div>
 
-    <div class="flex min-h-0 flex-1 flex-col gap-2">
+    <div class="min-h-0 flex-1">
       <div class="min-w-0">
         <p class="truncate text-xs text-ctp-subtext0">{data.artist}</p>
         <h2 class="line-clamp-2 font-inter text-sm font-bold leading-tight text-ctp-text">
           {data.album}
         </h2>
       </div>
-      <p class="mt-auto w-fit bg-ctp-mauve px-2 py-1 font-inter text-xs font-bold text-ctp-crust">
+      <p class="absolute bottom-2 left-2 w-fit bg-ctp-mauve px-2 py-1 font-inter text-xs font-bold text-ctp-crust">
         {data.rating}/10
       </p>
     </div>
