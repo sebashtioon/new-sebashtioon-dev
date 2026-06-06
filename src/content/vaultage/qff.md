@@ -10,5 +10,5 @@ cover: "/covers/qff.jpg"
 genres: ["dubstep", "dance-pop", "house", "2-step garage", "chicago juke"]
 favoriteTracks: ["Inhale Exhale", "Leave Me Like This", "XENA"]
 status: "published"
-description: "bass breathing in your face"
+description: "bass, but its breathing in your face"
 ---
