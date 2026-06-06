@@ -2,14 +2,14 @@
 title: "Quest For Fire"
 artist: "Skrillex"
 album: "Quest For Fire"
-released: 2025
-listenedOn: 2025-10-12
+released: 2023
+listenedOn: 2025-11-22
 rating: 9.8
 cover: "/covers/qff.jpg"
 genres: ["dubstep", "hybrid trap", "electronic", "future bass", "dnb"]
-favoriteTracks: ["ANDY", "WHILE YOU WERE SLEEPING VIP", "REDLINE DASH"]
+favoriteTracks: ["Inhale Exhale", "Leave Me Like This", "XENA"]
 status: "published"
-description: "whos this guy called 'skrillex' who thinks he's andy warhol smh"
+description: "in your face bass"
 ---
 
 ##  introduction
