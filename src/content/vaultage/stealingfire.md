@@ -14,5 +14,3 @@ description: "quick catch him he has the fire"
 ---
 
 TODO
-
-came out 2 days before my birthday, thank you mister virtual riot <3
