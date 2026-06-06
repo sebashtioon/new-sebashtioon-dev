@@ -1,6 +1,6 @@
 ---
 title: "Head To Head Vol. 1"
-artist: "Skrillex"
+artist: "Virtual Riot, BARELY ALIVE"
 album: "Head To Head Vol. 1"
 releaseType: "ep"
 released: 2020
