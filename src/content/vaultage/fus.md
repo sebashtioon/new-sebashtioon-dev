@@ -42,47 +42,48 @@ i genuinely cannot multitask while listening to this album. i need to be fully i
 
 everytime i hear the opening lines (in the song SKRILLEX IS DEAD), "he left as the world fell into chaos, and walked into the light. this. is. skrillex." it puts a huge fat smile on my face, because I KNOW this album is just so fucking good. if im having a shit day, i could play this album and it would cheer me up 10x no joke. basically, what im tryna say here is that this album is way more of just a few songs i keep in rotation every so often. at this point, its a huge part of my life, and i cant live without it. i feel like ill actually go insane if i dont play it at least once everyday lmao. it had a huge impact on my general music taste too. as i mentioned earlier, the album features a few different edm subgenres (which in my opinion is great because you never get bored while listening, something new is always fired up less than a minute later) so listening to this album alot has made me grow more interest and love for edm as a whole. ive started listening to house quite a bit, discovering fred again.. through him being credited in AZASU (the last song on fus which is basically credits) and his collab with skrillex on Rumble. ive also come to like future bass and other softer and experimental edm subgenres (swedm etc.). even tho it seems i just did, words cannot fully describe how much impact this album has had on me.
 
+---
 
 ## album structure
 
 the album structure is quite interesting, which makes it so listenable. in this subyap, ill cover different sections of the album, how they impact how the user feels and how they fit the album. ill go in chronological order from start to finish then at the end ill bring it all together.
 
-first, lets start with the tracklist. source
+first, lets start with the tracklist. [source](https://www.youtube.com/watch?v=Xwml50CG6LA)
 
-1 - SKRILLEX IS DEAD
-2 - Skrillex & Hawaii Slim - SPITFIRE
-3 - Skrillex, Virtual Riot & Nakeesha - WHILE YOU WERE SLEEPING VIP
-4 - SLICKMAN
-5 - Skrillex, Sleepnet & Joker - TEARS LOST DROP
-6 - THINGS I PROMISED
-7 - Skrillex & Space Laces - RECOVERY
-8 - ANDY
-9 - SQUISHY CLIP
-10 - Skrillex & Jónsi - LOOK AT YOU
-11 - Skrillex & Naisha - GULAB XX
-12 - Skrillex, Zacari, Starrah & Ilykimchi - MOMENTUM
-13 - Skrillex & Team EZY - ANIMALS BEAT
-14 - Skrillex, Virtual Riot & Nakeesha - MIRCHI TEST
-15 - HOLD ON
-16 - Skrillex, swedm® & LOAM - SEE YOU AGAIN VIP
-17 - MORJA KAIJU VIP
-18 - Skrillex, bgirl, PARISI, Varg2™, Whitearmor, Eurohead & jamesjamesjames - KORABU
-19 - REDLINE DASH
-20 - Skrillex, Boys Noize & Dylan Brady - ZEET NOIZE
-21 - Skrillex & Dylan Brady - BOOSTER
-22 - FRICKY VIP
-23 - Skrillex & LH4L - ULTRA INTRO
-24 - JUNGUNDRA
-25 - Skrillex & G Jones - DRUIDS
-26 - Skrillex & Wuki - BIGGY BAP
-27 - Skrillex, NJOMZA & swedm® - SAY GOODBYE
-28 - MOSQUITOTOUILLE
-29 - Skrillex & swedm® - BABY ROYAL
-30 - Skrillex, swedm® & Badriia - G2G
-31 - Skrillex & Majestic - DNB TING
-32 - SAN DIEGO VIP
-33 - VOLTAGE
-34 - Skrillex & swedm® - AZASU
+1. SKRILLEX IS DEAD
+2. Skrillex & Hawaii Slim - SPITFIRE
+3. Skrillex, Virtual Riot & Nakeesha - WHILE YOU WERE SLEEPING VIP
+4. SLICKMAN
+5. Skrillex, Sleepnet & Joker - TEARS LOST DROP
+6. THINGS I PROMISED
+7. Skrillex & Space Laces - RECOVERY
+8. ANDY
+9. SQUISHY CLIP
+10. Skrillex & Jónsi - LOOK AT YOU
+11. Skrillex & Naisha - GULAB XX
+12. Skrillex, Zacari, Starrah & Ilykimchi - MOMENTUM
+13. Skrillex & Team EZY - ANIMALS BEAT
+14. Skrillex, Virtual Riot & Nakeesha - MIRCHI TEST
+15. HOLD ON
+16. Skrillex, swedm® & LOAM - SEE YOU AGAIN VIP
+17. MORJA KAIJU VIP
+18. Skrillex, bgirl, PARISI, Varg2™, Whitearmor, Eurohead & jamesjamesjames - KORABU
+19. REDLINE DASH
+20. Skrillex, Boys Noize & Dylan Brady - ZEET NOIZE
+21. Skrillex & Dylan Brady - BOOSTER
+22. FRICKY VIP
+23. Skrillex & LH4L - ULTRA INTRO
+24. JUNGUNDRA
+25. Skrillex & G Jones - DRUIDS
+26. Skrillex & Wuki - BIGGY BAP
+27. Skrillex, NJOMZA & swedm® - SAY GOODBYE
+28. MOSQUITOTOUILLE
+29. Skrillex & swedm® - BABY ROYAL
+30. Skrillex, swedm® & Badriia - G2G
+31. Skrillex & Majestic - DNB TING
+32. SAN DIEGO VIP
+33. VOLTAGE
+34. Skrillex & swedm® - AZASU
 the album 
 
 ## sound design and elements
@@ -116,16 +117,15 @@ anyways, its time for an in-depth track-by-track analysis. once again this isnt 
 
 **overview**
 
-what an amazing opener to a monster of an album. ALOT is happening here. the song opens with some lines from one of Dj Smokey's voice actors; "he left as the world fell into chaos, and walked into the light... t- t- t- t- this. is. skrillex." theres no fade in. it just gets straight to the point. these lines are being said while some calm guitar notes are playing in the background. it honestly sounds kinda wholesome. but then, at the end of these lines, the background music cuts to nothing and a sassy female voice says, "skrillex is dead..." with the word "dead" on reverb for every beat with a short fade out. now thats our first switch up. some sassy synths slowly fade in beneath the following voice lines, and the same voice actor who opened the album now says, "d- d- d- d- d- d- d- d- d- d- dj smokey recommends you listen to this album, from start to finish." and then in a half whisper, "thank you for not skipping." as if winking at the listener through the speaker. a flutter bass sample plays for like 3 beats and a female voice says "hold up".
+what an amazing opener to a monster of an album. ALOT is happening here. the song opens with some lines from one of Dj Smokey's voice actors; "he left as the world fell into chaos, and walked into the light... t- t- t- t- this. is. skrillex." theres no fade in. it just gets straight to the point. these lines are being said while some calm guitar notes are playing in the background. it honestly sounds kinda wholesome. but then, at the end of these lines, the background music cuts to nothing and a sassy female voice says, "skrillex is dead..." with the word "dead" on reverb for every beat with a short fade out. now thats our first switch up. some sassy synths slowly fade in beneath the following voice lines, and the same voice actor who opened the album now says, "d- d- d- d- d- d- d- d- d- d- dj smokey recommends you listen to this album, from start to finish." and then in a half whisper, "thank you for not skipping." as if winking at the listener through the speaker. a flutter bass sample plays for like 3 beats and a female voice (specifically bibi bourelly from Painting Rainbows on DGTC) says "hold up".
 
 immediately after this the sassy synth melody is the main focus. at the end of the bar, a short croaky voice screams "nooo!!!". honestly i have no idea why this is here but its funny as hell. another bar of it plays and at the end, what sounds like a suppressed evil joker laugh plays, but honestly i cant tell for sure. it could be crows squawking tbh.
 
 
-lyrical analysis and meaning
+**lyrical analysis and meaning**
 
 
 
-other info and stuff to note
+**other info and stuff to note**
 
-transition-by-transition analysis
-
+**transition-by-transition analysis**

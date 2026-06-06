@@ -20,7 +20,8 @@ body {
 }
 
 .vaultage-prose h2,
-.vaultage-prose h3 {
+.vaultage-prose h3,
+.vaultage-prose h4 {
   @apply mt-10 mb-3 font-inter font-bold text-ctp-mauve;
 }
 
@@ -32,11 +33,20 @@ body {
   @apply text-2xl;
 }
 
+.vaultage-prose h4 {
+  @apply text-xl;
+}
+
 .vaultage-prose p,
-.vaultage-prose ul {
+.vaultage-prose ul,
+.vaultage-prose ol {
   @apply my-5;
 }
 
 .vaultage-prose ul {
   @apply list-disc pl-6;
+}
+
+.vaultage-prose ol {
+  @apply list-decimal pl-6;
 }
