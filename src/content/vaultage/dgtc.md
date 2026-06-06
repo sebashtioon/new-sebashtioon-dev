@@ -3,7 +3,7 @@ title: "Don't Get Too Close"
 artist: "Skrillex"
 album: "Don't Get Too Close"
 released: 2023
-listenedOn: 2025-11-25
+listenedOn: 2025-12-07
 rating: 7
 cover: "/covers/dgtc.jpg"
 genres: ["emo rap", "urban pop"]
