@@ -56,6 +56,6 @@ body {
 }
 
 
-header-spacing h1 {
-  line-height: 3.0;
+.header-spacing {
+  line-height: 1.3;
 }

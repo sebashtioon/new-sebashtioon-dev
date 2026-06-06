@@ -40,7 +40,12 @@ const favoriteTracksLabel = data.releaseType === "ep" ? "favorite track" : "favo
 
       <div class="min-w-0">
         <p class="text-lg text-ctp-subtext0">{data.artist}</p>
-        <h1 class="mt-1 text-balance font-inter text-4xl font-black leading-none sm:text-6xl .header-spacing">
+        <h1
+          class:list={[
+            "mt-1 text-balance font-inter text-4xl font-black leading-none sm:text-6xl",
+            entry.id === "jacku" && "header-spacing",
+          ]}
+        >
           {data.album}
         </h1>
 
