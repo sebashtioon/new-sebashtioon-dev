@@ -63,7 +63,6 @@ Cheeni, its a little weird to put there, considering those two songs are the sor
 people were (yet again) complaining that it wasnt the original Scut ID, but a bootleg from this guy called "rom". honestly?
 i really dont give a fuck. just be grateful he's actually putting out music bro. the track is riddim that tickles my brain, and it sounds off and wonky but ITS SO SO GOOD??? yeah i dont really like where it was put on the tracklist (again, probably intentional... but whatever), but as for the song *itself*, yeah nah this absolutely slaps.
 
-
 oh does it stop? people were talking about how La Noche 2 "adds nothing to the album" dude actually shut the fuck up, its a beautiful track and a buildup
 to Anybody. this was the same La Noche 2 skrillex emailed out to his list a while ago. just shut up and enjoy the song dude
 
@@ -83,6 +82,26 @@ made for UMF 2025 (it was an open to his set). im glad he did keep *some* form o
 
 but yeah, Soma... i genuinely have no words. this may or may not be like top 5 skrillex tracks of all time if not top 3. wow.
 
+Smoke is also just insane. im addicted to that percussion bass like a drug. holy shit
 
+Duro is just hands down so good. the vocals, the melody, the buildups. it sounds like something you would 100% play at a party and people who arent
+into bass music would love it.
 
+Noche Without You... woah. many people were saying this was the best song on the album for them and i can 100% see why. very nice and chill melody,
+and the singing from Feid is top tier. Its basically a chill male version of Duro.
+
+Same deal with Cheeni. the song has very similar structure and sound of the Kora EP which was dropped not long ago. listening to this feels like
+floating in the air. its so creamy. yeah, it has no drums but its really nice to listen to.
+
+i realised i havent really talked about Thistle. I feel like its placement on the tracklist is a bit weird (right after Soma, the opener). but its a good track. some chill house to set the tone yk.
+
+#### the album cover
+
+yeah, im gonna agree. this album cover is *weird*. it feels very off, and its a bit underwhelming compared to the blue ill logo skrillex had
+as his pfp everywhere that we all thought was the cover for the upcoming "CONTRA" album. 
+but if you take a step back and look at the entire album... it kinda suits it.
+it features the back of a shaved head (no idea who this is, its definetly not sonny) with the iconic "ill" logo as long hair on the shaved bit,
+which makes it standout. idk dude its hard to describe. yeah its not really pleasant to look and its off but thats kinda the point.
+it looks like a random photo someone random would have on their phone lol. i guess its meant to make you uncomfortable, like literally
+every skrillex music video ever made.
 
