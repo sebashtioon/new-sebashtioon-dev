@@ -1,5 +1,5 @@
 ---
-title: "Recess"
+title: "Never Say Die Vol. 7"
 artist: "Never Say Die Records"
 album: "Never Say Die Vol. 7"
 releaseType: "album"
