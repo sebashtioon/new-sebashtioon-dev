@@ -13,6 +13,9 @@ status: "published"
 description: "he really doesnt give a shit lol"
 ---
 
+5th studio album from skrillex. very experimental and "i dont give a fuck, heres some weird shit and also some shit you were asking for, im just
+trying stuff" typa stuff. prior to the album's release he dropped 3 tracks as singles. Duro (Apaga La Luz ID), Smoke (Killers ID), and Thistle.
+
 ## thoughts
 
 #### "this album is kinda..."
@@ -35,7 +38,8 @@ i gave the album another listen and was still a little dissapointed, then i went
 
 #### "actually nvm this is super good"
 
-throughout that day i listened to it about 7 times total. and i can tell you, my opinion DRASTICALLY changed from what it was before.
+throughout that day i listened to it about 7 times total. and i can tell you, my opinion DRASTICALLY changed from what it was before when
+i finished my first listen on release day at 1am.
 
 im writing this on 7/6/26 (2 days after release) at 1:30am and i can tell you this is genuinely a great album. yes its different. yes its
 very experimental. yes its not like what skrillex usually sounds like. but atp he's just releasing because he can and he's free from his
@@ -56,7 +60,7 @@ i kinda hated it when i listened for the 1st time but i guess it just grew on me
 
 on top of that, alot of people were saying Scut 2 feels out of place. yeah, im gonna agree on that. coming right in the middle of Noche Without You and
 Cheeni, its a little weird to put there, considering those two songs are the sorta happy ending/emotional type i was talking about earlier.
-people were (yet again) complaining that it wasnt the original Scut ID, but a literal bootleg from this guy called "rom". honestly?
+people were (yet again) complaining that it wasnt the original Scut ID, but a bootleg from this guy called "rom". honestly?
 i really dont give a fuck. just be grateful he's actually putting out music bro. the track is riddim that tickles my brain, and it sounds off and wonky but ITS SO SO GOOD??? yeah i dont really like where it was put on the tracklist (again, probably intentional... but whatever), but as for the song *itself*, yeah nah this absolutely slaps.
 
 
@@ -66,6 +70,19 @@ to Anybody. this was the same La Noche 2 skrillex emailed out to his list a whil
 Pente Rala was kinda in the middle—no one was hating on it but no one was really talking about it either. yeah, its a good track. i like the flutter bass
 and the catchy prechorus lyrics. its approved
 
-É o Bonde was literally La Noche 1.5. just listen to it. very similar bass notes and groove. people were saying it was a generic house track
+É o Bonde was literally La Noche 1.5. just listen to it. very similar groove. people were saying it was a generic house track
 but i think it slaps honestly. the saws do a good job at adding filth to the song. also shoutout RHR bro has been cooking lately
+
+many people were talking about how Anybody was different to the trap drop in the demo played live. ah yes, another case of demoitis. i hadnt actually
+heard the demo (or that particular drop) prior to listening to it but dude, they changed it up a bit and made it seem fresh. its a bumpy and filthy little track and i love it, its the perfect buildup and closing before Duro plays.
+
+do i even need to talk about the other songs? Duro, Smoke, Soma, Noche Without You and Cheeni. *holy shit*. Soma (also known as POOSHA, nitepunk ID
+or Crisis Theme) is the best track on the album, hands down. this was actually the first skrillex ID i was genuinely invested in. it sounded so fucking good
+live and it sounds even better as an officially released and properly mastered song. he kept everything the same, apart from some of the DJ smokey vocals
+made for UMF 2025 (it was an open to his set). im glad he did keep *some* form of those vocals in there, for example the "lets g-" before the second drop—in this final song it sounds glitched out towards the end but you can still tell it was that vocal.
+
+but yeah, Soma... i genuinely have no words. this may or may not be like top 5 skrillex tracks of all time if not top 3. wow.
+
+
+
 
