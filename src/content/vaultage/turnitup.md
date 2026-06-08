@@ -10,7 +10,7 @@ cover: "/covers/turnitup.jpg"
 genres: ["trap", "dubstep", "bass music"]
 favoriteTracks: ["CTRL"]
 status: "published"
-description: "echoey"
+description: "holy fucking SHIT those snares"
 ---
 
 ## thoughts
