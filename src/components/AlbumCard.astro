@@ -9,11 +9,11 @@ const { entry } = Astro.props;
 const { data } = entry;
 ---
 
-<article
-  class="group relative h-[15.5rem] w-40 border border-ctp-surface0 bg-ctp-base/60 p-2"
->
-  <a href={`/vaultage/${entry.id}/`} class="flex h-full flex-col gap-2">
-    <div class="aspect-square bg-ctp-crust text-sm text-ctp-subtext0">
+<article class="h-full min-w-0">
+  <a href={`/vaultage/${entry.id}/`} class="block h-full">
+    <div
+      class="aspect-square overflow-hidden border border-ctp-surface0 bg-ctp-crust text-sm text-ctp-subtext0"
+    >
       {
         data.cover ? (
           <img
@@ -23,21 +23,25 @@ const { data } = entry;
             loading="lazy"
           />
         ) : (
-          <div class="flex h-full items-end bg-ctp-surface0 p-3">cover goes here</div>
+          <div class="flex h-full items-end bg-ctp-surface0 p-3">
+            cover goes here
+          </div>
         )
       }
     </div>
 
-    <div class="min-h-0 flex-1">
-      <div class="min-w-0">
-        <p class="truncate text-xs text-ctp-subtext0">{data.artist}</p>
-        <h2 class="line-clamp-2 font-inter text-sm font-bold leading-tight text-ctp-text">
-          {data.album}
-        </h2>
+    <div class="mt-2 min-w-0">
+      <div class="flex items-center gap-2 text-xs text-ctp-subtext0">
+        <p class="truncate">{data.artist}</p>
+        <p class="ml-auto shrink-0 font-inter font-bold text-ctp-mauve">
+          {data.rating}/10
+        </p>
       </div>
-      <p class="absolute bottom-2 left-2 w-fit bg-ctp-mauve px-2 py-1 font-inter text-xs font-bold text-ctp-crust">
-        {data.rating}/10
-      </p>
+      <h2
+        class="mt-1 line-clamp-2 font-inter text-sm font-bold leading-tight text-ctp-text"
+      >
+        {data.album}
+      </h2>
     </div>
   </a>
 </article>

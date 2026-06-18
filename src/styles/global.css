@@ -2,7 +2,7 @@
 @import "@catppuccin/tailwindcss/mocha.css";
 
 @theme inline {
-  --font-inter: var(--font-inter), sans-serif;
+  --font-inter: var(--font-inter-asset, Inter), Arial, Helvetica, sans-serif;
 }
 
 main,
@@ -12,7 +12,7 @@ header {
 
 body {
   @apply bg-ctp-crust text-ctp-text;
-  font-family: var(--font-arial), sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .vaultage-prose {
@@ -54,7 +54,6 @@ body {
 .vaultage-prose a {
   @apply text-ctp-mauve underline decoration-ctp-mauve/60 underline-offset-4 hover:text-ctp-pink hover:decoration-ctp-pink;
 }
-
 
 .header-spacing {
   line-height: 1.3;

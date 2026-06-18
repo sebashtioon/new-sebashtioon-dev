@@ -3,8 +3,14 @@ import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("vaultage", ({ data }) => data.status === "published");
-  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+  const entries = await getCollection(
+    "vaultage",
+    ({ data }) => data.status === "published",
+  );
+  return entries.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
 }
 
 const { entry } = Astro.props;
@@ -16,7 +22,8 @@ const listenedDate = data.listenedOn.toLocaleDateString("en", {
   month: "long",
   day: "numeric",
 });
-const favoriteTracksLabel = data.releaseType === "ep" ? "favorite track" : "favorite tracks";
+const favoriteTracksLabel =
+  data.releaseType === "ep" ? "favorite track" : "favorite tracks";
 ---
 
 <Layout
@@ -25,15 +32,23 @@ const favoriteTracksLabel = data.releaseType === "ep" ? "favorite track" : "favo
   headerDescription=""
 >
   <article class="mx-auto max-w-5xl py-6">
-    <a href="/vaultage" class="text-ctp-mauve hover:underline">back to the vaultage</a>
+    <a href="/vaultage" class="text-ctp-mauve hover:underline"
+      >back to the vaultage</a
+    >
 
     <header class="mt-6 grid gap-8 lg:grid-cols-[22rem_1fr] lg:items-start">
       <div class="aspect-square bg-ctp-crust text-ctp-subtext0">
         {
           data.cover ? (
-            <img src={data.cover} alt={`${data.album} album cover`} class="h-full w-full object-cover" />
+            <img
+              src={data.cover}
+              alt={`${data.album} album cover`}
+              class="h-full w-full object-cover"
+            />
           ) : (
-            <div class="flex h-full items-end bg-ctp-surface0 p-4">cover goes here</div>
+            <div class="flex h-full items-end bg-ctp-surface0 p-4">
+              cover goes here
+            </div>
           )
         }
       </div>
@@ -49,8 +64,12 @@ const favoriteTracksLabel = data.releaseType === "ep" ? "favorite track" : "favo
           {data.album}
         </h1>
 
-        <div class="mt-5 flex flex-wrap items-center gap-3 text-sm text-ctp-subtext0">
-          <p class="bg-ctp-mauve px-4 py-2 font-inter text-2xl font-bold text-ctp-crust">
+        <div
+          class="mt-5 flex flex-wrap items-center gap-3 text-sm text-ctp-subtext0"
+        >
+          <p
+            class="bg-ctp-mauve px-4 py-2 font-inter text-2xl font-bold text-ctp-crust"
+          >
             {data.rating}/10
           </p>
           {data.released && <p>released {data.released}</p>}
@@ -63,7 +82,9 @@ const favoriteTracksLabel = data.releaseType === "ep" ? "favorite track" : "favo
       </div>
     </header>
 
-    <section class="mt-8 grid gap-4 border-y border-ctp-surface0 py-5 sm:grid-cols-2">
+    <section
+      class="mt-8 grid gap-4 border-y border-ctp-surface0 py-5 sm:grid-cols-2"
+    >
       <div>
         <p class="text-sm text-ctp-subtext0">genres</p>
         <p>{data.genres.join(" / ") || "unfiled"}</p>

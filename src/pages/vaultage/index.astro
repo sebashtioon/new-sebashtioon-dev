@@ -8,31 +8,64 @@ const albums = (await getCollection("vaultage"))
   .sort((a, b) => b.data.rating - a.data.rating);
 
 const averageRating = albums.length
-  ? albums.reduce((total, album) => total + album.data.rating, 0) / albums.length
+  ? albums.reduce((total, album) => total + album.data.rating, 0) /
+    albums.length
   : 0;
+const averageRatingLabel = averageRating.toFixed(1).replace(/\.0$/, "");
+const defaultReleaseType = "album";
 
-const albumCount = albums.filter((entry) => entry.data.releaseType === "album").length;
-const epCount = albums.filter((entry) => entry.data.releaseType === "ep").length;
+const albumCount = albums.filter(
+  (entry) => entry.data.releaseType === "album",
+).length;
+const epCount = albums.filter(
+  (entry) => entry.data.releaseType === "ep",
+).length;
 ---
 
 <Layout
   title="the vaultage"
   headerTitle="the vaultage"
-  headerDescription="my music collection">
+  headerDescription="my music collection"
+>
+  <section class="mt-6 border-y border-ctp-surface0/80 py-3">
+    <div
+      class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p class="text-sm text-ctp-subtext0">
+        {albums.length} releases / avg {averageRatingLabel}/10
+      </p>
 
-  <div class="mt-4 flex flex-wrap gap-2" aria-label="Filter releases">
-    <button class="bg-ctp-surface0 px-4 py-2" type="button" data-release-filter="album">
-      albums ({albumCount})
-    </button>
-    <button class="bg-ctp-surface0 px-4 py-2" type="button" data-release-filter="ep">
-      eps ({epCount})
-    </button>
-  </div>
+      <div class="flex flex-wrap gap-2" aria-label="Filter releases">
+        <button
+          class="border border-ctp-surface0 px-3 py-1.5 text-sm text-ctp-subtext0 aria-pressed:border-ctp-mauve aria-pressed:text-ctp-mauve"
+          type="button"
+          data-release-filter="album"
+          aria-pressed="true"
+        >
+          albums ({albumCount})
+        </button>
+        <button
+          class="border border-ctp-surface0 px-3 py-1.5 text-sm text-ctp-subtext0 aria-pressed:border-ctp-mauve aria-pressed:text-ctp-mauve"
+          type="button"
+          data-release-filter="ep"
+          aria-pressed="false"
+        >
+          eps ({epCount})
+        </button>
+      </div>
+    </div>
+  </section>
 
-  <section class="mt-4 flex flex-wrap gap-3" data-release-list>
+  <section
+    class="mt-5 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-[repeat(auto-fill,minmax(9rem,1fr))]"
+    data-release-list
+  >
     {
       albums.map((entry) => (
-        <div data-release-type={entry.data.releaseType}>
+        <div
+          data-release-type={entry.data.releaseType}
+          hidden={entry.data.releaseType !== defaultReleaseType}
+        >
           <AlbumCard entry={entry} />
         </div>
       ))
@@ -40,12 +73,23 @@ const epCount = albums.filter((entry) => entry.data.releaseType === "ep").length
   </section>
 
   <script>
-    const filterButtons = document.querySelectorAll<HTMLButtonElement>("[data-release-filter]");
-    const releaseItems = document.querySelectorAll<HTMLElement>("[data-release-type]");
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>(
+      "[data-release-filter]",
+    );
+    const releaseItems = document.querySelectorAll<HTMLElement>(
+      "[data-release-type]",
+    );
 
     const showReleaseType = (releaseType: string) => {
       releaseItems.forEach((item) => {
         item.hidden = item.dataset.releaseType !== releaseType;
+      });
+
+      filterButtons.forEach((button) => {
+        button.setAttribute(
+          "aria-pressed",
+          String(button.dataset.releaseFilter === releaseType),
+        );
       });
     };
 
