@@ -18,12 +18,7 @@ const epCount = albums.filter((entry) => entry.data.releaseType === "ep").length
 <Layout
   title="the vaultage"
   headerTitle="the vaultage"
-  headerDescription="my music collection"
->
-  <aside class="mt-5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-ctp-subtext0">
-    <p><span class="text-ctp-text">{albums.length}</span> albums logged</p>
-    <p><span class="text-ctp-text">{averageRating.toFixed(1)}</span> average rating</p>
-  </aside>
+  headerDescription="my music collection">
 
   <div class="mt-4 flex flex-wrap gap-2" aria-label="Filter releases">
     <button class="bg-ctp-surface0 px-4 py-2" type="button" data-release-filter="album">
