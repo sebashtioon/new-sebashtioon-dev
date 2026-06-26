@@ -1,6 +1,8 @@
 # my website
 built in astro: https://sebashtioon.dev
 
+thanks [ingo](https://github.com/ingoau) for teaching me a little web dev <3 :)
+
 ## a notice to hack club reviewers
 this repo is techinically blacklisted because of fraud, however i dmed fraud squad and they said i could submit this because i basically made this from the ground up, in a new framework called astro.
 conversation with fraud squad:
