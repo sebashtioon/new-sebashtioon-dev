@@ -18,5 +18,41 @@ so basically i should only get the hours from the `astro` branch in this repo ap
 ## ai usage
 yep i used ai. but only for me to get an idea of what i actually need to do because dude html looks like hyroglyphics to me. i cannot read that. the website is pretty basic anyways.
 
+## setup
+
+you need node `22.12.0` or newer and `pnpm`.
+
+clone the repo:
+
+```sh
+git clone https://github.com/sebashtioon/new-sebashtioon-dev.git
+cd new-sebashtioon-dev
+```
+
+install everything:
+
+```sh
+pnpm install
+```
+
+run it locally:
+
+```sh
+pnpm dev
+```
+
+then open the local astro dev server, usually `http://localhost:4321`.
+
+build the site:
+
+```sh
+pnpm build
+```
+
+preview the build:
+
+```sh
+pnpm preview
+```
 
 
