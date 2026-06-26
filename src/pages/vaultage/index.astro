@@ -1,0 +1,101 @@
+---
+import { getCollection } from "astro:content";
+import AlbumCard from "../../components/AlbumCard.astro";
+import Layout from "../../layouts/Layout.astro";
+
+const albums = (await getCollection("vaultage"))
+  .filter((entry) => entry.data.status === "published")
+  .sort((a, b) => b.data.rating - a.data.rating);
+
+const averageRating = albums.length
+  ? albums.reduce((total, album) => total + album.data.rating, 0) /
+    albums.length
+  : 0;
+const averageRatingLabel = averageRating.toFixed(1).replace(/\.0$/, "");
+const defaultReleaseType = "album";
+
+const albumCount = albums.filter(
+  (entry) => entry.data.releaseType === "album",
+).length;
+const epCount = albums.filter(
+  (entry) => entry.data.releaseType === "ep",
+).length;
+---
+
+<Layout
+  title="the vaultage"
+  headerTitle="the vaultage"
+  headerDescription="my music collection"
+>
+  <section class="mt-3 py-2">
+    <div
+      class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+    >
+
+      <div class="flex flex-wrap gap-2" aria-label="Filter releases">
+        <button
+          class="border border-ctp-surface0 px-3 py-1.5 text-sm text-ctp-subtext0 aria-pressed:border-ctp-mauve aria-pressed:text-ctp-mauve"
+          type="button"
+          data-release-filter="album"
+          aria-pressed="true"
+        >
+          albums ({albumCount})
+        </button>
+        <button
+          class="border border-ctp-surface0 px-3 py-1.5 text-sm text-ctp-subtext0 aria-pressed:border-ctp-mauve aria-pressed:text-ctp-mauve"
+          type="button"
+          data-release-filter="ep"
+          aria-pressed="false"
+        >
+          eps ({epCount})
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="mt-5 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-[repeat(auto-fill,minmax(9rem,1fr))]"
+    data-release-list
+  >
+    {
+      albums.map((entry) => (
+        <div
+          data-release-type={entry.data.releaseType}
+          hidden={entry.data.releaseType !== defaultReleaseType}
+        >
+          <AlbumCard entry={entry} />
+        </div>
+      ))
+    }
+  </section>
+
+  <script>
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>(
+      "[data-release-filter]",
+    );
+    const releaseItems = document.querySelectorAll<HTMLElement>(
+      "[data-release-type]",
+    );
+
+    const showReleaseType = (releaseType: string) => {
+      releaseItems.forEach((item) => {
+        item.hidden = item.dataset.releaseType !== releaseType;
+      });
+
+      filterButtons.forEach((button) => {
+        button.setAttribute(
+          "aria-pressed",
+          String(button.dataset.releaseFilter === releaseType),
+        );
+      });
+    };
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        showReleaseType(button.dataset.releaseFilter ?? "album");
+      });
+    });
+
+    showReleaseType("album");
+  </script>
+</Layout>

@@ -1,0 +1,35 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "hi, im seb",
+  description = "i like making cool stuff on the internet",
+} = Astro.props;
+---
+
+<header
+  class="flex w-full flex-col gap-4 border-b px-4 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-6"
+>
+  <div class="max-w-xl">
+    <h1
+      class="mb-2 font-inter text-4xl font-bold leading-none text-shadow-ctp-surface0 sm:text-5xl"
+    >
+      {title}
+    </h1>
+
+    <p class="min-h-6 text-balance">{description}</p>
+  </div>
+  <nav
+    class="flex flex-wrap gap-2 sm:justify-end"
+    aria-label="Primary navigation"
+  >
+    <a class="bg-ctp-surface0 px-4 py-2" href="/">home</a>
+    <a class="bg-ctp-surface0 px-4 py-2" href="/projects">projects</a>
+    <a class="bg-ctp-surface0 px-4 py-2" href="/blog">blog</a>
+    <a class="bg-ctp-surface0 px-4 py-2" href="/vaultage">the vaultage</a>
+    <a class="bg-ctp-surface0 px-4 py-2" href="/contact">contact</a>
+  </nav>
+</header>

@@ -1,0 +1,43 @@
+---
+import "../styles/global.css";
+import { Font } from "astro:assets";
+import Navbar from "../components/Navbar.astro";
+
+interface Props {
+  title?: string;
+  headerTitle?: string;
+  headerDescription?: string;
+}
+
+const { title = "cheese", headerTitle, headerDescription } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <Font cssVariable="--font-inter-asset" preload />
+    <style is:inline>
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        min-height: 100%;
+        background: #11111b;
+        color: #cdd6f4;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <Navbar title={headerTitle} description={headerDescription} />
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

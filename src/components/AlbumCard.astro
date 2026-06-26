@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  entry: CollectionEntry<"vaultage">;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+---
+
+<article class="h-full min-w-0">
+  <a href={`/vaultage/${entry.id}/`} class="block h-full">
+    <div
+      class="aspect-square overflow-hidden border border-ctp-surface0 bg-ctp-crust text-sm text-ctp-subtext0"
+    >
+      {
+        data.cover ? (
+          <img
+            src={data.cover}
+            alt={`${data.album} album cover`}
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <div class="flex h-full items-end bg-ctp-surface0 p-3">
+            cover goes here
+          </div>
+        )
+      }
+    </div>
+
+    <div class="mt-2 min-w-0">
+      <div class="flex items-center gap-2 text-xs text-ctp-subtext0">
+        <p class="truncate">{data.artist}</p>
+        <p class="ml-auto shrink-0 font-inter font-bold text-ctp-mauve">
+          {data.rating}/10
+        </p>
+      </div>
+      <h2
+        class="mt-1 line-clamp-2 font-inter text-sm font-bold leading-tight text-ctp-text"
+      >
+        {data.album}
+      </h2>
+    </div>
+  </a>
+</article>
