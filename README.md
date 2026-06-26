@@ -1,46 +1,22 @@
-# Astro Starter Kit: Basics
+# my website
+built in astro: https://sebashtioon.dev
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+## a notice to hack club reviewers
+this repo is techinically blacklisted because of fraud, however i dmed fraud squad and they said i could submit this because i basically made this from the ground up, in a new framework called astro.
+conversation with fraud squad:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+<img width="757" height="500" alt="image" src="https://github.com/user-attachments/assets/b5ce58f5-be7a-4b59-9859-ce4d9c7d563f" />
 
-## 🚀 Project Structure
+they said yeah i could do it.
 
-Inside of your Astro project, you'll see the following folders and files:
+<img width="578" height="95" alt="image" src="https://github.com/user-attachments/assets/82f484f3-9880-47b9-8e57-439c517a0516" />
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+so basically i should only get the hours from the `astro` branch in this repo approved as actual hours
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+<img width="1221" height="283" alt="image" src="https://github.com/user-attachments/assets/5440ab13-c8e4-4f63-a3ea-0f8634e678b7" />
 
-## 🧞 Commands
+## ai usage
+yep i used ai. but only for me to get an idea of what i actually need to do because dude html looks like hyroglyphics to me. i cannot read that. the website is pretty basic anyways.
 
-All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
