@@ -18,7 +18,7 @@ so basically i should only get the hours from the `astro` branch in this repo ap
 <img width="1221" height="283" alt="image" src="https://github.com/user-attachments/assets/5440ab13-c8e4-4f63-a3ea-0f8634e678b7" />
 
 ## ai usage
-yep i used ai. but only for me to get an idea of what i actually need to do because dude html looks like hyroglyphics to me. i cannot read that. the website is pretty basic anyways.
+yep i used ai, but only for me to get an idea of what i actually need to do because dude html looks like hyroglyphics to me. i cannot read that. the website is pretty basic anyways. so i did write everything but i got ai to sort of give me an idea of the structure i guess.
 
 ## setup
 
